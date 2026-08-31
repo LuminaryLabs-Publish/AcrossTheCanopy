@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#b9d4c8" />
+    <meta name="description" content="An infinite procedural archipelago forest rendered in Three.js." />
+    <title>Across the Canopy</title>
+    <link rel="stylesheet" href="./src/style.css" />
+    <script type="importmap">
+      {"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.165.0/build/three.module.js"}}
+    </script>
+  </head>
+  <body>
+    <main id="app" aria-label="Interactive infinite island forest">
+      <canvas id="world" tabindex="0" aria-label="3D forest world. Drag to look and use W A S D to fly."></canvas>
+
+      <header class="masthead">
+        <div class="eyebrow">PROCEDURAL STUDY 01</div>
+        <h1>Across<br />the Canopy</h1>
+        <p>an infinite archipelago</p>
+      </header>
+
+      <div class="instructions" aria-hidden="true">
+        <span>WASD</span> to drift&nbsp;&nbsp;·&nbsp;&nbsp;<span>DRAG</span> to look
+      </div>
+
+      <section class="fov-control" aria-label="Camera field of view control">
+        <div class="control-copy">
+          <label for="fov">FIELD OF VIEW</label>
+          <output id="fov-value" for="fov">78°</output>
+        </div>
+        <input id="fov" type="range" min="60" max="120" value="78" step="1" />
+        <div class="range-labels" aria-hidden="true"><span>60°</span><span>120°</span></div>
+      </section>
+
+      <div class="tree-count" aria-live="polite"><i></i><span id="tree-count">2,300 TREES</span></div>
+      <div class="vignette"></div>
+      <div class="grain"></div>
+    </main>
+    <script type="module" src="./src/main.js"></script>
+  </body>
+</html>
