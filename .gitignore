@@ -1,0 +1,5 @@
+source/node_modules/
+source/dist/
+evidence/
+*.mp4
+*.log

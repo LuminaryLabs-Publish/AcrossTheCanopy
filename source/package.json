@@ -1,14 +1,17 @@
 {
-  "name": "verdant-infinite-islands",
+  "name": "across-the-canopy",
   "private": true,
-  "version": "1.0.0",
+  "version": "0.1.0-greybox.0",
   "type": "module",
   "scripts": {
     "dev": "vite --host 0.0.0.0",
     "build": "vite build",
-    "preview": "vite preview --host 0.0.0.0"
+    "preview": "vite preview --host 0.0.0.0",
+    "test": "node --test test/*.test.js",
+    "validate": "npm test && npm run build"
   },
   "dependencies": {
+    "nexusengine": "github:LuminaryLabs-Dev/NexusEngine#8a60167fc945109408851c586a9355b1147438d5",
     "three": "0.165.0"
   },
   "devDependencies": {
