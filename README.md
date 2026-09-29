@@ -34,7 +34,7 @@ cd source
 npm run validate
 ```
 
-The editable Vite application lives in `source/`. The repository root contains the built static deployment. See `docs/GREYBOX_VERTICAL_SLICE.md` for the authored contract and `docs/NEXUS_COMPOSITION_LEDGER.md` for ownership and dependency proof.
+The editable Vite application lives in `source/`. The repository root contains a committed built snapshot for reference, but GitHub Pages CI runs tests, rebuilds `source/`, and deploys the resulting `source/dist`. See `docs/GREYBOX_VERTICAL_SLICE.md` for the authored contract and `docs/NEXUS_COMPOSITION_LEDGER.md` for ownership/dependency history.
 
 ## Capture
 

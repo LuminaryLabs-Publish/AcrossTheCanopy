@@ -1,15 +1,23 @@
 # Across the Canopy — NexusEngine Composition Ledger
 
+## Current reconciliation
+
+This document originated as the **pre-implementation build gate** for The Upward Signal. The repository now contains the implemented Nexus composition, story Kit, adapters/providers, deterministic tests, persistence tests, provider-replacement tests, and the 300-second capture path.
+
+The detailed responsibility table below is preserved because it records the intended ownership split and original proof requirements. Its per-row `Partial — proof pending` values are **historical pre-implementation status labels**, not the current live validation authority. Do not mechanically reinterpret them as current failures or upgrade them to Pass without a dedicated row-by-row certification.
+
+Current implementation evidence lives in `source/src/`, `source/test/`, `scripts/gameplay-video-adapter.mjs`, `README.md`, and `.agent/`. This documentation pass does not re-certify every ledger row.
+
 ## Binding
 
 - Canonical repository: `https://github.com/LuminaryLabs-Dev/NexusEngine`
 - Resolved commit: `8a60167fc945109408851c586a9355b1147438d5`
 - Package: `nexusengine@0.0.4`
 - Dependency: `github:LuminaryLabs-Dev/NexusEngine#8a60167fc945109408851c586a9355b1147438d5`
-- Operating mode: build gate
-- Pre-implementation status: **partial-ready**. Every material owner, import, API, adapter, provider and proof path is resolved. Runtime proof remains pending until the implementation runs.
+- Operating mode: build gate / ownership ledger
+- Historical pre-implementation status: `partial-ready` before runtime implementation
 
-The executable package and its exports are authoritative. The repository contains newer migration documentation, but this build is bound to the executable `0.0.4` package at the commit above.
+The executable package and its exports remain authoritative for the pinned engine dependency.
 
 ## Composition decision
 
@@ -89,3 +97,4 @@ Three pick adapter
 ## Completion gate
 
 The implementation may be called NexusEngine-composed only after the static import audit, runtime discovery, causal differentials, deterministic replay, snapshot/reset, lifecycle cleanup, provider validation/replacement, exact-source render, real interaction and no-product-HTML checks pass. A visually working build alone is insufficient.
+
