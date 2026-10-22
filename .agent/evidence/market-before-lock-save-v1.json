@@ -1,0 +1,49 @@
+{
+  "schema": "atc.storage-envelope/1",
+  "slotId": "migration-before-lock",
+  "payload": {
+    "schema": "atc.greybox.v1",
+    "checkpoint": "atc:checkpoint/hanging-rows",
+    "player": {
+      "position": [
+        28,
+        61,
+        -56
+      ],
+      "fov": 78
+    },
+    "story": {
+      "tutorial_movement_complete": true,
+      "spindle_inspected": true,
+      "sela_warning_heard": true,
+      "crew_code_recorded": true,
+      "rows_need_known": true,
+      "market_board_read": true,
+      "descent_lock_open": false,
+      "station_reached": false,
+      "station_signal_verified": false,
+      "return_dialogue_complete": false
+    },
+    "choice": null,
+    "world": {
+      "rows_light_level": 0.25,
+      "deep_beacon_active": false,
+      "returned_to_rows": false
+    },
+    "objective": "Open the descent lock",
+    "journal": [
+      "A voice bearing Edda’s private knot came from the sealed descent route.",
+      "Crew code — Split Bough → Lantern → Open Ring.",
+      "The Hanging Rows have one night of stored light. The station cell could power them for a season."
+    ],
+    "puzzle": {
+      "dials": [
+        "Ring",
+        "Bough",
+        "Lantern"
+      ],
+      "attempts": 0
+    },
+    "completed": false
+  }
+}

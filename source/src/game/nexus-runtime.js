@@ -26,11 +26,9 @@ import { createPresentationKit } from 'nexusengine/domains/presentation/registry
 import { createPresentationOutputKit } from 'nexusengine/domains/presentation/output';
 import { createUIKit } from 'nexusengine/domains/presentation/ui';
 import { createUIScaleKit } from 'nexusengine/domains/presentation/ui/scale';
-import { createCameraKit } from 'nexusengine/domains/presentation/camera';
-import { createGraphicsKit } from 'nexusengine/domains/presentation/graphics';
-import { createRenderDomainContractKit } from 'nexusengine/domains/render/contract';
-import { createRenderProviderContractKit } from 'nexusengine/domains/render/provider-contract';
-import { createRenderFrameSchemaKit } from 'nexusengine/domains/render/frame-schema';
+import { createCameraKit } from 'nexusengine/domains/camera';
+import { createRenderBatchKit } from 'nexusengine/domains/render/batch';
+import { installGraphicsLanguage } from 'nexusengine/domains/render/graphics-language';
 import {
   AUTHORED_OBJECTS,
   CHECKPOINTS,
@@ -342,19 +340,6 @@ function initialUiDescriptors() {
 
 function graphicsConfig(treeCount) {
   return {
-    descriptors: {
-      worlds: {
-        'atc:graphics/greybox-world': {
-          id: 'atc:graphics/greybox-world',
-          kind: 'greybox-world',
-          worldId: WORLD_ID,
-          palette: PRIMITIVE_COLORS,
-          fog: { color: '#B7D5CA', density: 0.0085 },
-          lighting: { ambient: 0.74, key: 1.15, keyDirection: [-0.45, 0.8, 0.25] },
-          background: { top: '#8CCAC1', bottom: '#DCE8CF' }
-        }
-      }
-    },
     instanceBatches: {
       batches: [{
         id: TREE_BATCH_ID,
@@ -385,7 +370,7 @@ function createKits(options, treeCount) {
   const sceneDescriptor = {
     id: SCENE_ID,
     title: 'Across the Canopy · The Upward Signal',
-    kind: 'web-three-scene',
+    kind: 'graphics-language-scene',
     entry: 'atc:scene-entry/greybox',
     restore: { checkpoint: CHECKPOINTS.starter.id },
     descriptors: { worldId: WORLD_ID, cameraId: CAMERA_ID },
@@ -463,10 +448,7 @@ function createKits(options, treeCount) {
       viewport: { width: Number(surface.width ?? 1280), height: Number(surface.height ?? 720) }
     }),
     createCameraKit({ descriptors: { cameras: { [CAMERA_ID]: initialCameraDescriptor() } } }),
-    createGraphicsKit(graphicsConfig(treeCount)),
-    createRenderDomainContractKit(),
-    createRenderProviderContractKit(),
-    createRenderFrameSchemaKit(),
+    createRenderBatchKit(graphicsConfig(treeCount)),
     createAcrossTheCanopyStoryKit({ coordinator: options.coordinator })
   ];
 }
@@ -501,7 +483,7 @@ function registerInteractionTargets(engine) {
 }
 
 function installForestBatch(engine, trees) {
-  const batches = engine.n.graphics.instanceBatches;
+  const batches = engine.n.renderBatch.instanceBatches;
   if (!batches.hasBatch(TREE_BATCH_ID)) {
     batches.createBatch({
       id: TREE_BATCH_ID,
@@ -587,7 +569,7 @@ function descriptorGroups(api, patch, defaultType) {
 }
 
 function treeInstancesFromGraphics(engine) {
-  const snapshot = engine.n.graphics.instanceBatches.getSnapshot();
+  const snapshot = engine.n.renderBatch.instanceBatches.getSnapshot();
   const batch = snapshot.batches.find((entry) => entry.id === TREE_BATCH_ID);
   return (batch?.cells ?? []).flatMap((cell) => cell.instances).sort((left, right) => left.id.localeCompare(right.id));
 }
@@ -600,10 +582,13 @@ function treeInstancesFromGraphics(engine) {
 export function createAcrossTheCanopyRuntime(options = {}) {
   const treeCount = Math.max(1000, Math.floor(Number(options.treeCount ?? DEFAULT_TREE_COUNT)));
   const engine = createEngine({
+    // This game uses its Story Kit coordinator and mounts no Sequence Nodes.
+    driveSequenceNodesWithTick: false,
     tick: { maxDelta: 1 / 15 },
     clock: { delta: 1 / 60, elapsed: 0, frame: 0 }
   });
   for (const kit of createKits(options, treeCount)) installWithReceipt(engine, kit);
+  const graphicsLanguage = installGraphicsLanguage(engine, options.graphicsLanguage ?? {});
 
   const worldInitialization = initializeWorld(engine, options);
   registerAuthoredObjects(engine);
@@ -654,7 +639,7 @@ export function createAcrossTheCanopyRuntime(options = {}) {
       uiScale: engine.n.uiScale.getDescriptor(),
       cameras: engine.n.camera.getDescriptors('cameras'),
       ui: engine.n.ui.getDescriptors(),
-      graphics: engine.n.graphics.getSnapshot()
+    renderBatch: engine.n.renderBatch.getSnapshot()
     };
   }
 
@@ -678,7 +663,7 @@ export function createAcrossTheCanopyRuntime(options = {}) {
     if (patch.output) setOutput(patch.output);
     if (patch.camera) descriptorGroups(engine.n.camera, patch.camera, 'cameras');
     if (patch.ui) descriptorGroups(engine.n.ui, patch.ui, 'screens');
-    if (patch.graphics) descriptorGroups(engine.n.graphics, patch.graphics, 'worlds');
+    if (patch.renderBatch) descriptorGroups(engine.n.renderBatch, patch.renderBatch, 'batches');
     if (patch.fov !== undefined) {
       const cameras = engine.n.camera.getDescriptors('cameras');
       const camera = cameras[CAMERA_ID] ?? initialCameraDescriptor();
@@ -748,6 +733,14 @@ export function createAcrossTheCanopyRuntime(options = {}) {
     return clone(payload);
   }
 
+  function restoreStory(payload) {
+    engine.n.interaction.reset();
+    engine.n.input.reset();
+    registerInteractionTargets(engine);
+    engine.n.acrossTheCanopy.loadSavePayload(payload);
+    return engine.n.acrossTheCanopy.getState();
+  }
+
   function load(payloadOrSlotId = 'autosave') {
     const payload = typeof payloadOrSlotId === 'string'
       ? engine.n.persistence.getDescriptors('saveSlots')?.[payloadOrSlotId]?.payload
@@ -785,7 +778,7 @@ export function createAcrossTheCanopyRuntime(options = {}) {
     engine.n.uiScale.reset();
     engine.n.camera.reset();
     engine.n.ui.reset();
-    engine.n.graphics.reset();
+    engine.n.renderBatch.reset();
     registerAuthoredObjects(engine);
     registerInteractionTargets(engine);
     installForestBatch(engine, trees);
@@ -795,7 +788,7 @@ export function createAcrossTheCanopyRuntime(options = {}) {
   }
 
   function getTreeBatch() {
-    return clone(engine.n.graphics.instanceBatches.getSnapshot().batches.find((entry) => entry.id === TREE_BATCH_ID) ?? null);
+    return clone(engine.n.renderBatch.instanceBatches.getSnapshot().batches.find((entry) => entry.id === TREE_BATCH_ID) ?? null);
   }
 
   const capabilities = Object.freeze({
@@ -825,7 +818,7 @@ export function createAcrossTheCanopyRuntime(options = {}) {
       actionLocomotion: true,
       presentation: true,
       uiScale: true,
-      graphicsInstanceBatches: true,
+      renderInstanceBatches: true,
       renderContract: true,
       renderProviderValidation: true,
       renderFrameValidation: true,
@@ -833,7 +826,7 @@ export function createAcrossTheCanopyRuntime(options = {}) {
     }),
     productOwned: Object.freeze({ storyRules: true, authoredPlacement: true, routeConsequences: true }),
     hostRequired: Object.freeze({
-      concreteRenderProvider: 'Not supplied by NexusEngine 0.0.4; inject at the composition root.',
+      concreteRenderProvider: 'NexusGL WASM supplied by the optional Graphics Language Kit; game packet translation stays local.',
       presentationToRenderProjection: 'Product-local pure translator required.',
       deviceInputAdapter: 'Host-local adapter required.',
       hitTestingAdapter: 'Host-local adapter required.',
@@ -854,7 +847,9 @@ export function createAcrossTheCanopyRuntime(options = {}) {
     setOutput,
     save,
     load,
+    restoreStory,
     reset,
+    graphicsLanguage,
     getTrees: () => treeInstancesFromGraphics(engine),
     getTreeBatch,
     initialTreeFlush: clone(initialTreeFlush),

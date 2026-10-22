@@ -362,10 +362,10 @@ Existing Nexus capabilities and public kits must be composed before creating new
 | Object | Stable identity, capability attachment, and lifecycle | `atc:*` object definitions and replacement-safe asset mapping |
 | World | Spatial registration, authored nodes, triggers, boundaries, and collision queries | Coordinates, route graph, procedural exclusion volume, and location data |
 | Presentation | Focus prompt, dialogue, journal, choice panel, unavailable-action feedback, FOV control | Text, speaker order, objectives, clue entries, and visual hierarchy |
-| Render/provider | Three.js scene, camera, primitives, lighting, outlines, and pixels | Graybox composition, color legend, fog, and final art replacements |
+| Render/provider | NexusEngine Graphics Language Kit and NexusGL WASM framebuffer | Graybox geometry, color legend, route composition, and final art replacements |
 | Persistence | Versioned serialization and restore hooks | `atc.greybox.v1` schema and checkpoint policy |
 
-The required chain is: host/device adapter → interaction → simulation and game rules → object/world → presentation → Three.js provider → pixels. Story rules and authored behavior remain owned by AcrossTheCanopy. A new Nexus kit is allowed only if the canonical catalog proves no existing composition covers the required capability.
+The required chain is: host/device adapter → interaction → simulation and game rules → object/world → presentation projection → Graphics Language Kit → NexusGL provider → pixels. Story rules and authored behavior remain owned by AcrossTheCanopy. The current NexusGL migration renders through CPU software rasterization in WASM; see [NexusGL rendering](NEXUSGL_RENDERING.md) for measured performance and unsupported visual effects.
 
 ## 9. Five-minute capture timeline
 

@@ -1,0 +1,51 @@
+{
+  "schema": "atc.storage-envelope/1",
+  "slotId": "migration-complete",
+  "payload": {
+    "schema": "atc.greybox.v1",
+    "checkpoint": "atc:checkpoint/hanging-rows",
+    "player": {
+      "position": [
+        6,
+        71,
+        -18
+      ],
+      "fov": 97.24137931034483
+    },
+    "story": {
+      "tutorial_movement_complete": true,
+      "spindle_inspected": true,
+      "sela_warning_heard": true,
+      "crew_code_recorded": true,
+      "rows_need_known": true,
+      "market_board_read": true,
+      "descent_lock_open": true,
+      "station_reached": true,
+      "station_signal_verified": true,
+      "return_dialogue_complete": true
+    },
+    "choice": "recover_cell",
+    "world": {
+      "rows_light_level": 1,
+      "deep_beacon_active": false,
+      "returned_to_rows": true
+    },
+    "objective": "Keep the Rows safe. Decide whether silence can stand.",
+    "journal": [
+      "A voice bearing Edda’s private knot came from the sealed descent route.",
+      "Crew code — Split Bough → Lantern → Open Ring.",
+      "The Hanging Rows have one night of stored light. The station cell could power them for a season.",
+      "The fresh signal came from below service depth and carries Edda Vale’s identity knot.",
+      "A Voice Traded for Light — The Rows are safe for a season. Edda’s fresh signal ended before its warning was complete."
+    ],
+    "puzzle": {
+      "dials": [
+        "Bough",
+        "Lantern",
+        "Ring"
+      ],
+      "attempts": 1
+    },
+    "completed": true
+  }
+}

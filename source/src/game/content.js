@@ -1,6 +1,6 @@
 export const GAME_ID = 'across-the-canopy';
 export const SAVE_SCHEMA = 'atc.greybox.v1';
-export const NEXUS_COMMIT = '8a60167fc945109408851c586a9355b1147438d5';
+export const NEXUS_COMMIT = '5a4da3eba6ac95d2d8c74a008bb12caff0d6b0e8';
 export const FOREST_SEED = 41731;
 export const DEFAULT_TREE_COUNT = 2300;
 
@@ -74,6 +74,13 @@ export const ROUTES = Object.freeze({
   }
 });
 
+export function routeEntrancePoint(path) {
+  const [start, next = start] = path;
+  const dx = next[0] - start[0], dz = next[2] - start[2];
+  const fraction = Math.min(.25, 2 / (Math.hypot(dx, dz) || 1));
+  return [start[0] + dx * fraction, start[1] + 2.2, start[2] + dz * fraction];
+}
+
 const object = (id, label, position, colorRole, visual, interaction = null, extra = {}) => Object.freeze({
   id, label, position, colorRole, visual, interaction, ...extra
 });
@@ -99,7 +106,7 @@ export const AUTHORED_OBJECTS = Object.freeze([
   object('atc:puzzle/descent-lock/dial-a', 'Lock Dial A', [31, 61, -64], 'interactable', { shape: 'dial', size: [1.4, 1.4, 0.5] }, { verb: 'turn', range: 18 }),
   object('atc:puzzle/descent-lock/dial-b', 'Lock Dial B', [33, 61, -64], 'interactable', { shape: 'dial', size: [1.4, 1.4, 0.5] }, { verb: 'turn', range: 18 }),
   object('atc:puzzle/descent-lock/dial-c', 'Lock Dial C', [35, 61, -64], 'interactable', { shape: 'dial', size: [1.4, 1.4, 0.5] }, { verb: 'turn', range: 18 }),
-  object('atc:puzzle/descent-lock/submit', 'Crew Lock Plate', [33, 59.5, -64], 'interactable', { shape: 'plate', size: [4.8, 0.65, 1.1] }, { verb: 'submit', range: 20 }),
+  object('atc:puzzle/descent-lock/submit', 'Crew Lock Plate', [33, 62.3, -64], 'interactable', { shape: 'plate', size: [4.8, 0.65, 1.1] }, { verb: 'submit', range: 20 }),
   object('atc:blocker/descent-shutter', 'Sealed Descent Shutter', [38, 59, -76], 'hazard', { shape: 'shutter', size: [9, 8, 1.1] }, { verb: 'unavailable', range: 24 }),
   object('atc:route/descent-line', 'Gravity Descent Line', [38, 59, -76], 'traversal', { shape: 'route', path: ROUTES['atc:route/descent-line'].path, width: 0.65 }, { verb: 'zipline', range: 24 }),
   object('atc:structure/old-descent-station', 'Old Descent Station', [50, 32, -105], 'structure', { shape: 'station', size: [25, 3, 24] }),

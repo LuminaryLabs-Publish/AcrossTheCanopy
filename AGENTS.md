@@ -17,13 +17,13 @@ Across the Canopy is a first-person point-and-click 3D story greybox. The editab
 ## Hard boundaries
 
 - `source/` is the editable source authority. Do not hand-edit root hashed build assets as product source.
-- GitHub Pages workflow runs tests, rebuilds `source/`, and deploys `source/dist`.
+- GitHub Pages normally rebuilds `source/dist`. Repository Actions and its workflow are disabled for this migration; keep them disabled and validate locally. A push must not trigger deployment.
 - The current product is **The Upward Signal**, version `0.1.0-greybox.0`.
 - Current authored world has five locations and seven traversal routes; the return consequence comes back to Hanging Rows rather than adding a sixth authored location.
 - The procedural 2,300-tree forest is atmosphere/streaming context and must not own authored story route placement.
 - Preserve the no-visible-conventional-ground rule.
 - Gameplay logic targets stable IDs and roles, not primitive mesh names/colors.
-- NexusEngine remains pinned to `8a60167fc945109408851c586a9355b1147438d5` / package line `0.0.4` for this slice.
+- NexusEngine is pinned by the active migration to `5a4da3eba6ac95d2d8c74a008bb12caff0d6b0e8` / package line `0.0.4`; see `.agent/goal.md` and `docs/NEXUSGL_RENDERING.md` for current status and proof limits.
 - Product-specific story/dialogue/puzzle/choice behavior remains in the AcrossTheCanopy story Kit; do not move it into reusable engine ownership casually.
 - Test/build/capture evidence tiers must remain distinct from subjective final-art/gameplay-quality approval.
 

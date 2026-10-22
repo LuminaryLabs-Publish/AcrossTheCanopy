@@ -1,0 +1,13 @@
+{
+  "schema": "atc.tick-driving-comparison/1",
+  "observedDate": "2026-10-22",
+  "host": "Apple M2 MacBook Air, 8 GB RAM, Node 25.8.1",
+  "method": "One runtime with 2300 trees, alternating the public engine.driveSequenceNodesWithTick setting. Each round warms 5 ticks and samples 30 calls to runtime.tick(1/60). No Sequence Nodes are mounted. Story remains intro and player remains [0,86,56] in all rounds.",
+  "samples": [
+    {"enabled": true, "p50Ms": 2.970167, "p95Ms": 3.247833},
+    {"enabled": false, "p50Ms": 0.216, "p95Ms": 0.327875},
+    {"enabled": true, "p50Ms": 3.325459, "p95Ms": 4.3565},
+    {"enabled": false, "p50Ms": 0.202875, "p95Ms": 0.287625}
+  ],
+  "boundary": "CPU tick microbenchmark, not browser FPS. Runtime scheduling and the game Story Kit coordinator remain enabled."
+}

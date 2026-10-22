@@ -20,3 +20,17 @@ Across the Canopy should prove one complete authored first-person story route in
 ## Current milestone boundary
 
 This repository documents and implements the greybox vertical slice. Final assets, audio, broad production content, and subjective AAA-quality acceptance are outside the current proven scope.
+
+## Active milestone — NexusGL renderer migration
+
+Status: verified locally; ready for delivery to `main`.
+
+The existing adventure uses NexusGL WASM through NexusEngine's Graphics Language Kit at `5a4da3eba6ac95d2d8c74a008bb12caff0d6b0e8`. Story rules, stable IDs, five locations, seven routes, saves and no-ground world remain game-owned. Changes are confined to this repository and its Actions settings.
+
+Local acceptance: clean install and audit pass; 29 checks and the production build pass. Real browser input covers the full authored route, both endings, both optional glides, pause, journal cancellation, FOV, mouse look and resize. Same-session station restoration, failed WASM startup, recovery, navigation and five successful reload cycles pass. The real WASM 300-second replay, owned-frame capture, budget rejection/recovery and disposal pass. The root snapshot is regenerated from source and inspected.
+
+Evidence: `.agent/evidence/README.md`, `browser-migration-proof.json`, `wasm-migration-proof.json` and `validation.json`.
+
+Limits remain explicit: the world renders at 320×180 and HUD/presentation at 640×360. Actual browser presentation measured roughly 4–13 FPS during the recorded run. Fog, additive glow and shadow casting are not reproduced; final art, production performance, mobile/Quest, native hosting and full accessibility qualification are not completed by this migration.
+
+GitHub Actions are disabled at repository level, and `Deploy GitHub Pages` remains manually disabled. No deployment is requested. Next: commit the reviewed migration to actual default `main`, push, verify remote content and no new workflow runs, then record the delivered revision.

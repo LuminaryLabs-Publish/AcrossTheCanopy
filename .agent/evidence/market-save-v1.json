@@ -1,0 +1,49 @@
+{
+  "schema": "atc.storage-envelope/1",
+  "slotId": "migration-resume",
+  "payload": {
+    "schema": "atc.greybox.v1",
+    "checkpoint": "atc:checkpoint/hanging-rows",
+    "player": {
+      "position": [
+        28,
+        61,
+        -56
+      ],
+      "fov": 78
+    },
+    "story": {
+      "tutorial_movement_complete": true,
+      "spindle_inspected": true,
+      "sela_warning_heard": true,
+      "crew_code_recorded": true,
+      "rows_need_known": true,
+      "market_board_read": true,
+      "descent_lock_open": true,
+      "station_reached": false,
+      "station_signal_verified": false,
+      "return_dialogue_complete": false
+    },
+    "choice": null,
+    "world": {
+      "rows_light_level": 0.25,
+      "deep_beacon_active": false,
+      "returned_to_rows": false
+    },
+    "objective": "Ride the gravity line to the Old Descent Station",
+    "journal": [
+      "A voice bearing Edda’s private knot came from the sealed descent route.",
+      "Crew code — Split Bough → Lantern → Open Ring.",
+      "The Hanging Rows have one night of stored light. The station cell could power them for a season."
+    ],
+    "puzzle": {
+      "dials": [
+        "Bough",
+        "Lantern",
+        "Ring"
+      ],
+      "attempts": 1
+    },
+    "completed": false
+  }
+}

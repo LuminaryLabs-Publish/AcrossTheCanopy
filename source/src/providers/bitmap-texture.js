@@ -1,8 +1,7 @@
 /**
  * Deterministic, DOM-free bitmap UI rasterizer.
  *
- * The module deliberately accepts THREE as an argument so it can be shared by
- * the browser renderer and the framebuffer/video harness. All drawing happens
+ * Shared by the browser renderer and framebuffer/video harness. Drawing happens
  * into Uint8Array RGBA buffers; no canvas, system font, or platform text API is
  * involved.
  */
@@ -423,32 +422,6 @@ export function renderBitmapUi(descriptor = {}, options = {}) {
     palette,
     signature: `${width}x${height}:${layers.length}:${normalizeBitmapText(descriptor.title ?? '').length}:${normalizeBitmapText(descriptor.body ?? '').length}`
   });
-}
-
-export function createBitmapTexture(THREE, descriptor = {}, options = {}) {
-  if (!THREE?.DataTexture || THREE.RGBAFormat == null) {
-    throw new TypeError('createBitmapTexture requires a THREE namespace with DataTexture and RGBAFormat.');
-  }
-  const bitmap = renderBitmapUi(descriptor, options);
-  const texture = new THREE.DataTexture(bitmap.data, bitmap.width, bitmap.height, THREE.RGBAFormat, THREE.UnsignedByteType);
-  if (THREE.NearestFilter != null) texture.magFilter = THREE.NearestFilter;
-  if (THREE.LinearFilter != null) texture.minFilter = THREE.LinearFilter;
-  if ('generateMipmaps' in texture) texture.generateMipmaps = false;
-  if (THREE.SRGBColorSpace != null && 'colorSpace' in texture) texture.colorSpace = THREE.SRGBColorSpace;
-  texture.needsUpdate = true;
-  texture.userData = { ...(texture.userData ?? {}), bitmapUi: { signature: bitmap.signature } };
-  return texture;
-}
-
-export function updateBitmapTexture(THREE, texture, descriptor = {}, options = {}) {
-  if (!texture?.isTexture) throw new TypeError('updateBitmapTexture requires an existing THREE texture.');
-  const bitmap = renderBitmapUi(descriptor, options);
-  texture.image = { data: bitmap.data, width: bitmap.width, height: bitmap.height };
-  if (THREE?.RGBAFormat != null) texture.format = THREE.RGBAFormat;
-  if (THREE?.UnsignedByteType != null) texture.type = THREE.UnsignedByteType;
-  texture.needsUpdate = true;
-  texture.userData = { ...(texture.userData ?? {}), bitmapUi: { signature: bitmap.signature } };
-  return texture;
 }
 
 export const BITMAP_FONT = Object.freeze({

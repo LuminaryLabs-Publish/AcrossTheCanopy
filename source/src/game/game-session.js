@@ -333,7 +333,10 @@ export function createGameSession({ runtime, provider, storage = createStorageAd
   function load(slotId = 'autosave') {
     const payload = typeof slotId === 'object' ? clone(slotId) : storage.load(slotId);
     if (!payload) return null;
-    runtime.engine.n.acrossTheCanopy.loadSavePayload(payload);
+    runtime.restoreStory(payload);
+    runtime.engine.n.acrossTheCanopy.applyInternal({ type: 'focus', targetId: null });
+    movement = { forward: 0, right: 0, glide: false };
+    activeTraversal = activeNavigation = pendingAction = null;
     const position = normalizePoint(payload.player?.position ?? checkpointPosition(payload.checkpoint));
     camera.fov = clamp(payload.player?.fov ?? 78, 60, 120);
     setPlayer(position);
@@ -358,12 +361,12 @@ export function createGameSession({ runtime, provider, storage = createStorageAd
 
   function synchronizeAuthoredWorldState() {
     const story = runtime.getStory();
-    if (!story.world.returned_to_rows) return;
     const placement = runtime.getPlacements().find((entry) => entry.objectId === 'atc:npc/sela-oren');
-    if (placement && distance(placement.transform.position, [8, 72.1, -18]) > 0.01) {
+    const position = story.world.returned_to_rows ? [8, 72.1, -18] : OBJECT_BY_ID['atc:npc/sela-oren'].position;
+    if (placement && distance(placement.transform.position, position) > 0.01) {
       runtime.engine.n.objectPlacement.revise(placement.id, {
-        transform: { ...placement.transform, position: [8, 72.1, -18] },
-        metadata: { ...placement.metadata, relocatedByStoryFlag: 'returned_to_rows' }
+        transform: { ...placement.transform, position },
+        metadata: { ...placement.metadata, relocatedByStoryFlag: story.world.returned_to_rows ? 'returned_to_rows' : null }
       });
     }
   }
@@ -372,7 +375,9 @@ export function createGameSession({ runtime, provider, storage = createStorageAd
     if (!['dialogue', 'choice', 'puzzle'].includes(story.mode)) return;
     const target = OBJECT_BY_ID[story.focusId];
     if (!target) return;
-    const desired = lookAt(camera.position, target.position);
+    const targetPosition = placedTargetPosition(target);
+    if (distance(camera.position, targetPosition) < 0.25) return;
+    const desired = lookAt(camera.position, targetPosition);
     camera.yaw += (desired.yaw - camera.yaw) * Math.min(1, delta * 1.8);
     camera.pitch += (desired.pitch - camera.pitch) * Math.min(1, delta * 1.8);
   }
@@ -421,7 +426,7 @@ export function createGameSession({ runtime, provider, storage = createStorageAd
     return currentPacket;
   }
 
-  function step(delta = FIXED_DELTA) {
+  function step(delta = FIXED_DELTA, { present = true } = {}) {
     // Capture playback uses the recorder's fixed timestep. Allow low capture
     // frame rates to advance the authored timeline at real time; the Nexus
     // simulation keeps its own smaller-step safety clamp internally.
@@ -449,7 +454,7 @@ export function createGameSession({ runtime, provider, storage = createStorageAd
     processEffects();
     synchronizeAuthoredWorldState();
     if (!capture) updateCameraFocus(runtime.getStory(), safeDelta);
-    return project();
+    return present ? project() : currentPacket;
   }
 
   async function initialize(options = {}) {

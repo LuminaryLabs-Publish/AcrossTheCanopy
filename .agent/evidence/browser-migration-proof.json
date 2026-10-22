@@ -1,0 +1,1299 @@
+{
+  "schema": "atc.browser-migration-proof/1",
+  "stages": [
+    {
+      "stage": "open",
+      "observedAt": "2026-10-22T23:09:24.167Z",
+      "story": {
+        "schema": "atc.greybox.v1",
+        "revision": 0,
+        "mode": "intro",
+        "locationId": "atc:location/starter-perch",
+        "focusId": "atc:trigger/spawn/starter-perch",
+        "objective": "Begin The Upward Signal",
+        "checkpoint": "atc:trigger/spawn/starter-perch",
+        "flags": {
+          "tutorial_movement_complete": false,
+          "spindle_inspected": false,
+          "sela_warning_heard": false,
+          "crew_code_recorded": false,
+          "rows_need_known": false,
+          "market_board_read": false,
+          "descent_lock_open": false,
+          "station_reached": false,
+          "station_signal_verified": false,
+          "return_dialogue_complete": false
+        },
+        "choice": null,
+        "world": {
+          "rows_light_level": 0.25,
+          "deep_beacon_active": false,
+          "returned_to_rows": false
+        },
+        "journal": [],
+        "dialogue": null,
+        "puzzle": {
+          "dials": [
+            "Ring",
+            "Bough",
+            "Lantern"
+          ],
+          "attempts": 0
+        },
+        "choicePrompt": null,
+        "feedback": "Click the cyan start ring to begin.",
+        "traversal": null,
+        "navigation": null,
+        "paused": false,
+        "completed": false,
+        "completedAtRevision": null,
+        "lastAction": null
+      },
+      "camera": {
+        "position": [
+          0,
+          86,
+          56
+        ],
+        "yaw": -0.18,
+        "pitch": -0.045,
+        "fov": 78,
+        "near": 0.08,
+        "far": 700
+      },
+      "player": {
+        "position": [
+          0,
+          86,
+          56
+        ]
+      },
+      "output": {
+        "width": 640,
+        "height": 360,
+        "pixelRatio": 1
+      },
+      "provider": {
+        "version": "0.1.0",
+        "frame": 93,
+        "initialized": true,
+        "packetRevision": 93,
+        "completed": {
+          "frame": 93,
+          "packetRevision": 93,
+          "presented": true,
+          "width": 640,
+          "height": 360,
+          "renderWidth": 320,
+          "renderHeight": 180,
+          "quality": "native",
+          "renderDurationMs": 78,
+          "presentationIntervalMs": 121,
+          "measuredFps": 9
+        },
+        "lastError": null,
+        "resourceCount": 44,
+        "lastRenderDurationMs": 78,
+        "measuredFps": 9
+      }
+    },
+    {
+      "stage": "starter",
+      "observedAt": "2026-10-22T23:09:51.364Z",
+      "story": {
+        "schema": "atc.greybox.v1",
+        "revision": 21,
+        "mode": "movement",
+        "locationId": "atc:location/starter-perch",
+        "focusId": "atc:npc/sela-oren",
+        "objective": "Follow the old crew route",
+        "checkpoint": "atc:trigger/spawn/starter-perch",
+        "flags": {
+          "tutorial_movement_complete": true,
+          "spindle_inspected": true,
+          "sela_warning_heard": true,
+          "crew_code_recorded": false,
+          "rows_need_known": false,
+          "market_board_read": false,
+          "descent_lock_open": false,
+          "station_reached": false,
+          "station_signal_verified": false,
+          "return_dialogue_complete": false
+        },
+        "choice": null,
+        "world": {
+          "rows_light_level": 0.25,
+          "deep_beacon_active": false,
+          "returned_to_rows": false
+        },
+        "journal": [
+          "A voice bearing Edda’s private knot came from the sealed descent route."
+        ],
+        "dialogue": null,
+        "puzzle": {
+          "dials": [
+            "Ring",
+            "Bough",
+            "Lantern"
+          ],
+          "attempts": 0
+        },
+        "choicePrompt": null,
+        "feedback": "Movement restored.",
+        "traversal": null,
+        "navigation": null,
+        "paused": false,
+        "completed": false,
+        "completedAtRevision": null,
+        "lastAction": "advance-dialogue"
+      },
+      "camera": {
+        "position": [
+          7.47999999999992,
+          86,
+          56.00000117869925
+        ],
+        "yaw": 0.8067471788018522,
+        "pitch": -0.06281277801013535,
+        "fov": 78,
+        "near": 0.08,
+        "far": 700
+      },
+      "player": {
+        "position": [
+          7.47999999999992,
+          86,
+          56.00000117869925
+        ]
+      },
+      "output": {
+        "width": 640,
+        "height": 360,
+        "pixelRatio": 1
+      },
+      "provider": {
+        "version": "0.1.0",
+        "frame": 1693,
+        "initialized": true,
+        "packetRevision": 1693,
+        "completed": {
+          "frame": 1693,
+          "packetRevision": 1693,
+          "presented": true,
+          "width": 640,
+          "height": 360,
+          "renderWidth": 320,
+          "renderHeight": 180,
+          "quality": "native",
+          "renderDurationMs": 72.20000000298023,
+          "presentationIntervalMs": 170.80000000447035,
+          "measuredFps": 6
+        },
+        "lastError": null,
+        "resourceCount": 44,
+        "lastRenderDurationMs": 72.20000000298023,
+        "measuredFps": 6
+      }
+    },
+    {
+      "stage": "branch",
+      "observedAt": "2026-10-22T23:10:20.804Z",
+      "story": {
+        "schema": "atc.greybox.v1",
+        "revision": 71,
+        "mode": "movement",
+        "locationId": "atc:location/hanging-rows",
+        "focusId": "atc:route/trunk-switchback",
+        "objective": "Follow the old crew route",
+        "checkpoint": "atc:checkpoint/hanging-rows",
+        "flags": {
+          "tutorial_movement_complete": true,
+          "spindle_inspected": true,
+          "sela_warning_heard": true,
+          "crew_code_recorded": false,
+          "rows_need_known": false,
+          "market_board_read": false,
+          "descent_lock_open": false,
+          "station_reached": false,
+          "station_signal_verified": false,
+          "return_dialogue_complete": false
+        },
+        "choice": null,
+        "world": {
+          "rows_light_level": 0.25,
+          "deep_beacon_active": false,
+          "returned_to_rows": false
+        },
+        "journal": [
+          "A voice bearing Edda’s private knot came from the sealed descent route."
+        ],
+        "dialogue": null,
+        "puzzle": {
+          "dials": [
+            "Ring",
+            "Bough",
+            "Lantern"
+          ],
+          "attempts": 0
+        },
+        "choicePrompt": null,
+        "feedback": "Traversal complete. Movement restored.",
+        "traversal": null,
+        "navigation": null,
+        "paused": false,
+        "completed": false,
+        "completedAtRevision": null,
+        "lastAction": "traversal-complete"
+      },
+      "camera": {
+        "position": [
+          8.000000000000002,
+          72,
+          -11.999999999999996
+        ],
+        "yaw": 0.22325955911667114,
+        "pitch": -0.24900711786158325,
+        "fov": 78,
+        "near": 0.08,
+        "far": 700
+      },
+      "player": {
+        "position": [
+          8.000000000000002,
+          72,
+          -11.999999999999996
+        ]
+      },
+      "output": {
+        "width": 640,
+        "height": 360,
+        "pixelRatio": 1
+      },
+      "provider": {
+        "version": "0.1.0",
+        "frame": 3234,
+        "initialized": true,
+        "packetRevision": 3234,
+        "completed": {
+          "frame": 3234,
+          "packetRevision": 3234,
+          "presented": true,
+          "width": 640,
+          "height": 360,
+          "renderWidth": 320,
+          "renderHeight": 180,
+          "quality": "native",
+          "renderDurationMs": 77,
+          "presentationIntervalMs": 156.79999999701977,
+          "measuredFps": 4
+        },
+        "lastError": null,
+        "resourceCount": 44,
+        "lastRenderDurationMs": 77,
+        "measuredFps": 4
+      }
+    },
+    {
+      "stage": "rows",
+      "observedAt": "2026-10-22T23:11:55.592Z",
+      "story": {
+        "schema": "atc.greybox.v1",
+        "revision": 109,
+        "mode": "movement",
+        "locationId": "atc:location/hanging-rows",
+        "focusId": "atc:interact/rows-lantern",
+        "objective": "Find the descent route through Low Market",
+        "checkpoint": "atc:checkpoint/hanging-rows",
+        "flags": {
+          "tutorial_movement_complete": true,
+          "spindle_inspected": true,
+          "sela_warning_heard": true,
+          "crew_code_recorded": true,
+          "rows_need_known": true,
+          "market_board_read": false,
+          "descent_lock_open": false,
+          "station_reached": false,
+          "station_signal_verified": false,
+          "return_dialogue_complete": false
+        },
+        "choice": null,
+        "world": {
+          "rows_light_level": 0.25,
+          "deep_beacon_active": false,
+          "returned_to_rows": false
+        },
+        "journal": [
+          "A voice bearing Edda’s private knot came from the sealed descent route.",
+          "Crew code — Split Bough → Lantern → Open Ring.",
+          "The Hanging Rows have one night of stored light. The station cell could power them for a season."
+        ],
+        "dialogue": null,
+        "puzzle": {
+          "dials": [
+            "Ring",
+            "Bough",
+            "Lantern"
+          ],
+          "attempts": 0
+        },
+        "choicePrompt": null,
+        "feedback": "Movement restored.",
+        "traversal": null,
+        "navigation": null,
+        "paused": false,
+        "completed": false,
+        "completedAtRevision": null,
+        "lastAction": "advance-dialogue"
+      },
+      "camera": {
+        "position": [
+          6,
+          71.6,
+          -25.999999999999993
+        ],
+        "yaw": 2.157196730323371,
+        "pitch": 0.31201001511026777,
+        "fov": 78,
+        "near": 0.08,
+        "far": 700
+      },
+      "player": {
+        "position": [
+          6,
+          71.6,
+          -25.999999999999993
+        ]
+      },
+      "output": {
+        "width": 640,
+        "height": 360,
+        "pixelRatio": 1
+      },
+      "provider": {
+        "version": "0.1.0",
+        "frame": 8709,
+        "initialized": true,
+        "packetRevision": 8709,
+        "completed": {
+          "frame": 8709,
+          "packetRevision": 8709,
+          "presented": true,
+          "width": 640,
+          "height": 360,
+          "renderWidth": 320,
+          "renderHeight": 180,
+          "quality": "native",
+          "renderDurationMs": 76.80000000447035,
+          "presentationIntervalMs": 201.40000000596046,
+          "measuredFps": 4
+        },
+        "lastError": null,
+        "resourceCount": 44,
+        "lastRenderDurationMs": 76.80000000447035,
+        "measuredFps": 4
+      }
+    },
+    {
+      "stage": "market",
+      "observedAt": "2026-10-22T23:12:21.969Z",
+      "story": {
+        "schema": "atc.greybox.v1",
+        "revision": 138,
+        "mode": "movement",
+        "locationId": "atc:location/low-market",
+        "focusId": "atc:clue/market-route-board",
+        "objective": "Open the descent lock",
+        "checkpoint": "atc:checkpoint/hanging-rows",
+        "flags": {
+          "tutorial_movement_complete": true,
+          "spindle_inspected": true,
+          "sela_warning_heard": true,
+          "crew_code_recorded": true,
+          "rows_need_known": true,
+          "market_board_read": true,
+          "descent_lock_open": false,
+          "station_reached": false,
+          "station_signal_verified": false,
+          "return_dialogue_complete": false
+        },
+        "choice": null,
+        "world": {
+          "rows_light_level": 0.25,
+          "deep_beacon_active": false,
+          "returned_to_rows": false
+        },
+        "journal": [
+          "A voice bearing Edda’s private knot came from the sealed descent route.",
+          "Crew code — Split Bough → Lantern → Open Ring.",
+          "The Hanging Rows have one night of stored light. The station cell could power them for a season."
+        ],
+        "dialogue": null,
+        "puzzle": {
+          "dials": [
+            "Ring",
+            "Bough",
+            "Lantern"
+          ],
+          "attempts": 0
+        },
+        "choicePrompt": null,
+        "feedback": "Movement restored.",
+        "traversal": null,
+        "navigation": null,
+        "paused": false,
+        "completed": false,
+        "completedAtRevision": null,
+        "lastAction": "advance-dialogue"
+      },
+      "camera": {
+        "position": [
+          28,
+          61,
+          -56
+        ],
+        "yaw": 1.1071487127731454,
+        "pitch": 0.21998797687253357,
+        "fov": 78,
+        "near": 0.08,
+        "far": 700
+      },
+      "player": {
+        "position": [
+          28,
+          61,
+          -56
+        ]
+      },
+      "output": {
+        "width": 640,
+        "height": 360,
+        "pixelRatio": 1
+      },
+      "provider": {
+        "version": "0.1.0",
+        "frame": 10142,
+        "initialized": true,
+        "packetRevision": 10142,
+        "completed": {
+          "frame": 10142,
+          "packetRevision": 10142,
+          "presented": true,
+          "width": 640,
+          "height": 360,
+          "renderWidth": 320,
+          "renderHeight": 180,
+          "quality": "native",
+          "renderDurationMs": 67,
+          "presentationIntervalMs": 155.10000000149012,
+          "measuredFps": 6
+        },
+        "lastError": null,
+        "resourceCount": 44,
+        "lastRenderDurationMs": 67,
+        "measuredFps": 6
+      }
+    },
+    {
+      "stage": "puzzle",
+      "observedAt": "2026-10-22T23:18:21.796Z",
+      "story": {
+        "schema": "atc.greybox.v1",
+        "revision": 154,
+        "mode": "movement",
+        "locationId": "atc:location/low-market",
+        "focusId": "atc:puzzle/descent-lock/submit",
+        "objective": "Ride the gravity line to the Old Descent Station",
+        "checkpoint": "atc:checkpoint/hanging-rows",
+        "flags": {
+          "tutorial_movement_complete": true,
+          "spindle_inspected": true,
+          "sela_warning_heard": true,
+          "crew_code_recorded": true,
+          "rows_need_known": true,
+          "market_board_read": true,
+          "descent_lock_open": true,
+          "station_reached": false,
+          "station_signal_verified": false,
+          "return_dialogue_complete": false
+        },
+        "choice": null,
+        "world": {
+          "rows_light_level": 0.25,
+          "deep_beacon_active": false,
+          "returned_to_rows": false
+        },
+        "journal": [
+          "A voice bearing Edda’s private knot came from the sealed descent route.",
+          "Crew code — Split Bough → Lantern → Open Ring.",
+          "The Hanging Rows have one night of stored light. The station cell could power them for a season."
+        ],
+        "dialogue": null,
+        "puzzle": {
+          "dials": [
+            "Bough",
+            "Lantern",
+            "Ring"
+          ],
+          "attempts": 1
+        },
+        "choicePrompt": null,
+        "feedback": "Movement restored.",
+        "traversal": null,
+        "navigation": null,
+        "paused": false,
+        "completed": false,
+        "completedAtRevision": null,
+        "lastAction": "advance-dialogue"
+      },
+      "camera": {
+        "position": [
+          28,
+          61,
+          -56
+        ],
+        "yaw": -0.5586289101501872,
+        "pitch": 0.13693258262519112,
+        "fov": 78,
+        "near": 0.08,
+        "far": 700
+      },
+      "player": {
+        "position": [
+          28,
+          61,
+          -56
+        ]
+      },
+      "output": {
+        "width": 640,
+        "height": 360,
+        "pixelRatio": 1
+      },
+      "provider": {
+        "version": "0.1.0",
+        "frame": 19331,
+        "initialized": true,
+        "packetRevision": 19331,
+        "completed": {
+          "frame": 19331,
+          "packetRevision": 19331,
+          "presented": true,
+          "width": 640,
+          "height": 360,
+          "renderWidth": 320,
+          "renderHeight": 180,
+          "quality": "native",
+          "renderDurationMs": 67.80000000447035,
+          "presentationIntervalMs": 164.89999999850988,
+          "measuredFps": 7
+        },
+        "lastError": null,
+        "resourceCount": 44,
+        "lastRenderDurationMs": 67.80000000447035,
+        "measuredFps": 7
+      }
+    },
+    {
+      "stage": "station",
+      "observedAt": "2026-10-22T23:18:40.193Z",
+      "story": {
+        "schema": "atc.greybox.v1",
+        "revision": 189,
+        "mode": "movement",
+        "locationId": "atc:location/old-descent-station",
+        "focusId": "atc:story/station-console",
+        "objective": "Choose: answer the signal or recover the sun-cell",
+        "checkpoint": "atc:checkpoint/descent-station",
+        "flags": {
+          "tutorial_movement_complete": true,
+          "spindle_inspected": true,
+          "sela_warning_heard": true,
+          "crew_code_recorded": true,
+          "rows_need_known": true,
+          "market_board_read": true,
+          "descent_lock_open": true,
+          "station_reached": true,
+          "station_signal_verified": true,
+          "return_dialogue_complete": false
+        },
+        "choice": null,
+        "world": {
+          "rows_light_level": 0.25,
+          "deep_beacon_active": false,
+          "returned_to_rows": false
+        },
+        "journal": [
+          "A voice bearing Edda’s private knot came from the sealed descent route.",
+          "Crew code — Split Bough → Lantern → Open Ring.",
+          "The Hanging Rows have one night of stored light. The station cell could power them for a season.",
+          "The fresh signal came from below service depth and carries Edda Vale’s identity knot."
+        ],
+        "dialogue": null,
+        "puzzle": {
+          "dials": [
+            "Bough",
+            "Lantern",
+            "Ring"
+          ],
+          "attempts": 1
+        },
+        "choicePrompt": null,
+        "feedback": "Movement restored.",
+        "traversal": null,
+        "navigation": null,
+        "paused": false,
+        "completed": false,
+        "completedAtRevision": null,
+        "lastAction": "advance-dialogue"
+      },
+      "camera": {
+        "position": [
+          46,
+          36,
+          -96
+        ],
+        "yaw": -0.2984989331079231,
+        "pitch": -0.14599669372411617,
+        "fov": 78,
+        "near": 0.08,
+        "far": 700
+      },
+      "player": {
+        "position": [
+          46,
+          36,
+          -96
+        ]
+      },
+      "output": {
+        "width": 640,
+        "height": 360,
+        "pixelRatio": 1
+      },
+      "provider": {
+        "version": "0.1.0",
+        "frame": 20401,
+        "initialized": true,
+        "packetRevision": 20401,
+        "completed": {
+          "frame": 20401,
+          "packetRevision": 20401,
+          "presented": true,
+          "width": 640,
+          "height": 360,
+          "renderWidth": 320,
+          "renderHeight": 180,
+          "quality": "native",
+          "renderDurationMs": 56.29999999701977,
+          "presentationIntervalMs": 127.39999999850988,
+          "measuredFps": 7
+        },
+        "lastError": null,
+        "resourceCount": 44,
+        "lastRenderDurationMs": 56.29999999701977,
+        "measuredFps": 7
+      }
+    },
+    {
+      "stage": "answer",
+      "observedAt": "2026-10-22T23:20:41.667Z",
+      "story": {
+        "schema": "atc.greybox.v1",
+        "revision": 229,
+        "mode": "movement",
+        "locationId": "atc:location/hanging-rows",
+        "focusId": "atc:npc/sela-oren",
+        "objective": "Prepare the Rows. Find another way to reach Edda.",
+        "checkpoint": "atc:checkpoint/slice-complete",
+        "flags": {
+          "tutorial_movement_complete": true,
+          "spindle_inspected": true,
+          "sela_warning_heard": true,
+          "crew_code_recorded": true,
+          "rows_need_known": true,
+          "market_board_read": true,
+          "descent_lock_open": true,
+          "station_reached": true,
+          "station_signal_verified": true,
+          "return_dialogue_complete": true
+        },
+        "choice": "answer_signal",
+        "world": {
+          "rows_light_level": 0.5,
+          "deep_beacon_active": true,
+          "returned_to_rows": true
+        },
+        "journal": [
+          "A voice bearing Edda’s private knot came from the sealed descent route.",
+          "Crew code — Split Bough → Lantern → Open Ring.",
+          "The Hanging Rows have one night of stored light. The station cell could power them for a season.",
+          "The fresh signal came from below service depth and carries Edda Vale’s identity knot.",
+          "The Moving Below — Edda warned that the station holds a deep route shut. Prepare the Rows, then find another way to reach her."
+        ],
+        "dialogue": null,
+        "puzzle": {
+          "dials": [
+            "Bough",
+            "Lantern",
+            "Ring"
+          ],
+          "attempts": 1
+        },
+        "choicePrompt": null,
+        "feedback": "Vertical slice complete. Autosave written.",
+        "traversal": null,
+        "navigation": null,
+        "paused": false,
+        "completed": true,
+        "completedAtRevision": 229,
+        "lastAction": "advance-dialogue"
+      },
+      "camera": {
+        "position": [
+          6,
+          71,
+          -18
+        ],
+        "yaw": -1.16562756854849,
+        "pitch": 0.5028432119268015,
+        "fov": 78,
+        "near": 0.08,
+        "far": 700
+      },
+      "player": {
+        "position": [
+          6,
+          71,
+          -18
+        ]
+      },
+      "output": {
+        "width": 640,
+        "height": 360,
+        "pixelRatio": 1
+      },
+      "provider": {
+        "version": "0.1.0",
+        "frame": 27245,
+        "initialized": true,
+        "packetRevision": 27245,
+        "completed": {
+          "frame": 27245,
+          "packetRevision": 27245,
+          "presented": true,
+          "width": 640,
+          "height": 360,
+          "renderWidth": 320,
+          "renderHeight": 180,
+          "quality": "native",
+          "renderDurationMs": 67.10000000149012,
+          "presentationIntervalMs": 176.20000000298023,
+          "measuredFps": 6
+        },
+        "lastError": null,
+        "resourceCount": 44,
+        "lastRenderDurationMs": 67.10000000149012,
+        "measuredFps": 6
+      }
+    },
+    {
+      "stage": "recover",
+      "observedAt": "2026-10-22T23:23:51.014Z",
+      "story": {
+        "schema": "atc.greybox.v1",
+        "revision": 42,
+        "mode": "movement",
+        "locationId": "atc:location/hanging-rows",
+        "focusId": "atc:npc/sela-oren",
+        "objective": "Keep the Rows safe. Decide whether silence can stand.",
+        "checkpoint": "atc:checkpoint/slice-complete",
+        "flags": {
+          "tutorial_movement_complete": true,
+          "spindle_inspected": true,
+          "sela_warning_heard": true,
+          "crew_code_recorded": true,
+          "rows_need_known": true,
+          "market_board_read": true,
+          "descent_lock_open": true,
+          "station_reached": true,
+          "station_signal_verified": true,
+          "return_dialogue_complete": true
+        },
+        "choice": "recover_cell",
+        "world": {
+          "rows_light_level": 1,
+          "deep_beacon_active": false,
+          "returned_to_rows": true
+        },
+        "journal": [
+          "A voice bearing Edda’s private knot came from the sealed descent route.",
+          "Crew code — Split Bough → Lantern → Open Ring.",
+          "The Hanging Rows have one night of stored light. The station cell could power them for a season.",
+          "The fresh signal came from below service depth and carries Edda Vale’s identity knot.",
+          "A Voice Traded for Light — The Rows are safe for a season. Edda’s fresh signal ended before its warning was complete."
+        ],
+        "dialogue": null,
+        "puzzle": {
+          "dials": [
+            "Bough",
+            "Lantern",
+            "Ring"
+          ],
+          "attempts": 1
+        },
+        "choicePrompt": null,
+        "feedback": "Vertical slice complete. Autosave written.",
+        "traversal": null,
+        "navigation": null,
+        "paused": false,
+        "completed": true,
+        "completedAtRevision": 42,
+        "lastAction": "advance-dialogue"
+      },
+      "camera": {
+        "position": [
+          6,
+          71,
+          -18
+        ],
+        "yaw": -0.11458933739393792,
+        "pitch": 0.5028432145181043,
+        "fov": 78,
+        "near": 0.08,
+        "far": 700
+      },
+      "player": {
+        "position": [
+          6,
+          71,
+          -18
+        ]
+      },
+      "output": {
+        "width": 640,
+        "height": 360,
+        "pixelRatio": 1
+      },
+      "provider": {
+        "version": "0.1.0",
+        "frame": 38496,
+        "initialized": true,
+        "packetRevision": 38496,
+        "completed": {
+          "frame": 38496,
+          "packetRevision": 38496,
+          "presented": true,
+          "width": 640,
+          "height": 360,
+          "renderWidth": 320,
+          "renderHeight": 180,
+          "quality": "native",
+          "renderDurationMs": 36.20000000298023,
+          "presentationIntervalMs": 83.40000000596046,
+          "measuredFps": 10
+        },
+        "lastError": null,
+        "resourceCount": 44,
+        "lastRenderDurationMs": 36.20000000298023,
+        "measuredFps": 10
+      }
+    },
+    {
+      "stage": "controls",
+      "observedAt": "2026-10-22T23:24:08.723Z",
+      "story": {
+        "schema": "atc.greybox.v1",
+        "revision": 48,
+        "mode": "movement",
+        "locationId": "atc:location/hanging-rows",
+        "focusId": null,
+        "objective": "Keep the Rows safe. Decide whether silence can stand.",
+        "checkpoint": "atc:checkpoint/slice-complete",
+        "flags": {
+          "tutorial_movement_complete": true,
+          "spindle_inspected": true,
+          "sela_warning_heard": true,
+          "crew_code_recorded": true,
+          "rows_need_known": true,
+          "market_board_read": true,
+          "descent_lock_open": true,
+          "station_reached": true,
+          "station_signal_verified": true,
+          "return_dialogue_complete": true
+        },
+        "choice": "recover_cell",
+        "world": {
+          "rows_light_level": 1,
+          "deep_beacon_active": false,
+          "returned_to_rows": true
+        },
+        "journal": [
+          "A voice bearing Edda’s private knot came from the sealed descent route.",
+          "Crew code — Split Bough → Lantern → Open Ring.",
+          "The Hanging Rows have one night of stored light. The station cell could power them for a season.",
+          "The fresh signal came from below service depth and carries Edda Vale’s identity knot.",
+          "A Voice Traded for Light — The Rows are safe for a season. Edda’s fresh signal ended before its warning was complete."
+        ],
+        "dialogue": null,
+        "puzzle": {
+          "dials": [
+            "Bough",
+            "Lantern",
+            "Ring"
+          ],
+          "attempts": 1
+        },
+        "choicePrompt": null,
+        "feedback": "",
+        "traversal": null,
+        "navigation": null,
+        "paused": false,
+        "completed": true,
+        "completedAtRevision": 42,
+        "lastAction": "focus"
+      },
+      "camera": {
+        "position": [
+          6,
+          71,
+          -18
+        ],
+        "yaw": 0.39741066260606206,
+        "pitch": 0.5028432145181043,
+        "fov": 97.24137931034483,
+        "near": 0.08,
+        "far": 700
+      },
+      "player": {
+        "position": [
+          6,
+          71,
+          -18
+        ]
+      },
+      "output": {
+        "width": 640,
+        "height": 360,
+        "pixelRatio": 1
+      },
+      "provider": {
+        "version": "0.1.0",
+        "frame": 39558,
+        "initialized": true,
+        "packetRevision": 39558,
+        "completed": {
+          "frame": 39558,
+          "packetRevision": 39558,
+          "presented": true,
+          "width": 640,
+          "height": 360,
+          "renderWidth": 320,
+          "renderHeight": 180,
+          "quality": "native",
+          "renderDurationMs": 38.70000000298023,
+          "presentationIntervalMs": 96.5,
+          "measuredFps": 10
+        },
+        "lastError": null,
+        "resourceCount": 44,
+        "lastRenderDurationMs": 38.70000000298023,
+        "measuredFps": 10
+      }
+    },
+    {
+      "stage": "optional",
+      "observedAt": "2026-10-22T23:28:28.094Z",
+      "story": {
+        "schema": "atc.greybox.v1",
+        "revision": 3,
+        "mode": "movement",
+        "locationId": "atc:location/hanging-rows",
+        "focusId": null,
+        "objective": "Keep the Rows safe. Decide whether silence can stand.",
+        "checkpoint": "atc:checkpoint/hanging-rows",
+        "flags": {
+          "tutorial_movement_complete": true,
+          "spindle_inspected": true,
+          "sela_warning_heard": true,
+          "crew_code_recorded": true,
+          "rows_need_known": true,
+          "market_board_read": true,
+          "descent_lock_open": true,
+          "station_reached": true,
+          "station_signal_verified": true,
+          "return_dialogue_complete": true
+        },
+        "choice": "recover_cell",
+        "world": {
+          "rows_light_level": 1,
+          "deep_beacon_active": false,
+          "returned_to_rows": true
+        },
+        "journal": [
+          "A voice bearing Edda’s private knot came from the sealed descent route.",
+          "Crew code — Split Bough → Lantern → Open Ring.",
+          "The Hanging Rows have one night of stored light. The station cell could power them for a season.",
+          "The fresh signal came from below service depth and carries Edda Vale’s identity knot.",
+          "A Voice Traded for Light — The Rows are safe for a season. Edda’s fresh signal ended before its warning was complete."
+        ],
+        "dialogue": null,
+        "puzzle": {
+          "dials": [
+            "Bough",
+            "Lantern",
+            "Ring"
+          ],
+          "attempts": 1
+        },
+        "choicePrompt": null,
+        "feedback": "",
+        "traversal": null,
+        "navigation": null,
+        "paused": false,
+        "completed": true,
+        "completedAtRevision": 1,
+        "lastAction": "location-entered"
+      },
+      "camera": {
+        "position": [
+          6,
+          71,
+          -18
+        ],
+        "yaw": -0.9471964984377352,
+        "pitch": -0.4804934509796413,
+        "fov": 97.24137931034483,
+        "near": 0.08,
+        "far": 700
+      },
+      "player": {
+        "position": [
+          6,
+          71,
+          -18
+        ]
+      },
+      "output": {
+        "width": 640,
+        "height": 360,
+        "pixelRatio": 1
+      },
+      "provider": {
+        "version": "0.1.0",
+        "frame": 54838,
+        "initialized": true,
+        "packetRevision": 54838,
+        "completed": {
+          "frame": 54838,
+          "packetRevision": 54838,
+          "presented": true,
+          "width": 640,
+          "height": 360,
+          "renderWidth": 320,
+          "renderHeight": 180,
+          "quality": "native",
+          "renderDurationMs": 53.19999999552965,
+          "presentationIntervalMs": 140.89999999850988,
+          "measuredFps": 4
+        },
+        "lastError": null,
+        "resourceCount": 44,
+        "lastRenderDurationMs": 53.19999999552965,
+        "measuredFps": 4
+      }
+    },
+    {
+      "stage": "host",
+      "observedAt": "2026-10-22T23:30:29.251Z",
+      "story": {
+        "schema": "atc.greybox.v1",
+        "revision": 3,
+        "mode": "movement",
+        "locationId": "atc:location/hanging-rows",
+        "focusId": null,
+        "objective": "Keep the Rows safe. Decide whether silence can stand.",
+        "checkpoint": "atc:checkpoint/hanging-rows",
+        "flags": {
+          "tutorial_movement_complete": true,
+          "spindle_inspected": true,
+          "sela_warning_heard": true,
+          "crew_code_recorded": true,
+          "rows_need_known": true,
+          "market_board_read": true,
+          "descent_lock_open": true,
+          "station_reached": true,
+          "station_signal_verified": true,
+          "return_dialogue_complete": true
+        },
+        "choice": "recover_cell",
+        "world": {
+          "rows_light_level": 1,
+          "deep_beacon_active": false,
+          "returned_to_rows": true
+        },
+        "journal": [
+          "A voice bearing Edda’s private knot came from the sealed descent route.",
+          "Crew code — Split Bough → Lantern → Open Ring.",
+          "The Hanging Rows have one night of stored light. The station cell could power them for a season.",
+          "The fresh signal came from below service depth and carries Edda Vale’s identity knot.",
+          "A Voice Traded for Light — The Rows are safe for a season. Edda’s fresh signal ended before its warning was complete."
+        ],
+        "dialogue": null,
+        "puzzle": {
+          "dials": [
+            "Bough",
+            "Lantern",
+            "Ring"
+          ],
+          "attempts": 1
+        },
+        "choicePrompt": null,
+        "feedback": "",
+        "traversal": null,
+        "navigation": null,
+        "paused": false,
+        "completed": true,
+        "completedAtRevision": 1,
+        "lastAction": "location-entered"
+      },
+      "camera": {
+        "position": [
+          6,
+          71,
+          -18
+        ],
+        "yaw": -0.18,
+        "pitch": -0.045,
+        "fov": 97.24137931034483,
+        "near": 0.08,
+        "far": 700
+      },
+      "player": {
+        "position": [
+          6,
+          71,
+          -18
+        ]
+      },
+      "output": {
+        "width": 640,
+        "height": 360,
+        "pixelRatio": 1
+      },
+      "provider": {
+        "version": "0.1.0",
+        "frame": 95,
+        "initialized": true,
+        "packetRevision": 95,
+        "completed": {
+          "frame": 95,
+          "packetRevision": 95,
+          "presented": true,
+          "width": 640,
+          "height": 360,
+          "renderWidth": 320,
+          "renderHeight": 180,
+          "quality": "native",
+          "renderDurationMs": 45.20000000298023,
+          "presentationIntervalMs": 72.60000000149012,
+          "measuredFps": 13
+        },
+        "lastError": null,
+        "resourceCount": 44,
+        "lastRenderDurationMs": 45.20000000298023,
+        "measuredFps": 13
+      }
+    }
+  ],
+  "errors": [],
+  "stationSave": {
+    "schema": "atc.greybox.v1",
+    "checkpoint": "atc:checkpoint/descent-station",
+    "player": {
+      "position": [
+        46,
+        36,
+        -96
+      ],
+      "fov": 78
+    },
+    "story": {
+      "tutorial_movement_complete": true,
+      "spindle_inspected": true,
+      "sela_warning_heard": true,
+      "crew_code_recorded": true,
+      "rows_need_known": true,
+      "market_board_read": true,
+      "descent_lock_open": true,
+      "station_reached": true,
+      "station_signal_verified": true,
+      "return_dialogue_complete": false
+    },
+    "choice": null,
+    "world": {
+      "rows_light_level": 0.25,
+      "deep_beacon_active": false,
+      "returned_to_rows": false
+    },
+    "objective": "Choose: answer the signal or recover the sun-cell",
+    "journal": [
+      "A voice bearing Edda’s private knot came from the sealed descent route.",
+      "Crew code — Split Bough → Lantern → Open Ring.",
+      "The Hanging Rows have one night of stored light. The station cell could power them for a season.",
+      "The fresh signal came from below service depth and carries Edda Vale’s identity knot."
+    ],
+    "puzzle": {
+      "dials": [
+        "Bough",
+        "Lantern",
+        "Ring"
+      ],
+      "attempts": 1
+    },
+    "completed": false
+  },
+  "optionalRoutes": [
+    {
+      "routeId": "atc:route/high-glide",
+      "player": {
+        "position": [
+          -8,
+          72,
+          -14
+        ]
+      },
+      "location": "atc:location/hanging-rows"
+    },
+    {
+      "routeId": "atc:route/rows-market-glide",
+      "player": {
+        "position": [
+          14,
+          61,
+          -52
+        ]
+      },
+      "location": "atc:location/low-market"
+    }
+  ],
+  "hostRecovery": {
+    "navigationRoundTrip": true,
+    "visibleBootFailure": "Across the Canopy could not start NexusGL. Reload to retry. Failed to fetch",
+    "recovered": true,
+    "successfulReloadCycles": 5,
+    "resourceCount": 44,
+    "boundary": "Reload/readiness and save restoration; not a whole-process memory-leak proof."
+  },
+  "observedAt": "2026-10-22T23:31:45.072Z",
+  "browser": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/155.0.0.0 Safari/537.36",
+  "url": "http://127.0.0.1:4188/",
+  "world": [
+    320,
+    180
+  ],
+  "presentation": [
+    640,
+    360
+  ],
+  "boundary": "Real browser input for all seven routes, both endings, controls and optional routes. Public game save/load commands restore observed checkpoints; host recovery uses controlled WASM request failure. This is greybox migration proof, not final art or production performance qualification."
+}

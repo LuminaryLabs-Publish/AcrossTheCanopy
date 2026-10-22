@@ -16,6 +16,12 @@ body,
   overflow: hidden;
 }
 
+#app {
+  display: grid;
+  place-items: center;
+  background: #8eaa9d;
+}
+
 body {
   background: #8eaa9d;
   overscroll-behavior: none;
@@ -24,14 +30,23 @@ body {
 
 #world {
   display: block;
-  width: 100%;
-  height: 100%;
+  width: min(100vw, 177.7778vh);
+  height: min(100vh, 56.25vw);
+  aspect-ratio: 16 / 9;
   outline: none;
   cursor: crosshair;
   touch-action: none;
 }
 
 #world:active { cursor: grabbing; }
+
+.boot-error {
+  max-width: 42rem;
+  padding: 1rem;
+  color: #f4f1dd;
+  background: #472927;
+  border: 1px solid #e5484d;
+}
 
 html[data-boot='failed'] #world {
   background: linear-gradient(160deg, #472927, #101a17);

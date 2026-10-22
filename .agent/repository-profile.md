@@ -18,7 +18,7 @@ The editable application is under `source/`. `source/package.json` defines `dev`
 
 Current source defines:
 - save schema `atc.greybox.v1`
-- Nexus commit `8a60167fc945109408851c586a9355b1147438d5`
+- Nexus commit `5a4da3eba6ac95d2d8c74a008bb12caff0d6b0e8`
 - forest seed `41731`
 - default tree count `2300`
 - five authored locations
@@ -50,7 +50,7 @@ The current completion path returns to Hanging Rows, completes Sela's response, 
 ## Nexus composition
 
 `source/src/game/nexus-runtime.js` imports and composes NexusEngine runtime, persistence, host, spatial, world/generation/navigation, object, interaction/input/affordance, simulation/motion/locomotion, presentation, and render contracts, then installs the product-owned AcrossTheCanopy story Kit.
-The runtime test currently asserts the pinned commit, 32 installed Kit IDs, 2,300 trees, 31 placements, valid render-provider contract, generated navmesh, story dispatch, FOV behavior, save/reset/load.
+The runtime test asserts the pinned commit, 46 installed Kit IDs including Graphics Language, 2,300 trees, 31 placements, valid render-provider contract, generated navmesh, story dispatch, FOV behavior, save/reset/load.
 
 ## Rendering
 
@@ -62,7 +62,7 @@ The storage adapter supports browser storage and an in-memory test mode. Storage
 
 ## Capture
 
-`scripts/gameplay-video-adapter.mjs` uses the actual Nexus runtime, game session, story Kit, presentation projection and Three.js provider. `CAPTURE_BEATS` contains ten exact 30-second beats from 0 through 300 seconds.
+`scripts/gameplay-video-adapter.mjs` uses the actual Nexus runtime, game session, story Kit, presentation projection and NexusGL WASM provider. `CAPTURE_BEATS` contains ten exact 30-second beats from 0 through 300 seconds.
 The capture review explicitly identifies browser DOM input as outside the framebuffer capture and intentional stubs as silent audio plus colored greybox art.
 
 ## Validation commands
@@ -74,4 +74,4 @@ npm run build
 npm run validate
 ```
 
-`validate` = test suite + build. Pages CI independently runs `npm test` then a Pages-base build.
+`validate` = 29 checks plus build. `verify:wasm` runs the actual replay/budget-recovery proof; `snapshot` validates and refreshes root output. Repository Actions are disabled; no Pages CI or deployment should run for this migration.

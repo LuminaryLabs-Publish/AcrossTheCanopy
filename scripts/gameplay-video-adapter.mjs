@@ -1,16 +1,17 @@
 import { createAcrossTheCanopyRuntime } from '../source/src/game/nexus-runtime.js';
 import { createGameSession } from '../source/src/game/game-session.js';
 import { createCaptureDirector } from '../source/src/game/capture-director.js';
-import { createThreeRenderProvider } from '../source/src/providers/three-provider.js';
+import { createNexusGLProvider } from '../source/src/providers/nexusgl-provider.js';
 
-export async function setup({ THREE, options = {} }) {
-  const width = Math.max(1, Number(options.width ?? 854));
-  const height = Math.max(1, Number(options.height ?? 480));
+export async function setup({ options = {} } = {}) {
+  const width = Math.max(1, Math.min(640, Number(options.width ?? 640)));
+  const height = Math.max(1, Math.min(360, Number(options.height ?? Math.round(width * 9 / 16))));
   const runtime = createAcrossTheCanopyRuntime({
     treeCount: 2300,
-    surface: { surfaceId: 'atc:surface/capture', width, height, pixelRatio: 1 }
+    surface: { surfaceId: 'atc:surface/capture', width, height, pixelRatio: 1 },
+    graphicsLanguage: { backend: 'wasm', memoryBudgetBytes: 192 * 1024 ** 2, maxResourceBytes: 64 * 1024 ** 2, maxFragments: 262144 }
   });
-  const provider = createThreeRenderProvider({ THREE, width, height, pixelRatio: 1 });
+  const provider = createNexusGLProvider({ graphics: runtime.graphicsLanguage, width, height });
   let session = null;
   const director = createCaptureDirector({
     dispatch: (action) => session.dispatch(action),
@@ -23,10 +24,10 @@ export async function setup({ THREE, options = {} }) {
   await session.initialize({ width, height, pixelRatio: 1 });
 
   return {
-    scene: provider.getScene(),
-    camera: provider.getCamera(),
+    frame: () => provider.getCompletedFrame(),
     async step(deltaSeconds) {
       session.step(deltaSeconds);
+      await provider.waitIdle();
     },
     async snapshot() {
       const snapshot = session.getSnapshot();
@@ -47,8 +48,9 @@ export async function setup({ THREE, options = {} }) {
       operationId,
       type: 'semantic-gameplay-action'
     })),
+    dispose: () => provider.dispose(),
     review: {
-      source: 'Actual AcrossTheCanopy Nexus runtime, story Kit, authored content, presentation projection, and Three.js provider.',
+      source: 'Actual AcrossTheCanopy Nexus runtime, story Kit, authored content, presentation projection, and NexusGL WASM provider.',
       action: 'The complete five-minute The Upward Signal greybox route in ten exact 30-second beats.',
       boundary: 'Deterministic scene and application logic with real interaction actions; browser DOM input is intentionally outside this framebuffer capture.',
       intentionalStubs: ['Silent audio track', 'Colored primitive greybox art in place of final assets']

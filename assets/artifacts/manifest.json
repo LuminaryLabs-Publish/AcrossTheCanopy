@@ -1,0 +1,85 @@
+{
+  "schema": "nexusengine.nexusgl-artifacts/1",
+  "abi": 1,
+  "emscripten": "emcc (Emscripten gcc/clang-like replacement + linker emulating GNU ld) 6.0.12 (5488e0871d46d19a3209988190fa6a653126256f)",
+  "nativeABI": "N-API 8",
+  "compilerFlags": [
+    "C++17",
+    "O2",
+    "Wall",
+    "Wextra",
+    "Wpedantic"
+  ],
+  "inputs": [
+    {
+      "path": "source/adapters/c_api.cpp",
+      "sha256": "76df9d31019a5f12cd8dc90bc41da0cc471515d448ea38bda6b2f328c816d4a9"
+    },
+    {
+      "path": "source/src/math.cpp",
+      "sha256": "f73333f0b098455a043d603cc1fe6057933453af12a273539c14224c2e33760c"
+    },
+    {
+      "path": "source/src/renderer.cpp",
+      "sha256": "8adb790d88bd9fbb36909a4f310a73c3a00b3e00c73c468b36867d99cd693a98"
+    },
+    {
+      "path": "source/src/render3d.cpp",
+      "sha256": "381a0c2daf4e5a6ec9da42628d2c719fa526b2f4ae68df57ddf4c6dd2d983826"
+    },
+    {
+      "path": "source/src/lighting.cpp",
+      "sha256": "d93b9abb06fb4d27a2fa8fb1562686d144f01759aed985e6d4343087378e2371"
+    },
+    {
+      "path": "source/src/gaussian.cpp",
+      "sha256": "b824d29cd47ddb34adb49003953a777f466b3bc3bba7fb36ce76d06e57c071fc"
+    },
+    {
+      "path": "source/src/domains/scene/scene_dsk.cpp",
+      "sha256": "9305cefab646a00dbfcfb657f24d4cfdc26424e3d9fc30b179834f574298371d"
+    },
+    {
+      "path": "source/src/domains/render/render_dsk.cpp",
+      "sha256": "a7e0e657e4434702416039219dfa2b29649267e1063ac39b39fe8fcd3f5c7117"
+    },
+    {
+      "path": "source/src/domains/render/kits/cpu_execution.cpp",
+      "sha256": "1843a753620df7f90d3491885d68f50ca6cca124163f854cd43f894b5756c3f2"
+    },
+    {
+      "path": "bridge.cpp",
+      "sha256": "c1af893a8f9dab29bf91fe218dff90610a396a5a75bbdc6d5fe2956835916d08"
+    },
+    {
+      "path": "window.mm",
+      "sha256": "9f966d4c86fc1be876a848dea07fc093db77830704c26859879d3c0f64c12f2a"
+    },
+    {
+      "path": "source/provenance.json",
+      "sha256": "8bc42f2748c82a940b1a863bf352f97379e077157487023a56a573cd229c75f2"
+    }
+  ],
+  "files": [
+    {
+      "path": "nexusgl-darwin-arm64.node",
+      "bytes": 184504,
+      "sha256": "1dfbae2dddf47dff6c8606e96add298ca2564168b37d3298a4c15b534c42162b"
+    },
+    {
+      "path": "nexusgl-window-darwin-arm64.node",
+      "bytes": 57536,
+      "sha256": "08fa3d6b6d25f18383658cbcd13020a950c353ac2d68abc25c00c0f81f9bf714"
+    },
+    {
+      "path": "nexusgl.mjs",
+      "bytes": 16557,
+      "sha256": "116777c07199152d477e8bf321663d50d7bd3fa309cef32b4d25148741f716d8"
+    },
+    {
+      "path": "nexusgl.wasm",
+      "bytes": 147783,
+      "sha256": "33913f63bf9f7f4a0fc2654f5985a344968ee6271fdf390a4b1e0ca274ef3c8f"
+    }
+  ]
+}

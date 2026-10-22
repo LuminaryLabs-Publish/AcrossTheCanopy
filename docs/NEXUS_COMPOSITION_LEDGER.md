@@ -6,14 +6,16 @@ This document originated as the **pre-implementation build gate** for The Upward
 
 The detailed responsibility table below is preserved because it records the intended ownership split and original proof requirements. Its per-row `Partial — proof pending` values are **historical pre-implementation status labels**, not the current live validation authority. Do not mechanically reinterpret them as current failures or upgrade them to Pass without a dedicated row-by-row certification.
 
+The provider, camera, and picking references to Three.js in the table and causal examples below describe the historical implementation. The active browser renderer is now the NexusEngine Graphics Language Kit backed by NexusGL WASM. Current mapping, performance and visual limitations are recorded in [NexusGL rendering](NEXUSGL_RENDERING.md).
+
 Current implementation evidence lives in `source/src/`, `source/test/`, `scripts/gameplay-video-adapter.mjs`, `README.md`, and `.agent/`. This documentation pass does not re-certify every ledger row.
 
 ## Binding
 
 - Canonical repository: `https://github.com/LuminaryLabs-Dev/NexusEngine`
-- Resolved commit: `8a60167fc945109408851c586a9355b1147438d5`
+- Historical resolved commit: `8a60167fc945109408851c586a9355b1147438d5`
 - Package: `nexusengine@0.0.4`
-- Dependency: `github:LuminaryLabs-Dev/NexusEngine#8a60167fc945109408851c586a9355b1147438d5`
+- Historical dependency: `github:LuminaryLabs-Dev/NexusEngine#8a60167fc945109408851c586a9355b1147438d5`
 - Operating mode: build gate / ownership ledger
 - Historical pre-implementation status: `partial-ready` before runtime implementation
 
