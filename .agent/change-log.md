@@ -1,5 +1,13 @@
 # Maintainer change log
 
+## 2026-10-22 — Migration delivered to main
+
+- Source/build/evidence commit: `a502c0f7f9105483de6f9459da5b40ead3b7b717`. Normal push to the actual default `main` succeeded; remote ref and all 83 tracked blob hashes matched.
+- Actions remained disabled (`enabled:false`), and Pages workflow 347958793 remained `disabled_manually`. Latest run stayed 36558799726 at baseline 669517d; latest deployment stayed 6732973812 at that baseline. No new workflow or deployment ran.
+- Functional acceptance and limitations are indexed in `.agent/evidence/README.md`; delivery observations are in `delivery.json`. The working tree was clean after the source push.
+- This follow-up updates continuity only. Verified application/source, runtime artifacts and validation digests are unchanged.
+- Migration scope is complete. Production performance (recorded browser 4–13 FPS), atmosphere/shadow differences and other-host qualification remain explicit follow-up work, not completed claims.
+
 ## 2026-10-22 — Migration verified; delivery pending
 
 - Final local gates: clean install, zero npm audit findings, 29 checks, production build and generated root snapshot. Build rejects Three.js modules; package and lock contain no Three.js dependency. Only WASM, glue and integrity manifest ship as runtime artifacts.

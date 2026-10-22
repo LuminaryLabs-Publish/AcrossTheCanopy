@@ -54,11 +54,12 @@ The current content defines five authored locations and seven routes. Optional g
 
 ## Active work
 
-- The NexusGL migration is verified locally and ready for a `main` push. See `.agent/goal.md` and the evidence index.
+- The functional NexusGL migration is delivered to `main` at `a502c0f7f9105483de6f9459da5b40ead3b7b717`. See `.agent/goal.md` and the evidence index.
 - Production: NexusGL WASM world 320×180; bitmap HUD and presentation 640×360. Three.js is absent from the package and runtime; the root snapshot is generated from `source/dist`.
 - Passed: 29 checks/build, clean install, zero npm audit findings, full browser adventure and both endings, all seven routes, save restoration, controls/resize, failed boot recovery, navigation and repeated reloads, real 300-second WASM replay and allocation-budget recovery.
 - Save/load uses the existing public application command API. Restore clears stale input queues, local navigation/focus and derived Sela placement. This fixes the old actions replaying after load.
 - The app mounts no Sequence Nodes; its unused automatic Sequence Node frame driver is disabled. Runtime scheduling and the Story Kit remain active.
 - Actual browser presentation in this recorded host run was roughly 4–13 FPS. Raw rendering times must not be labeled browser FPS. Fog, glow, shadows, final art/audio, production performance and other hosts remain qualification work.
 - Actions are disabled at repository level and the Pages workflow is disabled manually. Recheck before and after pushing. Do not enable a workflow or deploy.
-- Next: review/stage migration files, fetch remote `main`, commit/push without force, verify content and workflow state, and record the exact source revision in the change log.
+- Delivery readback matched all 83 tracked file hashes. No new workflow or deployment ran. See `evidence/delivery.json`.
+- Next work, if authorized: browser performance and the documented visual gaps. Production qualification remains open.

@@ -23,7 +23,7 @@ This repository documents and implements the greybox vertical slice. Final asset
 
 ## Active milestone — NexusGL renderer migration
 
-Status: verified locally; ready for delivery to `main`.
+Status: functional greybox migration delivered to `main`; production qualification remains open.
 
 The existing adventure uses NexusGL WASM through NexusEngine's Graphics Language Kit at `5a4da3eba6ac95d2d8c74a008bb12caff0d6b0e8`. Story rules, stable IDs, five locations, seven routes, saves and no-ground world remain game-owned. Changes are confined to this repository and its Actions settings.
 
@@ -33,4 +33,4 @@ Evidence: `.agent/evidence/README.md`, `browser-migration-proof.json`, `wasm-mig
 
 Limits remain explicit: the world renders at 320×180 and HUD/presentation at 640×360. Actual browser presentation measured roughly 4–13 FPS during the recorded run. Fog, additive glow and shadow casting are not reproduced; final art, production performance, mobile/Quest, native hosting and full accessibility qualification are not completed by this migration.
 
-GitHub Actions are disabled at repository level, and `Deploy GitHub Pages` remains manually disabled. No deployment is requested. Next: commit the reviewed migration to actual default `main`, push, verify remote content and no new workflow runs, then record the delivered revision.
+GitHub Actions are disabled at repository level, and `Deploy GitHub Pages` remains manually disabled. Implementation commit `a502c0f7f9105483de6f9459da5b40ead3b7b717` is pushed and verified against all 83 remote tracked blob hashes. No new workflow or deployment ran. See `.agent/evidence/delivery.json`. Next work, if authorized: improve measured browser performance and remaining visual differences; do not treat this migration as production qualification.

@@ -1,0 +1,19 @@
+{
+  "schema": "atc.migration-delivery/1",
+  "observedAt": "2026-10-22T23:47:25.353267+00:00",
+  "repository": "LuminaryLabs-Publish/AcrossTheCanopy",
+  "branch": "main",
+  "implementationCommit": "a502c0f7f9105483de6f9459da5b40ead3b7b717",
+  "remoteTrackedBlobCount": 83,
+  "remoteBlobHashesMatch": true,
+  "actionsEnabled": false,
+  "pagesWorkflow": {
+    "id": 347958793,
+    "state": "disabled_manually"
+  },
+  "latestWorkflowRun": 36558799726,
+  "latestDeployment": 6732973812,
+  "latestRunAndDeploymentSha": "669517d2a86fbd4dabbea13bfe7aee8561b6cc17",
+  "newWorkflowOrDeployment": false,
+  "scope": "Functional greybox migration; production limitations remain documented."
+}
