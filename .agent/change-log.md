@@ -6,7 +6,7 @@
 - Saved and reopened the editable Project at generation 2. Kit validation reports 0 errors and 0 warnings. The final six-view preview is `source/assets/world/authoring/giant-tree/evidence/winding-card-branches-final-review/inspection-Z4jFnw/pose-0.png`; visual review confirms the requested silhouette, branch spread and card foliage, with no console errors.
 - Prepared and re-verified GLB: `source/assets/world/authoring/giant-tree/prepared/giant-tree/asset-74a744c4652f5b3ed119bab6da0a81fc23bf3e185f69eb43f9890e84955499e5/scene.glb`, 3,311,308 bytes, SHA-256 `1fbb768459bd557e5a467174059c45628b2e4b1ecb49b5100679d7e435033907`. Native validation reports 0 errors, 145 normal-reevaluation warnings, 145 meshes and 20,456 triangles; Asset Registry status is `ready` for the same hash.
 - Updated `.agent/goal.md`, `.agent/memory.md` and `.agent/evidence/README.md`. The GLB remains an authored asset; game-scene integration, traversal colliders and runtime proof are not claimed. Generated `.nexus-engine-kit` checkpoint state is kept local and ignored.
-- Push checkpoint: pending.
+- Pushed to the repository's actual `main` as `7d077b7e990d7fd6e4f88b03653bde241ed3e7e7`; fetched remote HEAD matches. GitHub Actions were disabled (`enabled:false`) before the push, and the latest recorded workflow run stayed at its prior baseline.
 
 ## 2026-10-23 — Follow latest NexusEngine main
 
