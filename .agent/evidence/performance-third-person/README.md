@@ -6,8 +6,6 @@ AcrossTheCanopy only. NexusEngine remains pinned to `5a4da3eba6ac95d2d8c74a008bb
 
 The selected browser output is **2560×1440**, with **320×180 NexusGL world pixels upscaled** and a bitmap HUD rendered at output resolution. This is not native 1440p geometry. Canvas stages/presents completed pixels; NexusGL still draws the world.
 
-Timing checkpoint note: the current comparison and motion JSON predate the final close-camera/text-fit polish. Final timing readback is a follow-up evidence checkpoint; do not infer exact final-build frame time from those earlier samples.
-
 ## Current proof
 
 - `validation.json`: final source/build digests, test and build gate, root/dist comparison and dependency boundary.
@@ -35,3 +33,17 @@ Reviewed for readable routes and HUD, visible avatar/stride, distinct primitive 
 ## Reproduce
 
 See `docs/PERFORMANCE_AND_THIRD_PERSON.md`. Use the existing `source` test/build commands, caller-provided Playwright and installed Chrome. Run timing workloads sequentially. No workflow or deployment is required or authorized.
+
+## Final observed timings
+
+| Workload | Presented FPS | p95 interval ms | Maximum ms |
+|---|---:|---:|---:|
+| baseline-first-person | 10.9 | 110.8 | 175.5 |
+| optimized-first-person | 25.3 | 97.4 | 200.9 |
+| optimized-third-person | 26.6 | 88.7 | 196.5 |
+| 60-second stationary route-check follow-up | 20.1 | 111.0 | 809.0 |
+| 60-second movement and orbit | 11.0 | 249.7 | 1254.1 |
+
+The 30 FPS target is not consistent across these workloads. The implementation fixes are delivered; **full smoothness remains open**. The final-build JS entry is `assets/index-188Q1F72.js`. Both the comparison and motion reports identify it. Canvas/capture comparison had zero differing channels. Sampled movement state ended at 2723 bytes with no per-sample receipts; WASM heap stayed at 24,248,320 bytes at the recorded endpoints. These do not account for every browser allocation or prove unlimited-session leak freedom.
+
+`host-load.json` records uncontrolled host load after the motion run. It is not proof of causation. The earlier comparison/motion before close-camera and text-fit polish are retained by the implementation commit; `*-640p-output.json` and `motion-before-close-camera-hide.json` are explicitly historical.

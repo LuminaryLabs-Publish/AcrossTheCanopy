@@ -22,7 +22,7 @@ export async function samplePresentation(page, milliseconds = 60000) {
       return {count:values.length,p50:at(.5),p95:at(.95),p99:at(.99),max:sorted.at(-1),mean:values.reduce((a,b)=>a+b,0)/values.length};
     };
     const state=__ACROSS_THE_CANOPY__.getPerformanceSnapshot();
-    return {observedAt:new Date().toISOString(),jsHeap:{initialBytes:initialJsHeapBytes,finalBytes:performance.memory?.usedJSHeapSize??null,sampledPeakBytes:sampledPeakJsHeapBytes,boundary:"Chrome JavaScript heap observation; excludes browser/GPU allocation and is not a process memory limit."},durationMs:performance.now()-started,presentedFrames:intervals.length,presentedFps:intervals.length*1000/(performance.now()-started),presentationMs:distribution(intervals),renderMs:distribution(render),mainRafMs:distribution(main),rasterMs:distribution(raster),geometryMs:distribution(geometry),state};
+    return {observedAt:new Date().toISOString(),visibilityState:document.visibilityState,jsHeap:{initialBytes:initialJsHeapBytes,finalBytes:performance.memory?.usedJSHeapSize??null,sampledPeakBytes:sampledPeakJsHeapBytes,boundary:"Chrome JavaScript heap observation; excludes browser/GPU allocation and is not a process memory limit."},durationMs:performance.now()-started,presentedFrames:intervals.length,presentedFps:intervals.length*1000/(performance.now()-started),presentationMs:distribution(intervals),renderMs:distribution(render),mainRafMs:distribution(main),rasterMs:distribution(raster),geometryMs:distribution(geometry),state};
   }, milliseconds);
 }
 

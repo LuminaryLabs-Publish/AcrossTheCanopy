@@ -1,0 +1,34 @@
+{
+  "schema": "atc.performance-delivery/1",
+  "observedAt": "2026-10-23T07:51:58.593382+00:00",
+  "repository": "LuminaryLabs-Publish/AcrossTheCanopy",
+  "branch": "main",
+  "implementationCommit": "c7be124d1364f83ca1351a212aef0feb7f2fa567",
+  "remoteCommit": "c7be124d1364f83ca1351a212aef0feb7f2fa567",
+  "allTrackedBlobsMatched": true,
+  "matchedBlobCount": 138,
+  "treeManifestSha256": "edb155d6e823d9ee157e5c0f8da42dfe803c024844844595329911a5981018c3",
+  "actionsEnabled": false,
+  "workflowStates": [
+    {
+      "id": 347958793,
+      "name": "Deploy GitHub Pages",
+      "state": "disabled_manually"
+    }
+  ],
+  "activeRuns": {
+    "queued": 0,
+    "in_progress": 0
+  },
+  "latestRun": {
+    "id": 36558799726,
+    "head_sha": "669517d2a86fbd4dabbea13bfe7aee8561b6cc17",
+    "status": "completed"
+  },
+  "latestDeployment": {
+    "id": 6732973812,
+    "sha": "669517d2a86fbd4dabbea13bfe7aee8561b6cc17"
+  },
+  "noNewWorkflowOrDeployment": true,
+  "boundary": "Implementation commit verified. This delivery record is published in a documentation/evidence follow-up; it does not assert its own future commit hash."
+}

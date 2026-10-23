@@ -8,234 +8,237 @@
     "maxDifference": 0,
     "differentChannels": 0
   },
-  "observedAt": "2026-10-23T07:40:09.723Z",
+  "buildScripts": [
+    "http://127.0.0.1:4188/assets/index-188Q1F72.js"
+  ],
+  "observedAt": "2026-10-23T07:51:59.586Z",
   "workload": "Station save restored through public API; real alternating W/S and drag-orbit input. Cold turns include first-time forest resource admission.",
   "cold": {
-    "observedAt": "2026-10-23T07:39:08.187Z",
+    "observedAt": "2026-10-23T07:50:54.465Z",
     "jsHeap": {
-      "initialBytes": 178856200,
-      "finalBytes": 66509867,
-      "sampledPeakBytes": 279099384,
+      "initialBytes": 148776460,
+      "finalBytes": 130425435,
+      "sampledPeakBytes": 205235720,
       "boundary": "Chrome JavaScript heap observation; excludes browser/GPU allocation and is not a process memory limit."
     },
-    "durationMs": 12015.100000000559,
-    "presentedFrames": 455,
-    "presentedFps": 37.86901482301261,
+    "durationMs": 12021.599999999627,
+    "presentedFrames": 105,
+    "presentedFps": 8.734278299061959,
     "presentationMs": {
-      "count": 455,
-      "p50": 19.799999999813735,
-      "p95": 56.10000000055879,
-      "p99": 90.79999999981374,
-      "max": 278,
-      "mean": 26.416263736264554
+      "count": 105,
+      "p50": 76.09999999962747,
+      "p95": 345.5,
+      "p99": 375.40000000037253,
+      "max": 496.70000000018626,
+      "mean": 114.31333333333689
     },
     "renderMs": {
-      "count": 455,
-      "p50": 18.800000000745058,
-      "p95": 53.5,
-      "p99": 82.1000000005588,
-      "max": 277.79999999981374,
-      "mean": 23.737362637344216
+      "count": 105,
+      "p50": 75.29999999981374,
+      "p95": 253.90000000037253,
+      "p99": 350.5,
+      "max": 496.09999999962747,
+      "mean": 107.58285714279683
     },
     "mainRafMs": {
-      "count": 693,
-      "p50": 16.40000000037253,
-      "p95": 24.700000000186265,
-      "p99": 55.89999999944121,
-      "max": 94.8999999994412,
-      "mean": 17.335497835497836
+      "count": 321,
+      "p50": 33.10000000055879,
+      "p95": 80.79999999981374,
+      "p99": 174.09999999962747,
+      "max": 191.1000000005588,
+      "mean": 37.43489096573093
     },
     "rasterMs": {
-      "count": 455,
-      "p50": 14.699999999254942,
-      "p95": 19.600000000558794,
-      "p99": 25.799999999813735,
-      "max": 182.30000000074506,
-      "mean": 15.361758241728767
+      "count": 105,
+      "p50": 44.799999999813735,
+      "p95": 114.59999999962747,
+      "p99": 172.70000000018626,
+      "max": 193.6000000005588,
+      "mean": 53.786666666689726
     },
     "geometryMs": {
-      "count": 455,
-      "p50": 2.5,
-      "p95": 4.5,
-      "p99": 8.299999999813735,
-      "max": 15,
-      "mean": 2.8830769230928888
+      "count": 105,
+      "p50": 6.199999999254942,
+      "p95": 67.3999999994412,
+      "p99": 100,
+      "max": 303.59999999962747,
+      "mean": 15.748571428514662
     },
     "state": {
       "provider": {
         "forest": {
           "totalTrees": 2300,
-          "visibleTrees": 1519,
-          "visibleCells": 20,
+          "visibleTrees": 1887,
+          "visibleCells": 30,
           "totalCells": 38
         },
         "version": "0.1.0",
-        "frame": 879,
+        "frame": 1008,
         "initialized": true,
-        "packetRevision": 879,
+        "packetRevision": 1008,
         "completed": {
-          "frame": 876,
-          "packetRevision": 876,
+          "frame": 986,
+          "packetRevision": 986,
           "presented": true,
           "width": 2560,
           "height": 1440,
           "renderWidth": 320,
           "renderHeight": 180,
           "quality": "native",
-          "renderDurationMs": 16.700000000186265,
-          "presentationIntervalMs": 16.799999999813735,
-          "measuredFps": 44
+          "renderDurationMs": 131.5,
+          "presentationIntervalMs": 133.09999999962747,
+          "measuredFps": 11
         },
         "lastError": null,
-        "resourceCount": 87,
-        "lastRenderDurationMs": 16.700000000186265,
-        "measuredFps": 44
+        "resourceCount": 93,
+        "lastRenderDurationMs": 131.5,
+        "measuredFps": 11
       },
       "execution": {
         "backend": "wasm",
         "status": "ready",
-        "resources": 87,
+        "resources": 93,
         "phaseTimes": {
-          "geometryMs": 2.2999999998137355,
-          "rasterMs": 13.5
+          "geometryMs": 2.099999999627471,
+          "rasterMs": 51.10000000055879
         },
-        "resourceBytes": 384080,
+        "resourceBytes": 391308,
         "runtimeHeapBytes": 24248320,
-        "resourceRebuilds": 1,
-        "serial": 491,
+        "resourceRebuilds": 2,
+        "serial": 120,
         "frameActive": false,
         "memoryBudgetBytes": 201326592,
         "maxFragments": 262144,
         "maxResourceBytes": 67108864,
-        "revision": 87,
+        "revision": 93,
         "execution": "worker",
         "queuedOperations": 1
       }
     }
   },
   "warm": {
-    "observedAt": "2026-10-23T07:40:08.887Z",
+    "observedAt": "2026-10-23T07:51:58.396Z",
     "jsHeap": {
-      "initialBytes": 58388099,
-      "finalBytes": 51236935,
-      "sampledPeakBytes": 184959151,
+      "initialBytes": 47802867,
+      "finalBytes": 84819551,
+      "sampledPeakBytes": 183299007,
       "boundary": "Chrome JavaScript heap observation; excludes browser/GPU allocation and is not a process memory limit."
     },
-    "durationMs": 60010.89999999944,
-    "presentedFrames": 2003,
-    "presentedFps": 33.37715855900012,
+    "durationMs": 60002.60000000056,
+    "presentedFrames": 659,
+    "presentedFps": 10.982857409512151,
     "presentationMs": {
-      "count": 2003,
-      "p50": 21.600000000558794,
-      "p95": 67.19999999925494,
-      "p99": 97.8999999994412,
-      "max": 734.1000000005588,
-      "mean": 28.682975536693096
+      "count": 659,
+      "p50": 56.10000000055879,
+      "p95": 249.69999999925494,
+      "p99": 426.09999999962747,
+      "max": 1254.0999999996275,
+      "mean": 89.7696509863404
     },
     "renderMs": {
-      "count": 2003,
-      "p50": 18.299999999813735,
-      "p95": 63.19999999925494,
-      "p99": 94.59999999962747,
-      "max": 732.6000000005588,
-      "mean": 24.6851722416461
+      "count": 659,
+      "p50": 55,
+      "p95": 249.3999999994412,
+      "p99": 425.09999999962747,
+      "max": 1252,
+      "mean": 88.57253414263585
     },
     "mainRafMs": {
-      "count": 3423,
-      "p50": 16.299999999813735,
-      "p95": 27.799999999813735,
-      "p99": 58.19999999925494,
-      "max": 245.59999999962747,
-      "mean": 17.531609699094144
+      "count": 1614,
+      "p50": 32.89999999944121,
+      "p95": 96.20000000018626,
+      "p99": 161.90000000037253,
+      "max": 223.6000000005588,
+      "mean": 37.17571251548981
     },
     "rasterMs": {
-      "count": 2003,
-      "p50": 10.200000000186265,
-      "p95": 20.799999999813735,
-      "p99": 41.10000000055879,
-      "max": 128.79999999981374,
-      "mean": 11.60434348477656
+      "count": 659,
+      "p50": 27.799999999813735,
+      "p95": 78.29999999981374,
+      "p99": 154.20000000018626,
+      "max": 935.2999999998137,
+      "mean": 36.05644916539393
     },
     "geometryMs": {
-      "count": 2003,
-      "p50": 4.1000000005587935,
-      "p95": 13.400000000372529,
-      "p99": 24.09999999962747,
-      "max": 347.1000000005588,
-      "mean": 5.931103344978341
+      "count": 659,
+      "p50": 13.5,
+      "p95": 75.3999999994412,
+      "p99": 156.8999999994412,
+      "max": 294.69999999925494,
+      "mean": 21.47040971168861
     },
     "state": {
       "provider": {
         "forest": {
           "totalTrees": 2300,
-          "visibleTrees": 1922,
-          "visibleCells": 24,
+          "visibleTrees": 1627,
+          "visibleCells": 23,
           "totalCells": 38
         },
         "version": "0.1.0",
-        "frame": 4520,
+        "frame": 4844,
         "initialized": true,
-        "packetRevision": 4520,
+        "packetRevision": 4844,
         "completed": {
-          "frame": 4518,
-          "packetRevision": 4518,
+          "frame": 4832,
+          "packetRevision": 4832,
           "presented": true,
           "width": 2560,
           "height": 1440,
           "renderWidth": 320,
           "renderHeight": 180,
           "quality": "native",
-          "renderDurationMs": 19.40000000037253,
-          "presentationIntervalMs": 19.600000000558794,
-          "measuredFps": 38
+          "renderDurationMs": 139.1000000005588,
+          "presentationIntervalMs": 139.20000000018626,
+          "measuredFps": 19
         },
         "lastError": null,
-        "resourceCount": 91,
-        "lastRenderDurationMs": 19.40000000037253,
-        "measuredFps": 38
+        "resourceCount": 96,
+        "lastRenderDurationMs": 139.1000000005588,
+        "measuredFps": 19
       },
       "execution": {
         "backend": "wasm",
         "status": "ready",
-        "resources": 91,
+        "resources": 96,
         "phaseTimes": {
-          "geometryMs": 4.1000000005587935,
-          "rasterMs": 14.299999999813735
+          "geometryMs": 4.099999999627471,
+          "rasterMs": 29.40000000037253
         },
-        "resourceBytes": 415076,
+        "resourceBytes": 418920,
         "runtimeHeapBytes": 24248320,
-        "resourceRebuilds": 1,
-        "serial": 2618,
+        "resourceRebuilds": 2,
+        "serial": 832,
         "frameActive": false,
         "memoryBudgetBytes": 201326592,
         "maxFragments": 262144,
         "maxResourceBytes": 67108864,
-        "revision": 91,
+        "revision": 96,
         "execution": "worker",
         "queuedOperations": 1
       }
     }
   },
   "movement": {
-    "sequence": 4090,
+    "sequence": 2803,
     "operationReceipts": 0,
-    "serializedBytes": 2721
+    "serializedBytes": 2723
   },
   "finalPlayer": {
     "position": [
-      36.19624259628544,
-      47.546700641044254,
-      -72.88367293165695
+      33.09041699795172,
+      51.65227029976605,
+      -66.21060523998939
     ]
   },
   "finalCamera": {
     "position": [
-      36.81537846160682,
-      52.59338134613743,
-      -70.86783387197231
+      37.13950257215473,
+      53.24136083884878,
+      -67.25376329726087
     ],
-    "yaw": -0.24716250000000017,
-    "pitch": -1.0509374999999999,
+    "yaw": 1.7399999999999998,
+    "pitch": -0.045,
     "fov": 78,
     "near": 0.08,
     "far": 700,

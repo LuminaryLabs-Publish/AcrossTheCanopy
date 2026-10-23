@@ -1,6 +1,6 @@
 {
   "schema": "atc.browser-comparison/1",
-  "observedAt": "2026-10-23T07:36:31.834Z",
+  "observedAt": "2026-10-23T07:53:06.296Z",
   "comparisonNote": "Baseline output 640×360; optimized output 2560×1440. Both world rasters 320×180; new geometry LOD differs. Counts final canvas image submissions, not physical refresh.",
   "baselineCommit": "077160f7de6b354749d20957ae90b28b1dc42626",
   "workloads": [
@@ -8,45 +8,50 @@
       "name": "baseline-first-person",
       "url": "http://127.0.0.1:4188/evidence/performance-baseline/",
       "warmupMs": 5000,
-      "elapsedMs": 30128.400000000373,
-      "presentedFrames": 240,
-      "presentedFps": 7.965905922650955,
+      "visibilityState": "visible",
+      "devicePixelRatio": 1,
+      "buildScripts": [
+        "http://127.0.0.1:4188/evidence/performance-baseline/assets/index-CjlPUBTE.js"
+      ],
+      "elapsedMs": 30020.5,
+      "presentedFrames": 326,
+      "presentedFps": 10.859246181775786,
       "presentationMs": {
-        "count": 239,
-        "p50": 115.40000000037253,
-        "p95": 181.30000000074506,
-        "p99": 217.59999999962747,
-        "max": 245.70000000018626
+        "count": 325,
+        "p50": 88.70000000018626,
+        "p95": 110.79999999981374,
+        "p99": 144.29999999981374,
+        "max": 175.5
       },
       "mainRafMs": {
-        "count": 240,
-        "p50": 115.29999999981374,
-        "p95": 180.90000000037253,
-        "p99": 219.40000000037253,
-        "max": 246.09999999962747
+        "count": 326,
+        "p50": 88.79999999981374,
+        "p95": 110.6000000005588,
+        "p99": 144.29999999981374,
+        "max": 175.29999999981374
       },
       "provider": {
         "version": "0.1.0",
-        "frame": 2144,
+        "frame": 2123,
         "initialized": true,
-        "packetRevision": 2144,
+        "packetRevision": 2123,
         "completed": {
-          "frame": 2144,
-          "packetRevision": 2144,
+          "frame": 2123,
+          "packetRevision": 2123,
           "presented": true,
           "width": 640,
           "height": 360,
           "renderWidth": 320,
           "renderHeight": 180,
           "quality": "native",
-          "renderDurationMs": 104.79999999981374,
-          "presentationIntervalMs": 180.5,
-          "measuredFps": 7
+          "renderDurationMs": 59.700000000186265,
+          "presentationIntervalMs": 87.80000000074506,
+          "measuredFps": 9
         },
         "lastError": null,
         "resourceCount": 44,
-        "lastRenderDurationMs": 104.79999999981374,
-        "measuredFps": 7
+        "lastRenderDurationMs": 59.700000000186265,
+        "measuredFps": 9
       },
       "camera": {
         "position": [
@@ -66,22 +71,27 @@
       "name": "optimized-first-person",
       "url": "http://127.0.0.1:4188/",
       "warmupMs": 5000,
-      "elapsedMs": 30011,
-      "presentedFrames": 765,
-      "presentedFps": 25.49065342707674,
+      "visibilityState": "visible",
+      "devicePixelRatio": 1,
+      "buildScripts": [
+        "http://127.0.0.1:4188/assets/index-188Q1F72.js"
+      ],
+      "elapsedMs": 30027.5,
+      "presentedFrames": 759,
+      "presentedFps": 25.276829572891515,
       "presentationMs": {
-        "count": 764,
-        "p50": 31.700000000186265,
-        "p95": 84.59999999962747,
-        "p99": 134.29999999981374,
-        "max": 438.29999999981374
+        "count": 758,
+        "p50": 33.299999999813735,
+        "p95": 97.40000000037253,
+        "p99": 132.20000000018626,
+        "max": 200.90000000037253
       },
       "mainRafMs": {
-        "count": 1701,
-        "p50": 16.59999999962747,
-        "p95": 20.5,
-        "p99": 72.90000000037253,
-        "max": 169
+        "count": 876,
+        "p50": 33.299999999813735,
+        "p95": 37.90000000037253,
+        "p99": 109.70000000018626,
+        "max": 131.20000000018626
       },
       "provider": {
         "forest": {
@@ -91,26 +101,26 @@
           "totalCells": 38
         },
         "version": "0.1.0",
-        "frame": 2223,
+        "frame": 2204,
         "initialized": true,
-        "packetRevision": 2223,
+        "packetRevision": 2204,
         "completed": {
-          "frame": 2219,
-          "packetRevision": 2219,
+          "frame": 2200,
+          "packetRevision": 2200,
           "presented": true,
           "width": 2560,
           "height": 1440,
           "renderWidth": 320,
           "renderHeight": 180,
           "quality": "native",
-          "renderDurationMs": 35.700000000186265,
-          "presentationIntervalMs": 35.90000000037253,
-          "measuredFps": 15
+          "renderDurationMs": 37.299999999813735,
+          "presentationIntervalMs": 37.5,
+          "measuredFps": 22
         },
         "lastError": null,
-        "resourceCount": 90,
-        "lastRenderDurationMs": 35.700000000186265,
-        "measuredFps": 15
+        "resourceCount": 82,
+        "lastRenderDurationMs": 37.299999999813735,
+        "measuredFps": 22
       },
       "camera": {
         "position": [
@@ -118,8 +128,8 @@
           86,
           56
         ],
-        "yaw": -0.18667457600436543,
-        "pitch": -0.1245277252396206,
+        "yaw": -0.18,
+        "pitch": -0.045,
         "fov": 78,
         "near": 0.08,
         "far": 700,
@@ -132,22 +142,27 @@
       "name": "optimized-third-person",
       "url": "http://127.0.0.1:4188/",
       "warmupMs": 5000,
-      "elapsedMs": 30006,
-      "presentedFrames": 956,
-      "presentedFps": 31.860294607745118,
+      "visibilityState": "visible",
+      "devicePixelRatio": 1,
+      "buildScripts": [
+        "http://127.0.0.1:4188/assets/index-188Q1F72.js"
+      ],
+      "elapsedMs": 30010.5,
+      "presentedFrames": 799,
+      "presentedFps": 26.624014928108494,
       "presentationMs": {
-        "count": 955,
-        "p50": 26.600000000558794,
-        "p95": 65.40000000037253,
-        "p99": 95.59999999962747,
-        "max": 120.5
+        "count": 798,
+        "p50": 33.200000000186265,
+        "p95": 88.70000000018626,
+        "p99": 125.79999999981374,
+        "max": 196.5
       },
       "mainRafMs": {
-        "count": 1736,
-        "p50": 16.59999999962747,
-        "p95": 21.100000000558794,
-        "p99": 61.5,
-        "max": 92.20000000018626
+        "count": 887,
+        "p50": 33.200000000186265,
+        "p95": 40.40000000037253,
+        "p99": 92.90000000037253,
+        "max": 213
       },
       "provider": {
         "forest": {
@@ -157,26 +172,26 @@
           "totalCells": 38
         },
         "version": "0.1.0",
-        "frame": 2198,
+        "frame": 2189,
         "initialized": true,
-        "packetRevision": 2198,
+        "packetRevision": 2189,
         "completed": {
-          "frame": 2195,
-          "packetRevision": 2195,
+          "frame": 2187,
+          "packetRevision": 2187,
           "presented": true,
           "width": 2560,
           "height": 1440,
           "renderWidth": 320,
           "renderHeight": 180,
           "quality": "native",
-          "renderDurationMs": 23.600000000558794,
-          "presentationIntervalMs": 23.700000000186265,
-          "measuredFps": 38
+          "renderDurationMs": 20.299999999813735,
+          "presentationIntervalMs": 33.5,
+          "measuredFps": 29
         },
         "lastError": null,
         "resourceCount": 82,
-        "lastRenderDurationMs": 23.600000000558794,
-        "measuredFps": 38
+        "lastRenderDurationMs": 20.299999999813735,
+        "measuredFps": 29
       },
       "camera": {
         "position": [

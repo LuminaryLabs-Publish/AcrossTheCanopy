@@ -7,7 +7,7 @@
 - Retained all 2,300 deterministic tree IDs with seeded stands/species, cell visibility and near/far geometry LOD. Added a visible moving avatar, smooth following, route-cable/solid obstruction, close-camera avatar hiding and V view switching.
 - Browser output is actual 2560×1440, with 320×180 NexusGL world pixels upscaled by Canvas and native-size bitmap HUD. Full-resolution owned capture matches displayed pixels. Corrected objective-text overlap at this resolution.
 - Clean install/audit, 34 existing-file checks and production/root build pass. Real WASM replay, budget rejection/recovery, owned pixels and disposal pass. Browser acceptance and final per-workload timings are indexed in `evidence/performance-third-person/`.
-- The earlier matching-browser comparison measured about 8 FPS baseline versus 32 FPS optimized third person; warm real movement measured about 33 FPS. Those measurements precede the final close-camera/text-fit polish. Frame spikes remain and are not hidden by average FPS; no locked-60, AAA or Quest qualification. Final timing readback follows this verified implementation checkpoint.
+- The earlier matching-browser comparison measured about 8 FPS baseline versus 32 FPS optimized third person; warm real movement measured about 33 FPS. Those measurements precede the final close-camera/text-fit polish. Frame spikes remain and are not hidden by average FPS; no locked-60, AAA or Quest qualification. Final timing readback follows this verified implementation checkpoint; unfavorable final samples are retained and the consistency target remains open.
 - User now requests pushing each verified major change directly to actual default main. Keep Actions and Pages workflow disabled. No workflow/deployment is authorized.
 
 ## 2026-10-22 — Migration delivered to main
@@ -81,3 +81,5 @@
 - Source/gameplay behavior changed: no.
 - Deferred evidence findings are recorded in `.agent/feedback.md`.
 - Final pushed commit: record exact SHA in Upkeep after live Audit 3.
+
+Delivery readback: implementation `c7be124d1364f83ca1351a212aef0feb7f2fa567` matched all 138 remote tracked blobs. Actions remain disabled, with no new run or deployment. Final comparison and movement evidence is recorded; frame-time consistency remains OPEN.

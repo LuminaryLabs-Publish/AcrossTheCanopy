@@ -118,3 +118,10 @@ Historical documentation findings and current renderer migration results are rec
 - User selected 2560×1440 output with a lower-resolution world. World raster remains 320×180; HUD uses output resolution.
 - Full-resolution CPU compositing/copying was too expensive. Canvas now stages and scales completed NexusGL pixels and overlays cached HUD pixels; an owned full-resolution RGBA capture is composed on demand.
 - Do not call this native 1440p geometry, locked 60 FPS, final art or AAA qualification. Current distributions and Canvas/capture comparisons belong in the continuation evidence.
+
+## ATC-018 — Remaining frame-time variability
+
+- Current final-build stationary sample: 20.1 FPS / p95 111.0 ms. Moving/orbit sample: 11.0 FPS / p95 249.7 ms, max 1254.1 ms. Earlier optimized runs were faster. Retain both results; do not select only the favorable average.
+- Continuous movement state is bounded, with no per-sample receipt accumulation. That repair is demonstrated independently from frame-time consistency.
+- Host activity was not controlled; `host-load.json` is an observation, not proof of causation. The 30 FPS target is not consistent.
+- Status: OPEN for controlled per-phase profiling and remaining long frames. Functional implementation and 1440p output are delivered; general smoothness/AAA qualification is not complete.

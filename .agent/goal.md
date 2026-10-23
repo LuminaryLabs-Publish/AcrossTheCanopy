@@ -44,3 +44,11 @@ Sequence: profile baseline; remove discarded snapshots; bound forest submission 
 Resolution acceptance: actual browser output is 2560×1440; NexusGL world raster remains 320×180 and is upscaled by Canvas, as selected by the user. HUD rendering uses the output resolution. Full-resolution captures are available on demand.
 
 Implementation checkpoint: local tests/build and the 1440p browser route pass. Deliver these verified changes to main, then finish timing readback. Performance is improved, but frame-time consistency and broad production qualification remain open; report every workload and residual spike.
+
+## Delivered implementation and remaining performance gate
+
+Implementation commit `c7be124d1364f83ca1351a212aef0feb7f2fa567` is pushed to main and matched all 138 remote tracked blob hashes. The final build passes 34 tests, both endings, seven routes and the browser host checks. Actual output and owned capture are 2560×1440; Canvas/capture comparison has zero differing channels.
+
+Current final-build 60-second stationary sample: 20.1 presented FPS, p95 111.0 ms. Current 60-second movement/orbit sample: 11.0 FPS, p95 249.7 ms, maximum 1254.1 ms. Movement state remains 2723 bytes with zero sampled operation receipts. Earlier optimized samples were faster; all results remain in evidence.
+
+The 30 FPS target is not consistently met across recorded workloads. Do not mark performance universally smooth, production ready or AAA. Host load was uncontrolled; its observation is recorded without claiming it explains every spike. The next focused performance task is to isolate long worker frames from 1440p presentation under repeatable host conditions. Repository Actions remain disabled and no deployment ran.

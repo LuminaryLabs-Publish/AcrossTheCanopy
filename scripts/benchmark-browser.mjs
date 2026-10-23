@@ -34,6 +34,7 @@ try {
     const page=await context.newPage();await page.goto(url);
     await page.waitForFunction(()=>globalThis.__ACROSS_THE_CANOPY__?.getSnapshot().provider.completed);
     if(firstPerson)await page.keyboard.press('v');
+    await page.bringToFront();
     await page.waitForTimeout(5000);
     const sampled=await page.evaluate(async()=>{
       const start=performance.now(),raf=[];let previous=start;
@@ -41,7 +42,7 @@ try {
       const end=performance.now(),paints=__atcPaintTimes.filter(t=>t>=start&&t<=end),intervals=paints.slice(1).map((v,i)=>v-paints[i]);
       const stats=values=>{const s=[...values].sort((a,b)=>a-b);const p=t=>s[Math.floor((s.length-1)*t)];return{count:s.length,p50:p(.5),p95:p(.95),p99:p(.99),max:s.at(-1)}};
       const state=__ACROSS_THE_CANOPY__.getSnapshot();
-      return {buildScripts:[...document.scripts].map(s=>s.src).filter(Boolean),elapsedMs:end-start,presentedFrames:paints.length,presentedFps:paints.length*1000/(end-start),presentationMs:stats(intervals),mainRafMs:stats(raf),provider:state.provider,camera:state.camera,userAgent:navigator.userAgent};
+      return {visibilityState:document.visibilityState,devicePixelRatio:devicePixelRatio,buildScripts:[...document.scripts].map(s=>s.src).filter(Boolean),elapsedMs:end-start,presentedFrames:paints.length,presentedFps:paints.length*1000/(end-start),presentationMs:stats(intervals),mainRafMs:stats(raf),provider:state.provider,camera:state.camera,userAgent:navigator.userAgent};
     });
     result.workloads.push({name,url,warmupMs:5000,...sampled});console.log(JSON.stringify(result.workloads.at(-1)));await page.close();
   }

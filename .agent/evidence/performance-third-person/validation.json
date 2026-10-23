@@ -55,13 +55,13 @@
     "assets/index-BwjwKyEz.css": "3b1133c75b7489ac68a8eefe1a552f538e06feff4445835b459ad240e472cedd",
     "assets/render-worker-C_uT2XUc.js": "806214e039f9444fa5e33e85055fb1ae0a76cf572205d8904a3e233c6f89b520",
     "index.html": "eb2ec3e82786be306a71becc04e4c8fdbda5d2c5c5e97ce0a571bd893cb7e0ab",
-    "scripts/benchmark-browser.mjs": "968d4a478221726c1532143c21e39c49f7dfdb5fe0314c2e26b152332cd5f715",
+    "scripts/benchmark-browser.mjs": "adb8ee4d2f66972fb64e9cb9922a8718c9633ab28c5bf83d899839ed3d04d777",
     "scripts/benchmark-motion.mjs": "d8e4f0f12165942cc05d228f51706975cdadd9c64398db37c6168819ae80998a",
     "scripts/gameplay-video-adapter.mjs": "7cba7b1507775898586ae1afd7cb2f6582875e2134a73442fca6944f6b2e37ec",
     "scripts/refresh-root-snapshot.mjs": "792f8f377e7da0330751048487319667b9e7ff2c43dd651ed6018ad9b1058468",
     "scripts/run-browser-checks.mjs": "8ed0b8ace3642a8a84ad8c0ac08df588007e8642a83b5bea69d02cb350138d33",
     "scripts/verify-browser-migration.mjs": "81c152b7a3ce6bc67b255e6b2eef19117c9493d4f48d9923276a27ada1e4eb41",
-    "scripts/verify-performance-third-person.mjs": "fbe08b8ff27db703f6d32611273520282067ec6a8ebafb009fa6e6cdfe318475",
+    "scripts/verify-performance-third-person.mjs": "5fb4e3523d0e97f51631908971c1bf5bf4b17ecd0d31771f3dc4a77ae07a6daf",
     "scripts/verify-wasm-migration.mjs": "5fed2518e129942ddba690770c3923afeb75ce8e3eb3050bd796ce8e35c886d4",
     "source/package-lock.json": "036a1de50063889ad7033a630c3ae464eee634d3137af2b1cb7dd6299750579b",
     "source/package.json": "412f0223595de0311cad8d7276310c01db66f95de82caaf6fc7216db8d24bbf4",
@@ -93,5 +93,7 @@
     "source/test/story-kit.test.js": "61a02b67f38904a91bf87e271cb1fc3feb78c6fb6bfefd1c2f6a5adb4b5697d0",
     "source/test/story-model.test.js": "6d557b327da6c313ed9c85713c0ec333982671d155df2333a30526ee56eeadc3",
     "source/vite.config.js": "4bbea1414143bbf74bd457f39f4d42f08d17db59d8f93e9be57f27c3d15995c2"
-  }
+  },
+  "implementationCommit": "c7be124d1364f83ca1351a212aef0feb7f2fa567",
+  "evidenceUpdatedAt": "2026-10-23T07:55:30.536863+00:00"
 }
