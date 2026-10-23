@@ -19,7 +19,13 @@ Across the Canopy should prove one complete authored story route with third-pers
 
 ## Current milestone boundary
 
-This repository documents and implements the greybox vertical slice. Final assets, audio, broad production content, and subjective AAA-quality acceptance are outside the current proven scope.
+The playable story route remains a greybox vertical slice. Separate asset authoring is now authorized, beginning with the giant world tree. This first authored hero asset does not by itself qualify the runtime, final art set, audio, broad production content, or AAA-quality acceptance.
+
+## Active asset milestone — giant tree
+
+The first tree revision is saved as a Nexus Engine Kit Project and exported as a content-addressed GLB. It has a wind-curved, tapering trunk with a pointed crown, longer horizontal branch tiers, and two-sided leaf cards attached to finer branchlets. The source assembly contains 16 primary limbs, 32 secondary limbs, and 48 foliage placements. Kit validation and asset readiness passed; a six-view visual review is retained. The GLB is an authored asset artifact and is not yet wired into the game runtime or traversal colliders.
+
+Evidence and exact artifact details are indexed in `.agent/evidence/README.md` and `.agent/change-log.md`.
 
 ## Historical milestone — NexusGL renderer migration
 

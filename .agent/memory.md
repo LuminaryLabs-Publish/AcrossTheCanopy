@@ -77,3 +77,11 @@ Success requires reaching the station, verifying the fresh signal, choosing eith
 - User selected 1440p output with a lower-resolution world. Keep the actual browser canvas at 2560×1440 and world raster capped at 320×180; do not describe that as native 1440p fidelity. Preserve owned captures and verify Canvas/capture alpha agreement.
 
 Push each verified major AcrossTheCanopy change to the actual default `main` as a checkpoint. Keep Actions disabled; do not wait to accumulate unrelated major changes, create branches/PRs, or deploy.
+
+## Procedural hero tree asset
+
+- First authored tree asset lives at `source/assets/world/authoring/giant-tree/`; preserve its Nexus Engine Kit Project source and content-addressed GLB.
+- Shape direction: an S-curved 82 m tapered trunk with a pointed tip, long horizontal primary and secondary limbs, and two-sided flat leaf cards arranged on fine branchlets at limb ends.
+- Current source: 16 primary curves, 32 secondary curves, 48 foliage placements, 21 leaf cards per placement; use the final six-view evidence indexed in `.agent/evidence/README.md`.
+- Native Kit GLB check: 0 errors, 145 normal-reevaluation warnings, 20,456 triangles, 145 meshes. The asset registry re-verified the content hash and reports `ready`.
+- The GLB is not yet consumed by the game scene and does not provide player collision geometry. Keep those as separate follow-up work; do not claim gameplay integration from authoring proof.

@@ -1,5 +1,13 @@
 # Maintainer change log
 
+## 2026-10-23 — Wind-curved giant tree asset
+
+- Refined the Nexus Engine Kit source inside AcrossTheCanopy: an S-curved, tapering 82 m trunk ending in a point; 16 longer horizontal primary limbs and 32 horizontal secondary limbs; foliage rebuilt as two-sided flat leaf cards on finer branchlets at 48 placements.
+- Saved and reopened the editable Project at generation 2. Kit validation reports 0 errors and 0 warnings. The final six-view preview is `source/assets/world/authoring/giant-tree/evidence/winding-card-branches-final-review/inspection-Z4jFnw/pose-0.png`; visual review confirms the requested silhouette, branch spread and card foliage, with no console errors.
+- Prepared and re-verified GLB: `source/assets/world/authoring/giant-tree/prepared/giant-tree/asset-74a744c4652f5b3ed119bab6da0a81fc23bf3e185f69eb43f9890e84955499e5/scene.glb`, 3,311,308 bytes, SHA-256 `1fbb768459bd557e5a467174059c45628b2e4b1ecb49b5100679d7e435033907`. Native validation reports 0 errors, 145 normal-reevaluation warnings, 145 meshes and 20,456 triangles; Asset Registry status is `ready` for the same hash.
+- Updated `.agent/goal.md`, `.agent/memory.md` and `.agent/evidence/README.md`. The GLB remains an authored asset; game-scene integration, traversal colliders and runtime proof are not claimed. Generated `.nexus-engine-kit` checkpoint state is kept local and ignored.
+- Push checkpoint: pending.
+
 ## 2026-10-23 — Follow latest NexusEngine main
 
 - Changed `source/package.json` to track `github:LuminaryLabs-Dev/NexusEngine#main`; refreshed `source/package-lock.json` to current upstream commit `081fea1cdd9ca1662bc15116e7174d9c27821630`. The manifest follows the branch; the lock records the exact install source. Future work must run `cd source && npm update nexusengine` before validation.

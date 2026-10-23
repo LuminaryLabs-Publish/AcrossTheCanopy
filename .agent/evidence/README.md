@@ -46,6 +46,14 @@ The recorded browser run presented roughly 4–13 FPS. Raw render duration is no
 
 Fog, additive glow, shadow casting and exact GPU-renderer visual parity are not delivered. Picking retains the baseline interactive-mesh policy. Broad accessibility, physical-device coverage, all browser-cache cases and whole-process leak freedom remain unverified. The FPS HUD makes final frame hashes timing-dependent; the replay hash identifies one observed run rather than a byte-exact image regression threshold.
 
+## First authored world asset — giant tree (2026-10-23)
+
+- Final six-view visual review: [winding, horizontal branches, and leaf cards](../../source/assets/world/authoring/giant-tree/evidence/winding-card-branches-final-review/inspection-Z4jFnw/pose-0.png). The Kit inspection found no console errors; this is a reviewed authoring preview, not a screenshot of the running game.
+- Editable Nexus Engine Kit Project: `source/assets/world/authoring/giant-tree/nexus-project.json/` (generation 2; successfully reopened and validated).
+- Prepared GLB: `source/assets/world/authoring/giant-tree/prepared/giant-tree/asset-74a744c4652f5b3ed119bab6da0a81fc23bf3e185f69eb43f9890e84955499e5/scene.glb`.
+- Content SHA-256: `1fbb768459bd557e5a467174059c45628b2e4b1ecb49b5100679d7e435033907`; 3,311,308 bytes. Nexus validation: 0 errors, 145 `IMPORTED_NORMALS_REEVALUATED` warnings, 145 meshes and 20,456 triangles. A fresh Asset Registry verification reports `ready` for the same content hash.
+- Current composition: 82 m wind-curved pointed trunk; 16 primary and 32 secondary horizontal limbs; 48 foliage placements with 21 flat, double-sided leaf cards per cluster. The GLB is not yet integrated into the game scene or traversal collision system.
+
 ## Reproduce
 
 ```bash
