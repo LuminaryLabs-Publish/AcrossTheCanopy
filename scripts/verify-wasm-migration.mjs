@@ -15,11 +15,16 @@ export async function verifyBudgetRecovery() {
     await session.initialize();
     await provider.waitIdle();
     const initial = provider.getCompletedFrame();
-    session.resize(2048, 2048);
-    session.step();
-    await assert.rejects(provider.waitIdle(), /memory|budget|allocation/i);
+    // Browser output scaling no longer enlarges the world raster. Exercise
+    // the real renderer budget directly instead of relying on resize to fail.
+    let rejection;
+    await assert.rejects(async () => {
+      try {
+        await runtime.graphicsLanguage.render({frame:{frameId:'atc:budget-probe',width:2048,height:2048,quality:'native',clear:[0,0,0,255]},draws:[]});
+      } catch(error) { rejection={name:error.name,message:error.message}; throw error; }
+    }, /memory|budget|allocation/i);
     assert.deepEqual(provider.getCompletedFrame().pixels, initial.pixels);
-    const rejection = provider.getSnapshot().lastError;
+
     session.resize(64, 36);
     session.step();
     await provider.waitIdle();

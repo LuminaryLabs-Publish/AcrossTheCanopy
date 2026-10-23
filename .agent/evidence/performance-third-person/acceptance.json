@@ -1,0 +1,244 @@
+{
+  "schema": "atc.performance-third-person/1",
+  "observedAt": "2026-10-23T07:46:38.272Z",
+  "url": "http://127.0.0.1:4188/",
+  "stages": [
+    {
+      "stage": "open",
+      "passed": true,
+      "storyCompleted": false,
+      "choice": null
+    },
+    {
+      "stage": "starter",
+      "passed": true,
+      "storyCompleted": false,
+      "choice": null
+    },
+    {
+      "stage": "branch",
+      "passed": true,
+      "storyCompleted": false,
+      "choice": null
+    },
+    {
+      "stage": "rows",
+      "passed": true,
+      "storyCompleted": false,
+      "choice": null
+    },
+    {
+      "stage": "market",
+      "passed": true,
+      "storyCompleted": false,
+      "choice": null
+    },
+    {
+      "stage": "puzzle",
+      "passed": true,
+      "storyCompleted": false,
+      "choice": null
+    },
+    {
+      "stage": "station",
+      "passed": true,
+      "storyCompleted": false,
+      "choice": null
+    },
+    {
+      "stage": "answer",
+      "passed": true,
+      "storyCompleted": true,
+      "choice": "answer_signal"
+    },
+    {
+      "stage": "recover",
+      "passed": true,
+      "storyCompleted": true,
+      "choice": "recover_cell"
+    },
+    {
+      "stage": "controls",
+      "passed": true,
+      "storyCompleted": true,
+      "choice": "recover_cell"
+    },
+    {
+      "stage": "optional",
+      "passed": true,
+      "storyCompleted": true,
+      "choice": "recover_cell"
+    },
+    {
+      "stage": "host",
+      "passed": true,
+      "storyCompleted": true,
+      "choice": "recover_cell"
+    }
+  ],
+  "errors": [],
+  "buildScripts": [
+    "http://127.0.0.1:4188/assets/index-188Q1F72.js"
+  ],
+  "resolution": {
+    "width": 2560,
+    "height": 1440,
+    "renderWidth": 320,
+    "renderHeight": 180,
+    "maxDifference": 0,
+    "differentChannels": 0
+  },
+  "thirdPerson": {
+    "before": {
+      "player": {
+        "position": [
+          5.190353673489277,
+          85.08069542991653,
+          43.12973601883141
+        ]
+      },
+      "camera": {
+        "position": [
+          8.899084940920309,
+          87.52367002120556,
+          41.33554499958438
+        ],
+        "yaw": 1.8620506439357853,
+        "pitch": -0.24716086418658736,
+        "fov": 78,
+        "near": 0.08,
+        "far": 700,
+        "mode": "third-person",
+        "obstruction": 0
+      }
+    },
+    "moved": {
+      "player": {
+        "position": [
+          -7.490039043807124,
+          85.3522120429678,
+          46.93096860154921
+        ]
+      },
+      "camera": {
+        "position": [
+          -3.7756743856640735,
+          87.77974742933587,
+          45.13890019776413
+        ],
+        "yaw": 1.8620506439357853,
+        "pitch": -0.24716086418658736,
+        "fov": 78,
+        "near": 0.08,
+        "far": 700,
+        "mode": "third-person",
+        "obstruction": 0
+      }
+    },
+    "togglePreservedPosition": true,
+    "restoration": true
+  },
+  "performance": {
+    "observedAt": "2026-10-23T07:49:54.987Z",
+    "jsHeap": {
+      "initialBytes": 51208631,
+      "finalBytes": 69470131,
+      "sampledPeakBytes": 161218707,
+      "boundary": "Chrome JavaScript heap observation; excludes browser/GPU allocation and is not a process memory limit."
+    },
+    "durationMs": 60023.59999999963,
+    "presentedFrames": 1206,
+    "presentedFps": 20.09199668798614,
+    "presentationMs": {
+      "count": 1206,
+      "p50": 34.30000000074506,
+      "p95": 111,
+      "p99": 193.5,
+      "max": 809,
+      "mean": 46.95655058043164
+    },
+    "renderMs": {
+      "count": 1206,
+      "p50": 31.700000000186265,
+      "p95": 110.5,
+      "p99": 192.79999999981374,
+      "max": 807.8000000007451,
+      "mean": 44.54112769487263
+    },
+    "mainRafMs": {
+      "count": 1709,
+      "p50": 33.299999999813735,
+      "p95": 42.5,
+      "p99": 129.1000000005588,
+      "max": 220.20000000018626,
+      "mean": 35.11849034523113
+    },
+    "rasterMs": {
+      "count": 1206,
+      "p50": 16.199999999254942,
+      "p95": 33.299999999813735,
+      "p99": 69.29999999981374,
+      "max": 258.69999999925494,
+      "mean": 19.707462686576587
+    },
+    "geometryMs": {
+      "count": 1206,
+      "p50": 12,
+      "p95": 30,
+      "p99": 54.90000000037253,
+      "max": 364.1000000005588,
+      "mean": 15.615422885583104
+    },
+    "state": {
+      "provider": {
+        "forest": {
+          "totalTrees": 2300,
+          "visibleTrees": 2014,
+          "visibleCells": 30,
+          "totalCells": 38
+        },
+        "version": "0.1.0",
+        "frame": 3878,
+        "initialized": true,
+        "packetRevision": 3878,
+        "completed": {
+          "frame": 3874,
+          "packetRevision": 3874,
+          "presented": true,
+          "width": 2560,
+          "height": 1440,
+          "renderWidth": 320,
+          "renderHeight": 180,
+          "quality": "native",
+          "renderDurationMs": 32.5,
+          "presentationIntervalMs": 32.799999999813735,
+          "measuredFps": 23
+        },
+        "lastError": null,
+        "resourceCount": 84,
+        "lastRenderDurationMs": 32.5,
+        "measuredFps": 23
+      },
+      "execution": {
+        "backend": "wasm",
+        "status": "ready",
+        "resources": 84,
+        "phaseTimes": {
+          "geometryMs": 14.700000000186265,
+          "rasterMs": 15.799999999813735
+        },
+        "resourceBytes": 310484,
+        "runtimeHeapBytes": 24248320,
+        "resourceRebuilds": 2,
+        "serial": 1385,
+        "frameActive": false,
+        "memoryBudgetBytes": 201326592,
+        "maxFragments": 262144,
+        "maxResourceBytes": 67108864,
+        "revision": 84,
+        "execution": "worker",
+        "queuedOperations": 1
+      }
+    }
+  }
+}

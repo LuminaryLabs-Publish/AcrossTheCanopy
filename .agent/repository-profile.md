@@ -74,4 +74,10 @@ npm run build
 npm run validate
 ```
 
-`validate` = 29 checks plus build. `verify:wasm` runs the actual replay/budget-recovery proof; `snapshot` validates and refreshes root output. Repository Actions are disabled; no Pages CI or deployment should run for this migration.
+`validate` = 34 checks plus build. `verify:wasm` runs the actual replay/budget-recovery proof; `snapshot` validates and refreshes root output. Repository Actions are disabled; no Pages CI or deployment should run for this migration.
+
+## Performance and default camera
+
+Third-person is default; V preserves optional first-person. The browser executes NexusGL in a module worker selected through the existing Graphics Language Kit. A game-local pinned execution specialization caches transforms and unchanged state. The same engine/renderer artifacts and material contract are retained. Sampled locomotion uses the existing pure solver and owned service updates; it must not grow the durable command receipt ledger. Forest seed/IDs/count remain stable, with new stand/species distribution and visible cell/LOD realization. See `docs/PERFORMANCE_AND_THIRD_PERSON.md`.
+
+Current browser presentation: 2560×1440 output, upscaled 320×180 NexusGL world and native-size bitmap HUD. Third-person is default and V selects first-person. Browser execution runs in a worker; see the continuation evidence for workload-specific measurements.

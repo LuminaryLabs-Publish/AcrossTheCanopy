@@ -1,6 +1,6 @@
 # Goal
 
-Across the Canopy should prove one complete authored first-person story route inside a much larger procedural canopy while using NexusEngine for reusable runtime/domain responsibilities and keeping product-specific narrative logic owned by the game.
+Across the Canopy should prove one complete authored story route with third-person and optional first-person viewing inside a much larger procedural canopy while using NexusEngine for reusable runtime/domain responsibilities and keeping product-specific narrative logic owned by the game.
 
 ## Success conditions
 
@@ -21,7 +21,7 @@ Across the Canopy should prove one complete authored first-person story route in
 
 This repository documents and implements the greybox vertical slice. Final assets, audio, broad production content, and subjective AAA-quality acceptance are outside the current proven scope.
 
-## Active milestone — NexusGL renderer migration
+## Historical milestone — NexusGL renderer migration
 
 Status: functional greybox migration delivered to `main`; production qualification remains open.
 
@@ -34,3 +34,13 @@ Evidence: `.agent/evidence/README.md`, `browser-migration-proof.json`, `wasm-mig
 Limits remain explicit: the world renders at 320×180 and HUD/presentation at 640×360. Actual browser presentation measured roughly 4–13 FPS during the recorded run. Fog, additive glow and shadow casting are not reproduced; final art, production performance, mobile/Quest, native hosting and full accessibility qualification are not completed by this migration.
 
 GitHub Actions are disabled at repository level, and `Deploy GitHub Pages` remains manually disabled. Implementation commit `a502c0f7f9105483de6f9459da5b40ead3b7b717` is pushed and verified against all 83 remote tracked blob hashes. No new workflow or deployment ran. See `.agent/evidence/delivery.json`. Next work, if authorized: improve measured browser performance and remaining visual differences; do not treat this migration as production qualification.
+
+## Active milestone — smooth movement and forest rendering
+
+User authorized performance work in AcrossTheCanopy and NexusGL, procedural-forest improvements and third-person movement. Preserve story, stable IDs, route safety, saves and optional first-person/capture behavior. NexusEngine stays unchanged. Preserve pre-existing NexusGL audit work.
+
+Sequence: profile baseline; remove discarded snapshots; bound forest submission by cells/LOD; move CPU rendering to a worker; add a collision-aware following camera and visible moving avatar; verify real browser movement, story, resize and recovery; regenerate root output, record measured results and push main with Actions disabled. Target at least 30 presented FPS under recorded desktop conditions; report actual distributions and any unmet limits. AAA is a quality direction, not a certification.
+
+Resolution acceptance: actual browser output is 2560×1440; NexusGL world raster remains 320×180 and is upscaled by Canvas, as selected by the user. HUD rendering uses the output resolution. Full-resolution captures are available on demand.
+
+Implementation checkpoint: local tests/build and the 1440p browser route pass. Deliver these verified changes to main, then finish timing readback. Performance is improved, but frame-time consistency and broad production qualification remain open; report every workload and residual spike.

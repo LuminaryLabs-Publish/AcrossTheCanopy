@@ -1,5 +1,15 @@
 # Maintainer change log
 
+## 2026-10-23 — Performance, forest, third-person and 1440p checkpoint
+
+- Confined implementation to AcrossTheCanopy. NexusEngine pin/runtime artifacts and dependencies are unchanged; pre-existing NexusGL audit work is preserved.
+- Added worker execution, pinned execution caching, coalesced presentation and bounded continuous locomotion without per-tick durable receipts. Preserved explicit command receipts and existing DSK authority.
+- Retained all 2,300 deterministic tree IDs with seeded stands/species, cell visibility and near/far geometry LOD. Added a visible moving avatar, smooth following, route-cable/solid obstruction, close-camera avatar hiding and V view switching.
+- Browser output is actual 2560×1440, with 320×180 NexusGL world pixels upscaled by Canvas and native-size bitmap HUD. Full-resolution owned capture matches displayed pixels. Corrected objective-text overlap at this resolution.
+- Clean install/audit, 34 existing-file checks and production/root build pass. Real WASM replay, budget rejection/recovery, owned pixels and disposal pass. Browser acceptance and final per-workload timings are indexed in `evidence/performance-third-person/`.
+- The earlier matching-browser comparison measured about 8 FPS baseline versus 32 FPS optimized third person; warm real movement measured about 33 FPS. Those measurements precede the final close-camera/text-fit polish. Frame spikes remain and are not hidden by average FPS; no locked-60, AAA or Quest qualification. Final timing readback follows this verified implementation checkpoint.
+- User now requests pushing each verified major change directly to actual default main. Keep Actions and Pages workflow disabled. No workflow/deployment is authorized.
+
 ## 2026-10-22 — Migration delivered to main
 
 - Source/build/evidence commit: `a502c0f7f9105483de6f9459da5b40ead3b7b717`. Normal push to the actual default `main` succeeded; remote ref and all 83 tracked blob hashes matched.

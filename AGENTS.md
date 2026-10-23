@@ -1,6 +1,6 @@
 # Across the Canopy agent operating contract
 
-Across the Canopy is a first-person point-and-click 3D story greybox. The editable application lives under `source/`; the repository also contains committed root build output, while GitHub Pages CI rebuilds and deploys `source/dist`.
+Across the Canopy is a third-person point-and-click (optional first-person) 3D story greybox. The editable application lives under `source/`; the repository also contains committed root build output, while GitHub Pages CI rebuilds and deploys `source/dist`.
 
 ## Read order
 
@@ -20,7 +20,7 @@ Across the Canopy is a first-person point-and-click 3D story greybox. The editab
 - GitHub Pages normally rebuilds `source/dist`. Repository Actions and its workflow are disabled for this migration; keep them disabled and validate locally. A push must not trigger deployment.
 - The current product is **The Upward Signal**, version `0.1.0-greybox.0`.
 - Current authored world has five locations and seven traversal routes; the return consequence comes back to Hanging Rows rather than adding a sixth authored location.
-- The procedural 2,300-tree forest is atmosphere/streaming context and must not own authored story route placement.
+- The deterministic 2,300-tree forest uses cell visibility and LOD for atmosphere/streaming context and must not own authored story route placement.
 - Preserve the no-visible-conventional-ground rule.
 - Gameplay logic targets stable IDs and roles, not primitive mesh names/colors.
 - NexusEngine is pinned by the active migration to `5a4da3eba6ac95d2d8c74a008bb12caff0d6b0e8` / package line `0.0.4`; see `.agent/goal.md` and `docs/NEXUSGL_RENDERING.md` for current status and proof limits.
@@ -40,3 +40,5 @@ npm run validate
 ## Scope discipline
 
 Documentation findings may be corrected during Upkeep. Engine/runtime/product behavior findings belong in `.agent/feedback.md` unless separately authorized.
+
+Push each verified major AcrossTheCanopy change to the actual default `main` as a checkpoint. Keep Actions disabled; do not wait to accumulate unrelated major changes, create branches/PRs, or deploy.

@@ -76,6 +76,7 @@ function buildLegend() {
 
 function buildUi({ story, camera, treeCount, focusId, capture, fps }) {
   const ui = [];
+  const thirdPerson=camera.mode==='third-person';
   const location = locationCopy(story);
   const focus = focusId ? OBJECT_BY_ID[focusId] : null;
   const line = activeDialogueLine(story);
@@ -91,7 +92,7 @@ function buildUi({ story, camera, treeCount, focusId, capture, fps }) {
 
   ui.push(panel('hud-objective-panel', 2.5, 21, 43, 13));
   ui.push(text('hud-objective-label', 'CURRENT OBJECTIVE', 4, 23, { color: PRIMITIVE_COLORS.story }));
-  ui.push(text('hud-objective', story.objective, 4, 26.5, { scale: 1.15, maxWidth: 37 }));
+  ui.push(text('hud-objective', story.objective, 4, 26.5, { scale: 1, maxWidth: 37 }));
   ui.push(text('hud-status', story.feedback, 4, 31.5, { color: '#B9C6B3', maxWidth: 37 }));
 
   ui.push(panel('hud-legend-panel', 79, 3, 18.5, 28, { fill: '#10251FBA' }));
@@ -104,9 +105,9 @@ function buildUi({ story, camera, treeCount, focusId, capture, fps }) {
 
   ui.push(text('hud-reticle', '+', 50, 49, { align: 'center', scale: 2, color: focus ? PRIMITIVE_COLORS.interactable : '#F4F1DD' }));
   if (focus) {
-    ui.push(panel('hud-focus-panel', 31, 55, 38, 8, { fill: '#10251FE8', stroke: PRIMITIVE_COLORS[focus.colorRole] }));
-    ui.push(text('hud-focus-label', focus.label.toUpperCase(), 50, 57, { align: 'center', scale: 1.35, color: PRIMITIVE_COLORS[focus.colorRole] }));
-    ui.push(text('hud-focus-verb', `${focus.interaction?.verb?.toUpperCase() ?? 'LOOK'}  /  CLICK OR E`, 50, 60, { align: 'center', color: '#E7E4CE' }));
+    ui.push(panel('hud-focus-panel', 31, thirdPerson?78:55, 38, 8, { fill: '#10251FE8', stroke: PRIMITIVE_COLORS[focus.colorRole] }));
+    ui.push(text('hud-focus-label', focus.label.toUpperCase(), 50, thirdPerson?80:57, { align: 'center', scale: 1.35, color: PRIMITIVE_COLORS[focus.colorRole] }));
+    ui.push(text('hud-focus-verb', `${focus.interaction?.verb?.toUpperCase() ?? 'LOOK'}  /  CLICK OR E`, 50, thirdPerson?83:60, { align: 'center', color: '#E7E4CE' }));
   }
 
   if (line) {
@@ -129,7 +130,7 @@ function buildUi({ story, camera, treeCount, focusId, capture, fps }) {
     ui.push(text('choice-confirm-label', 'CONFIRM  [ENTER]', 50, 85, { align: 'center', color: '#1A1A16', shadow: false }));
   } else {
     ui.push(panel('hud-hint-panel', 18, 91.5, 64, 5.3, { fill: '#10251FD6' }));
-    ui.push(text('hud-hint', currentInteractionHint(story), 50, 93.2, { align: 'center', color: '#DDE5D7' }));
+    ui.push(text('hud-hint', `${currentInteractionHint(story)}${thirdPerson?'  /  V: CAMERA':''}`, 50, 93.2, { align: 'center', color: '#DDE5D7' }));
   }
 
   if (story.mode === 'puzzle' || story.flags.market_board_read && !story.flags.descent_lock_open) {
@@ -169,6 +170,7 @@ function buildUi({ story, camera, treeCount, focusId, capture, fps }) {
 
 export function buildPresentationConfig({ story, player, camera, focusId, treeCount, fps = 60, capture = null }) {
   const safeCamera = {
+    mode: camera.mode ?? 'first-person',
     position: clone(camera.position ?? player.position),
     yaw: Number(camera.yaw ?? 0),
     pitch: clamp(camera.pitch ?? -0.08, -1.35, 1.1),
@@ -196,7 +198,8 @@ export function createPresentationPacket({
   objects,
   placements,
   trees,
-  story
+  story,
+  avatar = null
 }) {
   const placementMap = new Map((placements ?? []).map((entry) => [entry.objectId, entry]));
   const renderObjects = (objects ?? []).map((entry) => {
@@ -227,6 +230,7 @@ export function createPresentationPacket({
       completed: story.completed,
       puzzle: clone(story.puzzle)
     },
+    avatar: clone(avatar),
     primitiveColors: clone(PRIMITIVE_COLORS)
   });
 }

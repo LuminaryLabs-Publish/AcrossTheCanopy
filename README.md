@@ -1,6 +1,6 @@
 # Across the Canopy
 
-Across the Canopy is a first-person, point-and-click 3D story adventure set in a forest with no visible ground. This repository contains the playable greybox vertical slice **The Upward Signal**.
+Across the Canopy is a third-person (with optional first-person), point-and-click 3D story adventure set in a forest with no visible ground. This repository contains the playable greybox vertical slice **The Upward Signal**.
 
 The authored route is:
 
@@ -11,7 +11,8 @@ The surrounding 2,300-tree procedural forest remains an atmosphere and streaming
 ## Play
 
 - `WASD` or arrow keys — move on authored routes
-- Drag — look
+- Drag — orbit/look
+- `V` — switch third-person / first-person
 - Click or `E` — focus and interact
 - `Space` — advance dialogue
 - `Escape` — cancel any interaction safely
@@ -46,4 +47,8 @@ The repository root contains a generated build snapshot. GitHub Pages normally r
 
 ## Migration evidence
 
-The [evidence index](.agent/evidence/README.md) records 29 checks, all seven browser routes, both endings, save restoration, controls, failure recovery and the real WASM replay. The world is 320×180 with a 640×360 bitmap HUD. Recorded browser presentation was roughly 4–13 FPS on the tested Mac; this software-rendered greybox is not production-performance qualification. Fog, additive glow and shadows are not reproduced. See [rendering notes](docs/NEXUSGL_RENDERING.md) for the exact boundaries.
+The [historical migration evidence](.agent/evidence/README.md) records the original functional migration. Current checks and measurements are in [performance evidence](.agent/evidence/performance-third-person/README.md). The browser outputs **2560×1440**, with a sharp bitmap HUD and a **320×180 upscaled world**. Fog, additive glow and shadow casting remain absent; this is a greybox, not production or AAA qualification.
+
+## Movement and rendering performance
+
+The browser now executes NexusGL in a worker, reuses geometry work and submits a bounded cell/LOD view of the deterministic forest. Third-person movement adds a visible animated avatar and a following camera with authored-solid obstruction handling. Rendering remains a low-resolution CPU greybox; these changes do not certify AAA visual quality or Quest performance. See [the implementation and reproduction guide](docs/PERFORMANCE_AND_THIRD_PERSON.md) and [current measured evidence](.agent/evidence/performance-third-person/README.md).

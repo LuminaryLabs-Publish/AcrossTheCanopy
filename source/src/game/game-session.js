@@ -1,4 +1,6 @@
+import { angleDelta, followCamera } from './third-person.js';
 import {
+  AUTHORED_OBJECTS,
   CHECKPOINTS,
   LOCATIONS,
   OBJECT_BY_ID,
@@ -69,7 +71,7 @@ function normalizePoint(point) {
   return [Number(point?.x ?? 0), Number(point?.y ?? 0), Number(point?.z ?? 0)];
 }
 
-export function createGameSession({ runtime, provider, storage = createStorageAdapter(), capture = null, width = 1280, height = 720, pixelRatio = 1 } = {}) {
+export function createGameSession({ runtime, provider, storage = createStorageAdapter(), capture = null, cameraMode = 'third-person', width = 1280, height = 720, pixelRatio = 1 } = {}) {
   if (!runtime?.engine || typeof runtime.tick !== 'function') throw new TypeError('Game session requires the Across the Canopy Nexus runtime.');
   if (!provider?.executePass) throw new TypeError('Game session requires a validated render provider.');
   let frame = 0;
@@ -79,7 +81,11 @@ export function createGameSession({ runtime, provider, storage = createStorageAd
   let presentation = null;
   let output = { width, height, pixelRatio };
   let movement = { forward: 0, right: 0, glide: false };
-  let camera = { position: playerPosition(runtime.getPlayer()), yaw: -0.18, pitch: -0.045, fov: 78, near: 0.08, far: 700 };
+  let camera = { position: playerPosition(runtime.getPlayer({includeLocomotion:false})), yaw: -0.18, pitch: -0.045, fov: 78, near: 0.08, far: 700 };
+  let viewMode = capture ? 'first-person' : cameraMode;
+  let avatarYaw = camera.yaw, stridePhase = 0, speed = 0, cameraObstruction = 0;
+  let followPosition = null;
+  let previousPlayer = playerPosition(runtime.getPlayer({includeLocomotion:false}));
   let activeTraversal = null;
   let activeNavigation = null;
   let pendingAction = null;
@@ -98,6 +104,8 @@ export function createGameSession({ runtime, provider, storage = createStorageAd
   const capabilities = {
     fixedDelta: FIXED_DELTA,
     firstPerson: true,
+    thirdPerson: true,
+    cameraToggle: true,
     keyboardTraversal: true,
     clickNavigation: true,
     fovRange: [60, 120],
@@ -112,23 +120,15 @@ export function createGameSession({ runtime, provider, storage = createStorageAd
 
   function setPlayer(position, yaw = camera.yaw) {
     const safe = position.map(Number);
-    runtime.setPlayer({ position: safe, rotation: quaternionFromYaw(yaw) });
-    camera.position = [...safe];
+    runtime.setPlayer({ position: safe, rotation: quaternionFromYaw(viewMode === 'third-person' ? avatarYaw : yaw) });
+    if (viewMode === 'first-person') camera.position = [...safe];
   }
 
   function syncLocomotion(position) {
     const api = runtime.engine.n?.actionLocomotion;
-    if (!api?.getSnapshot || !api?.loadSnapshot) return;
-    const snapshot = api.getSnapshot();
-    api.loadSnapshot({
-      ...snapshot,
-      position: { x: position[0], y: position[1], z: position[2] },
-      velocity: { x: 0, y: 0, z: 0 },
-      grounded: true,
-      gliding: false,
-      jumping: false,
-      recoveryRequired: null
-    });
+    if (!api?.update) return;
+    api.update({position:{x:position[0],y:position[1],z:position[2]},velocity:{x:0,y:0,z:0},
+      grounded:true,gliding:false,jumping:false,recoveryRequired:null});
   }
 
   function rawDispatch(action) {
@@ -138,7 +138,7 @@ export function createGameSession({ runtime, provider, storage = createStorageAd
   }
 
   function pathTo(target) {
-    const start = playerPosition(runtime.getPlayer());
+    const start = playerPosition(runtime.getPlayer({includeLocomotion:false}));
     const goal = normalizePoint(target);
     const pathfinding = runtime.engine.n?.pathfinding;
     if (pathfinding?.requestPath && pathfinding?.lastPath) {
@@ -167,13 +167,14 @@ export function createGameSession({ runtime, provider, storage = createStorageAd
   }
 
   function dispatch(action) {
+    if (action.type === 'toggle-camera') { setCameraMode(viewMode === 'third-person' ? 'first-person' : 'third-person'); return; }
     const story = runtime.getStory();
     if (action.type === 'focus' || !action.targetId || ['advance', 'cancel', 'toggle-journal', 'toggle-pause', 'confirm-choice'].includes(action.type)) {
       return rawDispatch(action);
     }
     const target = OBJECT_BY_ID[action.targetId];
     if (!target?.interaction || story.mode !== 'movement' && story.mode !== 'intro' && story.mode !== 'puzzle') return rawDispatch(action);
-    const current = playerPosition(runtime.getPlayer());
+    const current = playerPosition(runtime.getPlayer({includeLocomotion:false}));
     const targetPosition = placedTargetPosition(target);
     const range = Number(target.interaction.range ?? 16);
     if (distance(current, targetPosition) <= range) return rawDispatch(action);
@@ -203,29 +204,30 @@ export function createGameSession({ runtime, provider, storage = createStorageAd
     const story = runtime.getStory();
     if (story.mode !== 'movement' || story.paused) return;
     const inputX = movement.right * Math.cos(camera.yaw) - movement.forward * Math.sin(camera.yaw);
-    const inputZ = movement.right * Math.sin(camera.yaw) - movement.forward * Math.cos(camera.yaw);
-    if (Math.hypot(inputX, inputZ) < 1e-5 && !movement.glide) return;
-    const current = playerPosition(runtime.getPlayer());
+    const inputZ = -movement.right * Math.sin(camera.yaw) - movement.forward * Math.cos(camera.yaw);
+    if (Math.hypot(inputX,inputZ)<1e-5&&!movement.glide) {
+      const velocity=runtime.engine.n.actionLocomotion.getState().velocity;
+      if(!velocity||Math.hypot(velocity.x,velocity.z)<.02)return;
+    }
+    const magnitude = Math.hypot(inputX,inputZ);
+    const direction = Math.atan2(-inputX,-inputZ);
+    if(magnitude>1e-5)avatarYaw += angleDelta(avatarYaw,direction)*(1-Math.exp(-delta*14));
+    const current = playerPosition(runtime.getPlayer({includeLocomotion:false}));
     const support = nearestRouteSample({ x: current[0], y: current[1], z: current[2] });
     const locomotion = runtime.engine.n?.actionLocomotion;
-    if (locomotion?.step) {
-      locomotion.step({
-        operationId: nextOperation('locomotion'),
+    if (locomotion && runtime.integrateMovement) {
+      runtime.integrateMovement({
         delta,
-        input: { x: inputX, z: inputZ, glide: movement.glide, sprint: false },
+        rotation: quaternionFromYaw(viewMode==='third-person'?avatarYaw:camera.yaw),
+        input: { x: inputX/Math.max(1,magnitude), z: inputZ/Math.max(1,magnitude), glide: movement.glide, sprint: false },
         contact: { grounded: !movement.glide, groundHeight: support.y }
+      }, frameState => {
+        const proposed=normalizePoint(frameState.position);
+        const proposedSupport=nearestRouteSample({x:proposed[0],y:proposed[1],z:proposed[2]});
+        if(proposedSupport.distance>7.5)return false;
+        proposed[1]=movement.glide?Math.max(proposedSupport.y,proposed[1]):proposedSupport.y;
+        return proposed;
       });
-      const frameState = locomotion.getFrame?.();
-      if (frameState?.position) {
-        const proposed = normalizePoint(frameState.position);
-        const proposedSupport = nearestRouteSample({ x: proposed[0], y: proposed[1], z: proposed[2] });
-        if (proposedSupport.distance <= 7.5) {
-          proposed[1] = movement.glide ? Math.max(proposedSupport.y, proposed[1]) : proposedSupport.y;
-          setPlayer(proposed);
-        } else {
-          syncLocomotion(current);
-        }
-      }
     }
   }
 
@@ -251,7 +253,7 @@ export function createGameSession({ runtime, provider, storage = createStorageAd
     const point = samplePolyline(cloneRoutePath(activeTraversal.routeId), progress);
     const ahead = samplePolyline(cloneRoutePath(activeTraversal.routeId), Math.min(1, progress + 0.02));
     const orientation = lookAt(point, ahead);
-    camera.yaw += (orientation.yaw - camera.yaw) * Math.min(1, delta * 4);
+    camera.yaw += angleDelta(camera.yaw,orientation.yaw) * Math.min(1, delta * 4);
     camera.pitch += (orientation.pitch - camera.pitch) * Math.min(1, delta * 3);
     setPlayer(point, camera.yaw);
     const emission = Math.floor(progress * 20);
@@ -282,7 +284,7 @@ export function createGameSession({ runtime, provider, storage = createStorageAd
     const point = samplePolyline(activeNavigation.points, progress);
     const ahead = samplePolyline(activeNavigation.points, Math.min(1, progress + 0.02));
     const orientation = lookAt(point, ahead);
-    camera.yaw += (orientation.yaw - camera.yaw) * Math.min(1, delta * 5);
+    camera.yaw += angleDelta(camera.yaw,orientation.yaw) * Math.min(1, delta * 5);
     camera.pitch += (orientation.pitch - camera.pitch) * Math.min(1, delta * 4);
     setPlayer(point, camera.yaw);
     const emission = Math.floor(progress * 10);
@@ -304,7 +306,7 @@ export function createGameSession({ runtime, provider, storage = createStorageAd
   }
 
   function updateLocation() {
-    const position = playerPosition(runtime.getPlayer());
+    const position = playerPosition(runtime.getPlayer({includeLocomotion:false}));
     const location = nearestLocation(position);
     if (location.id !== lastLocationId && distance(position, location.center) <= location.radius * 1.45) {
       runtime.engine.n.acrossTheCanopy.applyInternal({ type: 'location-entered', locationId: location.id });
@@ -313,8 +315,8 @@ export function createGameSession({ runtime, provider, storage = createStorageAd
   }
 
   function recoverIfNeeded() {
-    const position = playerPosition(runtime.getPlayer());
-    const locomotion = runtime.engine.n?.actionLocomotion?.getFrame?.();
+    const position = playerPosition(runtime.getPlayer({includeLocomotion:false}));
+    const locomotion = runtime.engine.n?.actionLocomotion?.getState?.();
     if (position[1] > -24 && !locomotion?.recoveryRequired) return;
     const story = runtime.getStory();
     const checkpoint = [...checkpointPosition(story.checkpoint)];
@@ -325,7 +327,7 @@ export function createGameSession({ runtime, provider, storage = createStorageAd
 
   function save(slotId = 'autosave') {
     const storyApi = runtime.engine.n.acrossTheCanopy;
-    const payload = storyApi.createSavePayload({ position: playerPosition(runtime.getPlayer()), fov: camera.fov });
+    const payload = storyApi.createSavePayload({ position: playerPosition(runtime.getPlayer({includeLocomotion:false})), fov: camera.fov });
     runtime.save?.(slotId);
     return storage.save(slotId, payload);
   }
@@ -342,6 +344,8 @@ export function createGameSession({ runtime, provider, storage = createStorageAd
     setPlayer(position);
     syncLocomotion(position);
     lastLocationId = runtime.getStory().locationId;
+    followPosition = null; previousPlayer = position; speed = 0;
+    provider.reset();
     return clone(payload);
   }
 
@@ -376,21 +380,21 @@ export function createGameSession({ runtime, provider, storage = createStorageAd
     const target = OBJECT_BY_ID[story.focusId];
     if (!target) return;
     const targetPosition = placedTargetPosition(target);
-    if (distance(camera.position, targetPosition) < 0.25) return;
+    if (distance(playerPosition(runtime.getPlayer({includeLocomotion:false})), targetPosition) < 0.25) return;
     const desired = lookAt(camera.position, targetPosition);
-    camera.yaw += (desired.yaw - camera.yaw) * Math.min(1, delta * 1.8);
+    camera.yaw += angleDelta(camera.yaw,desired.yaw) * Math.min(1, delta * 1.8);
     camera.pitch += (desired.pitch - camera.pitch) * Math.min(1, delta * 1.8);
   }
 
   function project() {
     const story = runtime.getStory();
-    const currentPlayer = { position: playerPosition(runtime.getPlayer()) };
-    if (!capture) camera.position = [...currentPlayer.position];
+    const currentPlayer = { position: playerPosition(runtime.getPlayer({includeLocomotion:false})) };
+    if (!capture && viewMode === 'first-person') camera.position = [...currentPlayer.position];
     const captureState = capture?.snapshot?.() ?? null;
     presentation = buildPresentationConfig({
       story,
       player: currentPlayer,
-      camera,
+      camera: { ...camera, mode: viewMode },
       focusId: story.focusId,
       treeCount: trees.length,
       fps,
@@ -408,8 +412,9 @@ export function createGameSession({ runtime, provider, storage = createStorageAd
       ...(lastNexusFov === null || Math.abs(lastNexusFov - presentation.camera.fov) >= 0.5
         ? { fov: presentation.camera.fov }
         : {})
-    });
+    }, { snapshot: false });
     if (lastNexusFov === null || Math.abs(lastNexusFov - presentation.camera.fov) >= 0.5) lastNexusFov = presentation.camera.fov;
+    presentation.camera.mode = viewMode;
     currentPacket = createPresentationPacket({
       revision: frame,
       elapsed,
@@ -418,7 +423,8 @@ export function createGameSession({ runtime, provider, storage = createStorageAd
       objects: runtime.engine.n.object.list(),
       placements: runtime.getPlacements(),
       trees,
-      story
+      story,
+      avatar: viewMode === 'third-person' ? { position: currentPlayer.position, yaw: avatarYaw, stridePhase, speed, visible: cameraObstruction < .85 && distance(camera.position, currentPlayer.position) > 2.2 } : null
     });
     provider.beginFrame({ frame, elapsed, delta: FIXED_DELTA });
     provider.executePass({ id: 'atc:pass/main', packet: currentPacket });
@@ -442,7 +448,7 @@ export function createGameSession({ runtime, provider, storage = createStorageAd
     }
     capture?.update?.(elapsed, safeDelta);
     runtime.tick(safeDelta);
-    if (!capture) {
+    if (!capture && !runtime.getStory().paused) {
       let story = runtime.getStory();
       if (!updateTraversal(story, safeDelta)) {
         story = runtime.getStory();
@@ -453,7 +459,18 @@ export function createGameSession({ runtime, provider, storage = createStorageAd
     }
     processEffects();
     synchronizeAuthoredWorldState();
-    if (!capture) updateCameraFocus(runtime.getStory(), safeDelta);
+    if (!capture) {
+      updateCameraFocus(runtime.getStory(), safeDelta);
+      const position = playerPosition(runtime.getPlayer({includeLocomotion:false}));
+      speed = safeDelta > 0 ? Math.hypot(position[0]-previousPlayer[0],position[2]-previousPlayer[2])/safeDelta : 0;
+      if (speed > .05) stridePhase += Math.min(speed,12)*safeDelta*2.4;
+      if (activeNavigation || activeTraversal) avatarYaw += angleDelta(avatarYaw,camera.yaw)*(1-Math.exp(-safeDelta*14));
+      previousPlayer = position;
+      if (viewMode === 'third-person') {
+        const followed = followCamera({player:position,yaw:camera.yaw,pitch:camera.pitch,previous:followPosition,delta:safeDelta,objects:AUTHORED_OBJECTS});
+        camera.position=followed.position; followPosition=followed.position; cameraObstruction=followed.obstruction;
+      }
+    }
     return present ? project() : currentPacket;
   }
 
@@ -475,12 +492,20 @@ export function createGameSession({ runtime, provider, storage = createStorageAd
     provider.resizeSurface?.(output);
   }
 
+  function setCameraMode(mode) {
+    if (!['first-person','third-person'].includes(mode)) throw new TypeError('Unsupported camera mode.');
+    viewMode=mode; followPosition=null;
+    camera.position=playerPosition(runtime.getPlayer({includeLocomotion:false}));
+    avatarYaw=camera.yaw; previousPlayer=playerPosition(runtime.getPlayer({includeLocomotion:false}));
+  }
+
   function reset() {
     runtime.reset();
     camera = { position: [...CHECKPOINTS.starter.position], yaw: -0.18, pitch: -0.045, fov: 78, near: 0.08, far: 700 };
     movement = { forward: 0, right: 0, glide: false };
     frame = 0;
     elapsed = 0;
+    followPosition=null; avatarYaw=camera.yaw; stridePhase=0; speed=0; previousPlayer=playerPosition(runtime.getPlayer({includeLocomotion:false}));
     activeTraversal = null;
     activeNavigation = null;
     pendingAction = null;
@@ -498,8 +523,8 @@ export function createGameSession({ runtime, provider, storage = createStorageAd
       frame,
       elapsed,
       output: clone(output),
-      camera: clone(camera),
-      player: { position: playerPosition(runtime.getPlayer()) },
+      camera: { ...clone(camera), mode: viewMode, obstruction: cameraObstruction },
+      player: { position: playerPosition(runtime.getPlayer({includeLocomotion:false})) },
       story: runtime.getStory(),
       presentation: clone(presentation),
       provider: provider.getSnapshot?.() ?? null,
@@ -515,6 +540,7 @@ export function createGameSession({ runtime, provider, storage = createStorageAd
     setMovement,
     setLook,
     setFov,
+    setCameraMode,
     setPlayer: ({ position, yaw = camera.yaw } = {}) => {
       setPlayer(position, yaw);
       syncLocomotion(position);

@@ -1,6 +1,8 @@
+import {createNexusGLProvider as reference} from 'nexusengine/domains/render/graphics-language';
+import {createNexusGLProvider as cached} from '../src/providers/cached-execution-provider.js';
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { createNexusGLProvider, geometryForObject, objectTransform } from '../src/providers/nexusgl-provider.js';
+import { createNexusGLProvider, geometryForObject, objectTransform, forestGeometry, visibleForestCell, avatarParts } from '../src/providers/nexusgl-provider.js';
 import { createNexusGLPickAdapter } from '../src/adapters/nexusgl-pick.js';
 import { OBJECT_BY_ID } from '../src/game/content.js';
 
@@ -54,8 +56,10 @@ test('NexusGL adapter translates authored geometry, translucent boundaries, UI a
   assert.equal(boundary.data.opacity, 0.34);
   const box = graphics.resources.get('atc:geometry/atc:hazard/deep-boundary');
   assert.equal(box.data.positions.length / 9, 12, 'all six box faces contain two triangles');
-  const forest = graphics.resources.get('atc:geometry/forest-distance');
-  assert.equal(forest.data.positions.length / 3, 2300 * 3);
+  const cells=forestGeometry(trees);
+  assert.equal(cells.reduce((n,cell)=>n+cell.treeCount,0),2300);
+  assert.ok(cells.reduce((n,cell)=>n+cell.far.length/9,0)<2300);
+  assert.ok(provider.getSnapshot().forest.visibleTrees > 0);
   assert.equal(provider.getCompletedFrame().width, 320);
   assert.equal(graphics.frames.length, 1);
   assert.equal(graphics.frames[0].frame.width, 160);
@@ -107,11 +111,13 @@ test('HUD alpha composition retains completed pixels after failure and recovers'
   await assert.rejects(provider.waitIdle(), /injected allocation failure/);
   assert.equal(provider.getSnapshot().completed.packetRevision, 1);
   assert.equal(provider.getSnapshot().lastError.packetRevision, 2);
+  assert.equal(provider.getPickContext().packet.revision,1,'picking stays with the displayed frame after a failed newer submission');
   assert.equal(provider.getCompletedFrame().pixels[center + 3], 255);
   graphics.render = render;
   provider.applyPacket({ ...scene, revision: 3 });
   await provider.waitIdle();
   assert.equal(provider.getSnapshot().completed.packetRevision, 3);
+  assert.equal(provider.getPickContext().packet.revision,3);
   assert.equal(provider.getSnapshot().lastError, null);
   assert.equal(errors.length, 1);
   assert.throws(() => provider.resizeSurface({ width: Infinity }), RangeError);
@@ -120,6 +126,16 @@ test('HUD alpha composition retains completed pixels after failure and recovers'
   provider.applyPacket({ ...scene, revision: 4 });
   await provider.waitIdle();
   assert.equal(provider.getCompletedFrame().width, 80);
+  graphics.capture=()=>({width:1,height:1,stride:4,pixels:new Uint8ClampedArray([200,100,20,0])});
+  provider.applyPacket({...scene,revision:5,ui:[]});await provider.waitIdle();
+  assert.deepEqual(Array.from(provider.getCompletedFrame().pixels.slice(0,4)),[0,0,0,0]);
+  provider.resizeSurface({width:2560,height:1440});
+  provider.applyPacket({...scene,revision:6,ui:[]});await provider.waitIdle();
+  assert.equal(provider.getCompletedFrame().width,2560);
+  assert.equal(provider.getCompletedFrame().height,1440);
+  assert.equal(provider.getCompletedFrame().pixels.length,2560*1440*4);
+  assert.equal(graphics.frames.at(-1).frame.width,320);
+  assert.equal(graphics.frames.at(-1).frame.height,180);
   await provider.dispose();
   assert.equal(provider.getSnapshot().resourceCount, 0);
   assert.equal(provider.getCompletedFrame(), null);
@@ -144,4 +160,42 @@ test('the start ring remains reachable beside the starter-route entrance marker'
   }) });
   scene.camera = { ...scene.camera, position: [0, 86, 56], yaw: -Math.PI / 2, pitch: -Math.atan2(.9, 1.6) };
   assert.equal(createNexusGLPickAdapter({ getPacket: () => scene }).pick(.5, .5).objectId, ids[0]);
+});
+
+test('forest LOD is bounded, owns every tree and conservatively retains cells at frustum edges', () => {
+  const trees=Array.from({length:2300},(_,i)=>({position:[(i%40)*8-160,-20,-100-Math.floor(i/40)*6],scale:[1,1,1],metadata:{}}));
+  const cells=forestGeometry(trees);
+  assert.equal(cells.reduce((n,c)=>n+c.treeCount,0),2300);
+  for(const cell of cells)for(let i=0;i<cell.far.length;i+=3){
+    assert.ok(Math.hypot(...cell.far.slice(i,i+3).map((v,a)=>v-cell.center[a]))<=cell.radius+1e-8);
+  }
+  assert.ok(cells.reduce((n,c)=>n+c.far.length/9,0)<700);
+  const camera={position:[0,0,0],yaw:0,pitch:0,fov:78};
+  assert.equal(visibleForestCell({center:[0,0,100],radius:1},camera),false);
+  assert.equal(visibleForestCell({center:[0,0,-100],radius:1},camera),true);
+  assert.equal(visibleForestCell({center:[145,0,-100],radius:10},camera),true);
+  const avatar={position:[0,3,0],yaw:0,speed:3,stridePhase:1,visible:true};
+  assert.equal(avatarParts(avatar).length,7);
+  assert.notDeepEqual(avatarParts(avatar).find(p=>p.id==='leg-1').transform,avatarParts({...avatar,stridePhase:2}).find(p=>p.id==='leg-1').transform);
+});
+
+test('cached execution matches the pinned NexusGL provider for repeated, moving and updated geometry', async()=>{
+  const options={backend:'wasm',memoryBudgetBytes:48*1024**2,maxResourceBytes:2*1024**2,maxFragments:1024};
+  const providers=[reference(options),cached(options)];
+  const geometry={id:'triangle',kind:'geometry',data:{positions:[-.8,-.7,.5,.8,-.7,.5,0,.8,.5],castsShadow:false}};
+  try {
+    for(const p of providers){await p.initialize();await p.createResource({id:'surface',kind:'material',data:{shading:'pbr',roughness:.7,tint:[.5,.7,.2]}});await p.createResource(geometry);}
+    for(let i=0;i<6;i++){
+      if(i===4)for(const p of providers)await p.updateResource({...geometry,data:{...geometry.data,positions:geometry.data.positions.map((v,n)=>n%3===0?v*.75:v)}});
+      for(const p of providers){
+        const transform=[i===3?-1:1,0,0,0,0,1,0,0,0,0,1,0,i===2?.1:0,0,0,1];
+        p.beginFrame({frameId:`frame-${i}`,width:32,height:24,quality:'native',clear:[10+i,20,30,255],view:{camera:[0,0,i===5?3:2],lightDirection:[0,0,1]},light:{intensity:i===3?.8:1.25}});
+        p.executePass({passId:'scene',frameId:`frame-${i}`,kind:'render',sequence:0},[{geometryId:'triangle',materialId:'surface',transform}]);
+        p.submitFrame(`frame-${i}`);
+      }
+      assert.deepEqual(providers[1].getCompletedFrame().pixels,providers[0].getCompletedFrame().pixels);
+    }
+    assert.ok(new Set(providers[1].getCompletedFrame().pixels).size>4);
+    for(const p of providers){await p.reset();assert.equal(p.getDiagnostics().resources,0);}
+  } finally {for(const p of providers)await p.dispose();}
 });

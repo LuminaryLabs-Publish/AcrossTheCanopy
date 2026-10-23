@@ -40,6 +40,7 @@ function copyNexusGlRuntime() {
 
 export default defineConfig({
   base: './',
+  worker: { format: 'es' },
   optimizeDeps: { exclude: ['nexusengine'] },
   build: { assetsDir: 'assets' },
   plugins: [copyNexusGlRuntime()]

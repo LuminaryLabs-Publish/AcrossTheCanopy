@@ -1,15 +1,17 @@
 import { createAcrossTheCanopyRuntime } from '../source/src/game/nexus-runtime.js';
 import { createGameSession } from '../source/src/game/game-session.js';
 import { createCaptureDirector } from '../source/src/game/capture-director.js';
+import { createNexusGLProvider as createExecutionProvider } from '../source/src/providers/cached-execution-provider.js';
 import { createNexusGLProvider } from '../source/src/providers/nexusgl-provider.js';
 
 export async function setup({ options = {} } = {}) {
   const width = Math.max(1, Math.min(640, Number(options.width ?? 640)));
   const height = Math.max(1, Math.min(360, Number(options.height ?? Math.round(width * 9 / 16))));
+  const renderLimits={backend:'wasm',memoryBudgetBytes:192*1024**2,maxResourceBytes:64*1024**2,maxFragments:262144};
   const runtime = createAcrossTheCanopyRuntime({
     treeCount: 2300,
     surface: { surfaceId: 'atc:surface/capture', width, height, pixelRatio: 1 },
-    graphicsLanguage: { backend: 'wasm', memoryBudgetBytes: 192 * 1024 ** 2, maxResourceBytes: 64 * 1024 ** 2, maxFragments: 262144 }
+    graphicsLanguage: {...renderLimits,selection:{provider:createExecutionProvider(renderLimits),reservationBytes:416*1024**2}}
   });
   const provider = createNexusGLProvider({ graphics: runtime.graphicsLanguage, width, height });
   let session = null;

@@ -34,6 +34,7 @@ export function createBrowserInputAdapter({ canvas, pick, getPresentation, dispa
     if (event.code === 'Space' || event.code === 'KeyE' && !focusId) emit({ type: 'advance' });
     else if (event.code === 'KeyE' && focusId) activateFocus();
     else if (event.code === 'Escape') emit({ type: 'cancel' });
+    else if (event.code === 'KeyV') emit({ type: 'toggle-camera' });
     else if (event.code === 'KeyJ') emit({ type: 'toggle-journal' });
     else if (event.code === 'KeyP') emit({ type: 'toggle-pause' });
     else if (event.code === 'Enter') emit({ type: 'confirm-choice' });
@@ -117,6 +118,7 @@ export function createBrowserInputAdapter({ canvas, pick, getPresentation, dispa
   const host = globalThis.window ?? globalThis;
   listen(host, 'keydown', (event) => semanticKey(event, true));
   listen(host, 'keyup', (event) => semanticKey(event, false));
+  listen(host, 'blur', () => { keys.clear(); setMovement({forward:0,right:0,glide:false}); pointerId=null; down=last=null; dragging=false; });
   listen(canvas, 'pointerdown', pointerDown);
   listen(canvas, 'pointermove', pointerMove);
   listen(canvas, 'pointerup', pointerUp);

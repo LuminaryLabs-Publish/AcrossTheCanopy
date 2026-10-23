@@ -1,21 +1,27 @@
 import assert from 'node:assert/strict';
-import { mkdir, writeFile } from 'node:fs/promises';
+import { mkdir, writeFile, readFile } from 'node:fs/promises';
 import { fileURLToPath } from 'node:url';
 import { AUTHORED_OBJECTS, routeEntrancePoint } from '../source/src/game/content.js';
 import { storySavePayload } from '../source/src/game/story-model.js';
 
-const directory = fileURLToPath(new URL('../.agent/evidence/', import.meta.url));
+let directory = fileURLToPath(new URL('../.agent/evidence/', import.meta.url));
 const report = { schema: 'atc.browser-migration-proof/1', stages: [], errors: [] };
 const watched = new WeakSet();
-const snapshot = page => page.evaluate(() => { const s = globalThis.__ACROSS_THE_CANOPY__.getSnapshot(); return { story: s.story, camera: s.camera, player: s.player, output: s.output, provider: s.provider }; });
+const snapshot = page => page.evaluate(() => { const s = globalThis.__ACROSS_THE_CANOPY__.getSnapshot(); return { frame:s.frame, displayedCamera: globalThis.__ACROSS_THE_CANOPY__.getDisplayedView?.()?.camera, story: s.story, camera: s.camera, player: s.player, output: s.output, provider: s.provider }; });
 const concise = value => ({ story: value.story, camera: value.camera, player: value.player, output: value.output, provider: value.provider });
+
+async function press(page, key) {
+  const frame=await page.evaluate(()=>globalThis.__ACROSS_THE_CANOPY__.getSnapshot().frame);
+  await page.keyboard.press(key);
+  await page.waitForFunction(previous=>globalThis.__ACROSS_THE_CANOPY__.getSnapshot().frame>=previous+3,frame);
+}
 
 async function closeDialogue(page) {
   const { story } = await snapshot(page);
   if (!story.dialogue) return;
   const remaining = story.dialogue.lines.length - story.dialogue.index;
   assert.ok(remaining > 0 && remaining < 20);
-  for (let count = 0; count < remaining; count++) await page.keyboard.press('Space');
+  for (let count = 0; count < remaining; count++) await press(page, 'Space');
   await page.waitForFunction(() => !globalThis.__ACROSS_THE_CANOPY__.getSnapshot().story.dialogue);
 }
 
@@ -43,33 +49,53 @@ async function interact(page, id) {
   let position = [...object.position];
   if (id === 'atc:npc/sela-oren' && state.story.world.returned_to_rows) position = [8, 72.1, -18];
   if (visual.shape === 'ring') position = [position[0] + visual.size[0] * .5, position[1] - .9, position[2]];
-  if (visual.shape === 'route') { position = routeEntrancePoint(visual.path); position[1] += .3; }
+  if (visual.shape === 'route') position = routeEntrancePoint(visual.path,visual.markerHeight);
   if (['beacon', 'cell'].includes(visual.shape)) position[1] += visual.size[1] * .3;
   const delta = position.map((value, axis) => value - state.camera.position[axis]);
   const desiredYaw = Math.atan2(-delta[0], -delta[2]);
   const desiredPitch = Math.atan2(delta[1], Math.hypot(delta[0], delta[2]));
   await orient(page, desiredYaw, desiredPitch);
+  // An orbit changes both position and direction. Wait for follow convergence
+  // and an actually presented frame before aiming at its visible geometry.
+  if (state.camera.mode === 'third-person') await page.waitForTimeout(500);
   state = await snapshot(page);
-  const { camera } = state, cp = Math.cos(camera.pitch);
+  const revisionToPresent=state.provider.packetRevision;
+  await page.waitForFunction(revision=>globalThis.__ACROSS_THE_CANOPY__.getSnapshot().provider.completed?.packetRevision>=revision,revisionToPresent);
+  const camera = state.displayedCamera ?? state.camera, cp = Math.cos(camera.pitch);
   const forward = [-Math.sin(camera.yaw) * cp, Math.sin(camera.pitch), -Math.cos(camera.yaw) * cp];
   const right = [Math.cos(camera.yaw), 0, -Math.sin(camera.yaw)];
   const up = [right[1] * forward[2] - right[2] * forward[1], right[2] * forward[0] - right[0] * forward[2], right[0] * forward[1] - right[1] * forward[0]];
-  const relative = position.map((value, axis) => value - camera.position[axis]);
-  const dot = (a, b) => a.reduce((sum, value, axis) => sum + value * b[axis], 0);
-  const distance = dot(relative, forward), tangent = Math.tan(camera.fov * Math.PI / 360);
   const rect = await page.locator('#world').boundingBox();
-  const x = rect.x + rect.width * (.5 + .5 * dot(relative, right) / (distance * tangent * rect.width / rect.height));
-  const y = rect.y + rect.height * (.5 - .5 * dot(relative, up) / (distance * tangent));
-  assert.ok(x > 0 && x < 1280 && y > 0 && y < 720, `${id} must be in the viewport`);
-  await page.mouse.move(x, y);
-  await page.waitForFunction(target => globalThis.__ACROSS_THE_CANOPY__.getSnapshot().story.focusId === target, id, { timeout: 10000 });
-  const revision = (await snapshot(page)).story.revision;
+  const candidates=[position];
+  if(visual.shape==='route') for(const dy of [-.15,.15])candidates.push([position[0],position[1]+dy,position[2]]);
+  if (!['route','ring'].includes(visual.shape)) {
+    const size=visual.size??[1,1,1];
+    for(const dx of [-.3,.3]) for(const dy of [0,.3]) candidates.push([position[0]+size[0]*dx,position[1]+size[1]*dy,position[2]]);
+  }
+  let selected=null;
+  for(const point of candidates) {
+    const relative = point.map((value, axis) => value - camera.position[axis]);
+    const dot = (a, b) => a.reduce((sum, value, axis) => sum + value * b[axis], 0);
+    const distance = dot(relative, forward), tangent = Math.tan(camera.fov * Math.PI / 360);
+    const x = rect.x + rect.width * (.5 + .5 * dot(relative, right) / (distance * tangent * rect.width / rect.height));
+    const y = rect.y + rect.height * (.5 - .5 * dot(relative, up) / (distance * tangent));
+    if(distance<=0||x<=0||x>=1280||y<=0||y>=720)continue;
+    await page.mouse.move(x,y);await page.waitForTimeout(80);
+    if((await snapshot(page)).story.focusId===id){selected={x,y};break;}
+  }
+  assert.ok(selected,`${id} must expose a pickable visible face`);
+  const {x,y}=selected;
+  const beforeClick=await snapshot(page), revision=beforeClick.story.revision;
   await page.mouse.click(x, y);
+  await page.waitForFunction(frame=>globalThis.__ACROSS_THE_CANOPY__.getSnapshot().frame>=frame+3,beforeClick.frame);
   await page.waitForFunction(previous => globalThis.__ACROSS_THE_CANOPY__.getSnapshot().story.revision > previous, revision, { timeout: 10000 });
+  if ((await snapshot(page)).story.navigation) await waitMovement(page);
 }
 
 async function waitMovement(page) {
   await page.waitForFunction(() => { const s = globalThis.__ACROSS_THE_CANOPY__.getSnapshot().story; return !s.traversal && !s.navigation; }, null, { timeout: 45000 });
+  const frame=(await snapshot(page)).frame;
+  await page.waitForFunction(previous=>globalThis.__ACROSS_THE_CANOPY__.getSnapshot().frame>=previous+3,frame);
 }
 
 async function capture(page, name) {
@@ -79,14 +105,16 @@ async function capture(page, name) {
 
 // A caller supplies its real Playwright page; this module adds no browser or
 // graphics dependency to the game. Every story action below uses mouse/keys.
-export async function verifyBrowserMigration(page, { stage = 'open', url = 'http://127.0.0.1:4187/' } = {}) {
+export async function verifyBrowserMigration(page, { stage = 'open', url = 'http://127.0.0.1:4187/', evidenceDirectory, resume = false } = {}) {
+  if (evidenceDirectory) directory=evidenceDirectory;
+  if (resume && !report.stages.length) Object.assign(report,JSON.parse(await readFile(`${directory}/browser-migration-proof.json`,'utf8')));
   await mkdir(directory, { recursive: true });
   if (!watched.has(page)) { page.on('pageerror', error => report.errors.push(error.message)); watched.add(page); }
   if (stage === 'open') {
     report.stages = []; report.errors = [];
     await page.setViewportSize({ width: 1280, height: 720 });
     await page.goto(url);
-    await page.waitForFunction(() => globalThis.__ACROSS_THE_CANOPY__?.getSnapshot().provider?.completed?.width === 640);
+    await page.waitForFunction(() => globalThis.__ACROSS_THE_CANOPY__?.getSnapshot().provider?.completed?.width === 2560);
     await capture(page, 'starter-perch');
   } else if (stage === 'starter') {
     await interact(page, 'atc:trigger/spawn/starter-perch');
@@ -127,7 +155,7 @@ export async function verifyBrowserMigration(page, { stage = 'open', url = 'http
       assert.ok(report.stationSave);
       await page.evaluate(payload => globalThis.__ACROSS_THE_CANOPY__.load(payload), report.stationSave);
       const frame = (await snapshot(page)).provider.frame;
-      await page.keyboard.press('e');
+      await press(page, 'e');
       await page.waitForFunction(previous => globalThis.__ACROSS_THE_CANOPY__.getSnapshot().frame > previous + 2, frame);
       const restored = await snapshot(page);
       assert.equal(restored.story.choice, null, 'old input must not replay into the restored station');
@@ -136,7 +164,7 @@ export async function verifyBrowserMigration(page, { stage = 'open', url = 'http
       await page.keyboard.down('d'); await page.waitForTimeout(2000); await page.keyboard.up('d');
     }
     await interact(page, stage === 'answer' ? 'atc:choice/answer-beacon' : 'atc:choice/recover-cell');
-    await page.keyboard.press('Enter'); await closeDialogue(page);
+    await press(page, 'Enter'); await closeDialogue(page);
     await interact(page, 'atc:route/station-return'); await waitMovement(page);
     await interact(page, 'atc:npc/sela-oren'); await closeDialogue(page);
     const state = await snapshot(page);
@@ -178,25 +206,26 @@ export async function verifyBrowserMigration(page, { stage = 'open', url = 'http
     await page.screenshot({ path: `${directory}/nexusgl-boot-failure.png`, timeout: 15000 });
     await page.unroute('**/nexusgl.wasm');
     await page.reload(); await ready();
+    const readyResourceCount=(await snapshot(page)).provider.resourceCount;
     for (let cycle = 0; cycle < 3; cycle++) {
       await page.reload(); await ready();
-      assert.equal((await snapshot(page)).provider.resourceCount, 44);
+      assert.equal((await snapshot(page)).provider.resourceCount, readyResourceCount);
     }
     const frame = (await snapshot(page)).provider.frame;
     await page.evaluate(payload => globalThis.__ACROSS_THE_CANOPY__.load(payload), saved);
     await page.waitForFunction(previous => globalThis.__ACROSS_THE_CANOPY__.getSnapshot().provider.completed.packetRevision > previous, frame);
     assert.equal((await snapshot(page)).story.completed, true);
     await capture(page, 'host-restored');
-    report.hostRecovery = { navigationRoundTrip: true, visibleBootFailure: message, recovered: true, successfulReloadCycles: 5, resourceCount: 44, boundary: 'Reload/readiness and save restoration; not a whole-process memory-leak proof.' };
+    report.hostRecovery = { navigationRoundTrip: true, visibleBootFailure: message, recovered: true, successfulReloadCycles: 5, resourceCount: readyResourceCount, boundary: 'Reload/readiness and save restoration; not a whole-process memory-leak proof.' };
   } else if (stage === 'controls') {
     const before = await snapshot(page);
-    await page.keyboard.press('p'); assert.equal((await snapshot(page)).story.paused, true);
-    await page.keyboard.press('p'); assert.equal((await snapshot(page)).story.paused, false);
-    await page.keyboard.press(']'); assert.equal((await snapshot(page)).camera.fov, before.camera.fov + 2);
+    await press(page, 'p'); assert.equal((await snapshot(page)).story.paused, true);
+    await press(page, 'p'); assert.equal((await snapshot(page)).story.paused, false);
+    await press(page, ']'); assert.equal((await snapshot(page)).camera.fov, before.camera.fov + 2);
     await page.mouse.click(1152, 670);
     assert.ok(Math.abs((await snapshot(page)).camera.fov - 97.24) < .5);
-    await page.keyboard.press('j'); assert.equal((await snapshot(page)).story.mode, 'journal');
-    await page.keyboard.press('Escape'); assert.notEqual((await snapshot(page)).story.mode, 'journal');
+    await press(page, 'j'); assert.equal((await snapshot(page)).story.mode, 'journal');
+    await press(page, 'Escape'); assert.notEqual((await snapshot(page)).story.mode, 'journal');
     await page.mouse.move(640, 360); await page.mouse.down(); await page.mouse.move(800, 360, { steps: 4 }); await page.mouse.up();
     await capture(page, 'look-left');
     await page.mouse.move(640, 360); await page.mouse.down(); await page.mouse.move(320, 360, { steps: 4 }); await page.mouse.up();

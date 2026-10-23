@@ -4,7 +4,7 @@
 
 The game keeps its existing story, inventory, save, object, camera and input owners. `presentation-projection.js` publishes game packets. `nexusgl-provider.js` consumes those packets through NexusEngine's optional Graphics Language Kit and NexusGL WASM. Camera imports use `nexusengine/domains/camera`; instance descriptions use `nexusengine/domains/render/batch`.
 
-NexusGL renders the world at 320×180. The provider scales the completed world frame and composites the existing bitmap HUD at 640×360, then presents an independently owned RGBA frame through the kit's canvas host. The capture adapter returns the same composed pixels. The UI rasterizer stores premultiplied colors; the compositor converts to straight RGBA when combining with the world. The browser maintains a 16:9 view when resized. These explicit resolution limits suit a software-rendered greybox and do not match the former GPU renderer's full viewport resolution.
+NexusGL renders the world at 320×180. The browser presents a 2560×1440 canvas: native-resolution bitmap HUD over an upscaled world bitmap. Canvas only presents completed pixels; NexusGL owns geometry, materials and rasterization. The staged image is committed synchronously and owned RGBA captures are composed on demand. Premultiplied HUD pixels are converted to straight alpha for upload. Resize fits the 16:9 surface inside the viewport without increasing the world raster. This is 1440p output with an upscaled world, not native 1440p geometry fidelity.
 
 No Three.js package, provider, picker or texture helper remains in the application. The build rejects bundled modules from `node_modules/three`. The pinned engine may contain historical Three adapter names in its metadata; those strings do not load Three.js.
 
@@ -16,14 +16,16 @@ No Three.js package, provider, picker or texture helper remains in the applicati
 | Routes | Absolute path geometry, without a second object translation |
 | Camera/FOV | Column-major world-to-clip matrix, right-handed view toward −Z, depth 0..1 |
 | Picking | Nearest interactive-mesh intersection using the same triangle geometry and model transform |
-| 2,300 trees | All placements retained as triangles; 96 additional trunk/crown models |
+| 2,300 trees | Stable generated data, seeded stands/species, visible cells and grouped canopy LOD |
 | Opaque content | Standard materials, directional lighting and fill |
 | Translucent boundary | NexusGL blend-alpha material, opacity 0.34 |
 | Dialogue, journal, puzzle, focus and controls | Existing bitmap UI descriptors, composited at presentation resolution |
 | Failed render | Keep the last completed image, expose `lastError`, accept a later valid frame |
 | Reset/disposal | Ignore obsolete generations; retain a completed image during reset; release provider/host resources at disposal |
 
-Geometry resources are immutable for this authored slice. Only transforms, story visibility and the presentation packet change. The provider coalesces game-owned immutable packet references rather than copying all tree descriptions every simulation tick. Fixed simulation catch-up prepares a single presentation. The unused automatic Sequence Node driver is disabled because this app mounts no nodes; its scheduler and Story Kit remain active.
+Geometry resources are immutable for this authored slice. Only transforms, story visibility and the presentation packet change. The browser uses a worker execution selection with cached transforms and unchanged scene settings; see [performance and third-person movement](PERFORMANCE_AND_THIRD_PERSON.md). Picking reads the completed packet rather than a newer pending camera. Continuous movement uses the Nexus solver and owning services without treating every tick as a durable command.
+
+The provider coalesces game-owned immutable packet references rather than copying all tree descriptions every simulation tick. Fixed simulation catch-up prepares a single presentation. The unused automatic Sequence Node driver is disabled because this app mounts no nodes; its scheduler and Story Kit remain active.
 
 Fog, additive bloom, per-point vertex colors and instancing have no direct replacement in the selected NexusGL contract. Tree triangles, flat sky and the existing HUD communicate the greybox route; atmosphere, glow and foliage differ visibly from the former provider. Shadow casting is disabled in this adapter. These are recorded rendering differences, not claims of final-art parity. The baseline picker considers interactive meshes; general noninteractive occlusion remains outside this migration.
 

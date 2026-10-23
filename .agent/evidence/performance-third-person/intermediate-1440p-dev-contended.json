@@ -1,0 +1,97 @@
+{
+  "observedAt": "2026-10-23T07:30:32.639Z",
+  "durationMs": 10019.80000000028,
+  "presentedFrames": 117,
+  "presentedFps": 11.676879778039156,
+  "presentationMs": {
+    "count": 117,
+    "p50": 58.90000000037253,
+    "p95": 234.29999999981374,
+    "p99": 410.3000000002794,
+    "max": 489.8000000002794,
+    "mean": 87.3991452991469
+  },
+  "renderMs": {
+    "count": 117,
+    "p50": 57.700000000186265,
+    "p95": 233.29999999981374,
+    "p99": 406.5,
+    "max": 489.3000000002794,
+    "mean": 86.56752136754046
+  },
+  "mainRafMs": {
+    "count": 471,
+    "p50": 16.399999999906868,
+    "p95": 53.799999999813735,
+    "p99": 143.8000000002794,
+    "max": 258.10000000009313,
+    "mean": 21.25414012738893
+  },
+  "rasterMs": {
+    "count": 117,
+    "p50": 19.800000000279397,
+    "p95": 49,
+    "p99": 70.10000000009313,
+    "max": 111.5,
+    "mean": 24.759829059844183
+  },
+  "geometryMs": {
+    "count": 117,
+    "p50": 23.5,
+    "p95": 56.39999999990687,
+    "p99": 75.10000000009313,
+    "max": 164.6999999997206,
+    "mean": 27.837606837598877
+  },
+  "state": {
+    "provider": {
+      "forest": {
+        "totalTrees": 2300,
+        "visibleTrees": 2014,
+        "visibleCells": 30,
+        "totalCells": 38
+      },
+      "version": "0.1.0",
+      "frame": 913,
+      "initialized": true,
+      "packetRevision": 913,
+      "completed": {
+        "frame": 893,
+        "packetRevision": 893,
+        "presented": true,
+        "width": 2560,
+        "height": 1440,
+        "renderWidth": 320,
+        "renderHeight": 180,
+        "quality": "native",
+        "renderDurationMs": 160.70000000018626,
+        "presentationIntervalMs": 162,
+        "measuredFps": 8
+      },
+      "lastError": null,
+      "resourceCount": 82,
+      "lastRenderDurationMs": 160.70000000018626,
+      "measuredFps": 8
+    },
+    "execution": {
+      "backend": "wasm",
+      "status": "ready",
+      "resources": 82,
+      "phaseTimes": {
+        "geometryMs": 56.39999999990687,
+        "rasterMs": 70.10000000009313
+      },
+      "resourceBytes": 307562,
+      "runtimeHeapBytes": 24248320,
+      "resourceRebuilds": 1,
+      "serial": 157,
+      "frameActive": false,
+      "memoryBudgetBytes": 201326592,
+      "maxFragments": 262144,
+      "maxResourceBytes": 67108864,
+      "revision": 82,
+      "execution": "worker",
+      "queuedOperations": 1
+    }
+  }
+}

@@ -74,11 +74,11 @@ export const ROUTES = Object.freeze({
   }
 });
 
-export function routeEntrancePoint(path) {
+export function routeEntrancePoint(path, markerHeight = 2.2) {
   const [start, next = start] = path;
   const dx = next[0] - start[0], dz = next[2] - start[2];
   const fraction = Math.min(.25, 2 / (Math.hypot(dx, dz) || 1));
-  return [start[0] + dx * fraction, start[1] + 2.2, start[2] + dz * fraction];
+  return [start[0] + dx * fraction, start[1] + markerHeight, start[2] + dz * fraction];
 }
 
 const object = (id, label, position, colorRole, visual, interaction = null, extra = {}) => Object.freeze({
@@ -108,7 +108,7 @@ export const AUTHORED_OBJECTS = Object.freeze([
   object('atc:puzzle/descent-lock/dial-c', 'Lock Dial C', [35, 61, -64], 'interactable', { shape: 'dial', size: [1.4, 1.4, 0.5] }, { verb: 'turn', range: 18 }),
   object('atc:puzzle/descent-lock/submit', 'Crew Lock Plate', [33, 62.3, -64], 'interactable', { shape: 'plate', size: [4.8, 0.65, 1.1] }, { verb: 'submit', range: 20 }),
   object('atc:blocker/descent-shutter', 'Sealed Descent Shutter', [38, 59, -76], 'hazard', { shape: 'shutter', size: [9, 8, 1.1] }, { verb: 'unavailable', range: 24 }),
-  object('atc:route/descent-line', 'Gravity Descent Line', [38, 59, -76], 'traversal', { shape: 'route', path: ROUTES['atc:route/descent-line'].path, width: 0.65 }, { verb: 'zipline', range: 24 }),
+  object('atc:route/descent-line', 'Gravity Descent Line', [38, 59, -76], 'traversal', { shape: 'route', path: ROUTES['atc:route/descent-line'].path, width: 0.65, markerHeight: 4.8 }, { verb: 'zipline', range: 24 }),
   object('atc:structure/old-descent-station', 'Old Descent Station', [50, 32, -105], 'structure', { shape: 'station', size: [25, 3, 24] }),
   object('atc:story/station-console', 'Station Signal Console', [50, 34, -109], 'story', { shape: 'console', size: [4.3, 2.7, 2.1] }, { verb: 'inspect', range: 20 }),
   object('atc:choice/answer-beacon', 'Answer Edda\'s Signal', [47.5, 33, -111], 'interactable', { shape: 'beacon', size: [1.6, 2.4, 1.6] }, { verb: 'choose', range: 18 }),
@@ -241,11 +241,17 @@ export function createForestInstances({ seed = FOREST_SEED, count = DEFAULT_TREE
     let x;
     let z;
     for (let attempts = 0; attempts < 32; attempts += 1) {
-      const angle = random() * Math.PI * 2;
-      const radius = 72 + Math.sqrt(random()) * 280;
+      const stand = index % 37;
+      const standAngle = stand * 2.399963229728653 + (seed % 101) * .01;
+      const standRadius = 110 + (stand % 7) * 34;
+      const angle = standAngle + (random()-.5)*.42;
+      const radius = standRadius + (random()-.5)*58;
       x = Math.cos(angle) * radius + 18;
       z = Math.sin(angle) * radius - 36;
       if (!insideAuthoredExclusion(x, z)) break;
+    }
+    if (insideAuthoredExclusion(x,z)) {
+      x = x < 18 ? -55-Math.abs(x)%80 : 95+Math.abs(x)%80;
     }
     const layer = index % 5;
     const scale = 0.65 + random() * 1.7;
@@ -254,7 +260,7 @@ export function createForestInstances({ seed = FOREST_SEED, count = DEFAULT_TREE
       id: `atc:tree/${String(index).padStart(4, '0')}`,
       position: [x, baseY, z],
       scale: [scale, scale * (0.85 + random() * 0.45), scale],
-      metadata: { yaw: random() * Math.PI * 2, shade: random(), cell: `${Math.floor(x / 100)},${Math.floor(z / 100)}` }
+      metadata: { species: index % 3 === 0 ? 'spire' : 'broadleaf', stand: index % 37, yaw: random() * Math.PI * 2, shade: random(), cell: `${Math.floor(x / 100)},${Math.floor(z / 100)}` }
     });
   }
   return instances;

@@ -1,0 +1,197 @@
+{
+  "schema": "atc.browser-comparison/1",
+  "observedAt": "2026-10-23T06:49:22.815Z",
+  "baselineCommit": "077160f7de6b354749d20957ae90b28b1dc42626",
+  "workloads": [
+    {
+      "name": "baseline-first-person",
+      "url": "http://127.0.0.1:4188/evidence/performance-baseline/",
+      "warmupMs": 5000,
+      "elapsedMs": 30065.09999999986,
+      "presentedFrames": 418,
+      "presentedFps": 13.903163468606522,
+      "presentationMs": {
+        "count": 417,
+        "p50": 72,
+        "p95": 76.4000000001397,
+        "p99": 80.70000000018626,
+        "max": 84.69999999995343
+      },
+      "mainRafMs": {
+        "count": 418,
+        "p50": 72,
+        "p95": 76.39999999990687,
+        "p99": 80.69999999995343,
+        "max": 84.69999999995343
+      },
+      "provider": {
+        "version": "0.1.0",
+        "frame": 2121,
+        "initialized": true,
+        "packetRevision": 2121,
+        "completed": {
+          "frame": 2121,
+          "packetRevision": 2121,
+          "presented": true,
+          "width": 640,
+          "height": 360,
+          "renderWidth": 320,
+          "renderHeight": 180,
+          "quality": "native",
+          "renderDurationMs": 46.0999999998603,
+          "presentationIntervalMs": 73.0999999998603,
+          "measuredFps": 14
+        },
+        "lastError": null,
+        "resourceCount": 44,
+        "lastRenderDurationMs": 46.0999999998603,
+        "measuredFps": 14
+      },
+      "camera": {
+        "position": [
+          0,
+          86,
+          56
+        ],
+        "yaw": -0.18,
+        "pitch": -0.045,
+        "fov": 78,
+        "near": 0.08,
+        "far": 700
+      },
+      "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/155.0.0.0 Safari/537.36"
+    },
+    {
+      "name": "optimized-first-person",
+      "url": "http://127.0.0.1:4188/",
+      "warmupMs": 5000,
+      "elapsedMs": 30008.300000000047,
+      "presentedFrames": 1317,
+      "presentedFps": 43.88785769270495,
+      "presentationMs": {
+        "count": 1316,
+        "p50": 22,
+        "p95": 28.0999999998603,
+        "p99": 33.9000000001397,
+        "max": 60.60000000009313
+      },
+      "mainRafMs": {
+        "count": 1801,
+        "p50": 16.699999999953434,
+        "p95": 18.4000000001397,
+        "p99": 19.699999999953434,
+        "max": 29.5
+      },
+      "provider": {
+        "forest": {
+          "totalTrees": 2300,
+          "visibleTrees": 2014,
+          "visibleCells": 30,
+          "totalCells": 38
+        },
+        "version": "0.1.0",
+        "frame": 2175,
+        "initialized": true,
+        "packetRevision": 2175,
+        "completed": {
+          "frame": 2172,
+          "packetRevision": 2172,
+          "presented": true,
+          "width": 640,
+          "height": 360,
+          "renderWidth": 320,
+          "renderHeight": 180,
+          "quality": "native",
+          "renderDurationMs": 23.899999999906868,
+          "presentationIntervalMs": 24,
+          "measuredFps": 45
+        },
+        "lastError": null,
+        "resourceCount": 82,
+        "lastRenderDurationMs": 23.899999999906868,
+        "measuredFps": 45
+      },
+      "camera": {
+        "position": [
+          0,
+          86,
+          56
+        ],
+        "yaw": -0.18,
+        "pitch": -0.045,
+        "fov": 78,
+        "near": 0.08,
+        "far": 700,
+        "mode": "first-person",
+        "obstruction": 0
+      },
+      "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/155.0.0.0 Safari/537.36"
+    },
+    {
+      "name": "optimized-third-person",
+      "url": "http://127.0.0.1:4188/",
+      "warmupMs": 5000,
+      "elapsedMs": 30014,
+      "presentedFrames": 1274,
+      "presentedFps": 42.44685813287133,
+      "presentationMs": {
+        "count": 1273,
+        "p50": 22.699999999953434,
+        "p95": 27.899999999906868,
+        "p99": 34.700000000186265,
+        "max": 88.10000000009313
+      },
+      "mainRafMs": {
+        "count": 1801,
+        "p50": 16.699999999953434,
+        "p95": 17.899999999906868,
+        "p99": 19.199999999953434,
+        "max": 26.600000000093132
+      },
+      "provider": {
+        "forest": {
+          "totalTrees": 2300,
+          "visibleTrees": 2014,
+          "visibleCells": 30,
+          "totalCells": 38
+        },
+        "version": "0.1.0",
+        "frame": 2176,
+        "initialized": true,
+        "packetRevision": 2176,
+        "completed": {
+          "frame": 2173,
+          "packetRevision": 2173,
+          "presented": true,
+          "width": 640,
+          "height": 360,
+          "renderWidth": 320,
+          "renderHeight": 180,
+          "quality": "native",
+          "renderDurationMs": 22.600000000093132,
+          "presentationIntervalMs": 22.700000000186265,
+          "measuredFps": 43
+        },
+        "lastError": null,
+        "resourceCount": 82,
+        "lastRenderDurationMs": 22.600000000093132,
+        "measuredFps": 43
+      },
+      "camera": {
+        "position": [
+          -0.11166461327981791,
+          87.58893621895817,
+          60.244329643101125
+        ],
+        "yaw": -0.18,
+        "pitch": -0.045,
+        "fov": 78,
+        "near": 0.08,
+        "far": 700,
+        "mode": "third-person",
+        "obstruction": 0
+      },
+      "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/155.0.0.0 Safari/537.36"
+    }
+  ]
+}

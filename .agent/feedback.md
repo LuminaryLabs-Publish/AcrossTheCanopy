@@ -99,3 +99,22 @@ Historical documentation findings and current renderer migration results are rec
 - Mobile, Quest/XR, native hosting, full accessibility, final art/audio, universal physical-device behavior and production frame-time targets remain unverified.
 - Navigation/reload behavior passed; this does not prove every browser cache policy or whole-process leak freedom. Save/load proof uses the existing public application command API, not a new player-facing save menu.
 - Status: outside the functional renderer migration's proven scope; do not label Phase 1 production complete.
+
+## ATC-015 — Continuous movement cost
+
+- A real 60-second W/S and orbit soak exposed receipt-ledger growth and per-tick snapshot copies. An intermediate run fell below 1 FPS even though rasterization remained fast.
+- Fixed by using the existing exported locomotion solver and owner updates once per engine tick. Explicit durable commands retain their receipts. Full snapshots remain available outside hot paths.
+- The 3,600-tick regression preserves a real command receipt; the browser movement benchmark records state bytes and receipt count. Keep cold admissions and sustained timings separate.
+- Status: repaired; see current performance evidence, with historical failure retained.
+
+## ATC-016 — Third-person camera obstruction
+
+- The follow camera uses supported authored solid bounds and route-cable capsules; it is not arbitrary mesh physics.
+- Cable intersection and an avatar filling the view after boom retraction were found in actual captures. The camera retracts before cable entry, and the avatar hides at close camera distance.
+- Status: focused greybox repair; broader asset collision and production camera tuning remain future work.
+
+## ATC-017 — 1440p output cost
+
+- User selected 2560×1440 output with a lower-resolution world. World raster remains 320×180; HUD uses output resolution.
+- Full-resolution CPU compositing/copying was too expensive. Canvas now stages and scales completed NexusGL pixels and overlays cached HUD pixels; an owned full-resolution RGBA capture is composed on demand.
+- Do not call this native 1440p geometry, locked 60 FPS, final art or AAA qualification. Current distributions and Canvas/capture comparisons belong in the continuation evidence.

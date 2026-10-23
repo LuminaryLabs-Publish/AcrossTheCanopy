@@ -3,7 +3,7 @@
 Status: implementation contract
 Slice title: **The Upward Signal**
 Scope: one complete authored route inside the infinite forest alpha
-Target experience: first-person, point-and-click 3D adventure with parallel keyboard traversal
+Target experience: third-person, point-and-click 3D adventure with optional first-person view and parallel keyboard traversal
 
 ## 1. Greybox contract
 
@@ -13,7 +13,7 @@ The inhabited canopy has no conventional visible ground. Every playable surface 
 
 ### Player contract
 
-- Perspective: first person.
+- Perspective: third person by default; V switches to first person.
 - Default FOV: `78`; player-adjustable from `60` through `120`.
 - Primary interaction: point at a highlighted object and left-click.
 - Point-and-click movement: clicking a green destination or blue traversal node moves the player to it along a validated path.
@@ -33,7 +33,7 @@ The inhabited canopy has no conventional visible ground. Every playable surface 
 
 ## 2. World coordinate contract
 
-- Units: one Three.js world unit equals approximately one meter.
+- Units: one world unit equals approximately one meter.
 - Axes: `+X` east, `+Y` up, and `-Z` forward along the main route.
 - Authored-region bounds: `X -32..72`, `Y 18..96`, `Z -128..68`.
 - Procedural exclusion volume: the forest generator may surround but may not place trunks, rocks, terrain, or collision geometry inside the authored-region bounds.

@@ -1,0 +1,215 @@
+{
+  "schema": "atc.performance-third-person/1",
+  "observedAt": "2026-10-23T07:20:05.467Z",
+  "url": "http://127.0.0.1:4188/",
+  "stages": [
+    {
+      "stage": "open",
+      "completed": false,
+      "choice": null
+    },
+    {
+      "stage": "starter",
+      "completed": false,
+      "choice": null
+    },
+    {
+      "stage": "branch",
+      "completed": false,
+      "choice": null
+    },
+    {
+      "stage": "rows",
+      "completed": false,
+      "choice": null
+    },
+    {
+      "stage": "market",
+      "completed": false,
+      "choice": null
+    },
+    {
+      "stage": "puzzle",
+      "completed": false,
+      "choice": null
+    },
+    {
+      "stage": "station",
+      "completed": false,
+      "choice": null
+    },
+    {
+      "stage": "answer",
+      "completed": true,
+      "choice": "answer_signal"
+    },
+    {
+      "stage": "recover",
+      "completed": true,
+      "choice": "recover_cell"
+    },
+    {
+      "stage": "controls",
+      "completed": true,
+      "choice": "recover_cell"
+    },
+    {
+      "stage": "optional",
+      "completed": true,
+      "choice": "recover_cell"
+    },
+    {
+      "stage": "host",
+      "completed": true,
+      "choice": "recover_cell"
+    }
+  ],
+  "errors": [],
+  "thirdPerson": {
+    "before": {
+      "player": {
+        "position": [
+          5.190353673489277,
+          85.08069542991653,
+          43.12973601883141
+        ]
+      },
+      "camera": {
+        "position": [
+          8.810065997231746,
+          87.62614388288036,
+          41.22002282421985
+        ],
+        "yaw": 1.8954124085576465,
+        "pitch": -0.2733735254558881,
+        "fov": 78,
+        "near": 0.08,
+        "far": 700,
+        "mode": "third-person",
+        "obstruction": 0
+      }
+    },
+    "moved": {
+      "player": {
+        "position": [
+          -7.465793822444841,
+          85.38490723341867,
+          47.38870126786147
+        ]
+      },
+      "camera": {
+        "position": [
+          -3.8401223284403736,
+          87.91882457478297,
+          45.48277113784935
+        ],
+        "yaw": 1.8954124085576465,
+        "pitch": -0.2733735254558881,
+        "fov": 78,
+        "near": 0.08,
+        "far": 700,
+        "mode": "third-person",
+        "obstruction": 0
+      }
+    },
+    "togglePreservedPosition": true,
+    "restoration": true
+  },
+  "performance": {
+    "observedAt": "2026-10-23T07:22:56.065Z",
+    "durationMs": 60004.299999999814,
+    "presentedFrames": 2187,
+    "presentedFps": 36.447387937197945,
+    "presentationMs": {
+      "count": 2187,
+      "p50": 23.899999999906868,
+      "p95": 43.60000000009313,
+      "p99": 93.29999999981374,
+      "max": 251,
+      "mean": 27.452354823959677
+    },
+    "renderMs": {
+      "count": 2187,
+      "p50": 23.700000000186265,
+      "p95": 43.40000000037253,
+      "p99": 92.6999999997206,
+      "max": 250.39999999990687,
+      "mean": 27.28577960677152
+    },
+    "mainRafMs": {
+      "count": 3597,
+      "p50": 16.699999999720603,
+      "p95": 19.100000000093132,
+      "p99": 23.700000000186265,
+      "max": 57.6999999997206,
+      "mean": 16.680733944954024
+    },
+    "rasterMs": {
+      "count": 2187,
+      "p50": 11.299999999813735,
+      "p95": 18,
+      "p99": 40,
+      "max": 111.29999999981374,
+      "mean": 12.6478280749838
+    },
+    "geometryMs": {
+      "count": 2187,
+      "p50": 8.700000000186265,
+      "p95": 16.399999999906868,
+      "p99": 34.09999999962747,
+      "max": 137.39999999990687,
+      "mean": 10.185322359399542
+    },
+    "state": {
+      "provider": {
+        "forest": {
+          "totalTrees": 2300,
+          "visibleTrees": 2014,
+          "visibleCells": 30,
+          "totalCells": 38
+        },
+        "version": "0.1.0",
+        "frame": 3816,
+        "initialized": true,
+        "packetRevision": 3816,
+        "completed": {
+          "frame": 3814,
+          "packetRevision": 3814,
+          "presented": true,
+          "width": 640,
+          "height": 360,
+          "renderWidth": 320,
+          "renderHeight": 180,
+          "quality": "native",
+          "renderDurationMs": 25.199999999720603,
+          "presentationIntervalMs": 25.299999999813735,
+          "measuredFps": 40
+        },
+        "lastError": null,
+        "resourceCount": 84,
+        "lastRenderDurationMs": 25.199999999720603,
+        "measuredFps": 40
+      },
+      "execution": {
+        "backend": "wasm",
+        "status": "ready",
+        "resources": 84,
+        "phaseTimes": {
+          "geometryMs": 9.099999999627471,
+          "rasterMs": 13.300000000279397
+        },
+        "resourceBytes": 310484,
+        "runtimeHeapBytes": 24248320,
+        "resourceRebuilds": 1,
+        "serial": 2316,
+        "frameActive": false,
+        "memoryBudgetBytes": 201326592,
+        "maxFragments": 262144,
+        "maxResourceBytes": 67108864,
+        "revision": 84,
+        "execution": "worker",
+        "queuedOperations": 1
+      }
+    }
+  }
+}

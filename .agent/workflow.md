@@ -54,4 +54,12 @@ Before pushing, verify every repository Actions workflow is disabled and there a
 - `scripts/verify-browser-migration.mjs` accepts a caller-supplied Playwright page. Run its stages `open`, `starter`, `branch`, `rows`, `market`, `puzzle`, `station`, `answer`, `recover`, `controls`, `optional`, `host` against the production/root server. Use real events for story actions and public save/load commands for restoration.
 - Preserve completed progress before alternate-route tests. The driver aims using rendered geometry, avoids tiny drags that count as clicks, and walks around the console to see the recover-cell choice.
 - Read the evidence index for current results and limits. Compare completed-presentation intervals, raw render time, memory and resolution separately.
-- The disk and pointer blockers are resolved. The root snapshot is current. Remaining delivery task is committing and verifying the push to `main`, with repository Actions disabled.
+- The earlier migration was delivered. Current performance/third-person work must regenerate the root snapshot and verify its module worker and WASM on the production/root server before pushing. Keep repository Actions disabled.
+
+## Performance and camera acceptance
+
+Use `docs/PERFORMANCE_AND_THIRD_PERSON.md` for the current commands and boundary. Run the real browser checker with caller-provided Playwright, and record completed-presentation intervals, raster/geometry phase times, main-thread rAF, resolution, resource count and warm-up separately. Verify third-person movement and V toggling with real keys, both endings, save/load, resize, failed WASM boot and repeated readiness. Keep historical migration evidence intact. Source pushes update main only; no workflow or Pages deployment is authorized.
+
+For 1440p acceptance, verify the canvas backing size and owned capture are 2560×1440, record the separate world raster size, and compare displayed Canvas pixels against the CPU-composed capture. The current checker allows at most two channel levels for browser alpha rounding. Do not use CSS width alone as resolution proof.
+
+Push each verified major AcrossTheCanopy change to the actual default `main` as a checkpoint. Keep Actions disabled; do not wait to accumulate unrelated major changes, create branches/PRs, or deploy.

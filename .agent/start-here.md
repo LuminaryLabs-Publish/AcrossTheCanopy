@@ -1,12 +1,12 @@
 # Start here
 
-Across the Canopy is a Vite first-person 3D story adventure using NexusGL through NexusEngine's Graphics Language Kit. This repository contains the greybox vertical slice **The Upward Signal** inside a procedural forest with no visible conventional ground.
+Across the Canopy is a Vite third-person/optional first-person 3D story adventure using NexusGL through NexusEngine's Graphics Language Kit. This repository contains the greybox vertical slice **The Upward Signal** inside a procedural forest with no visible conventional ground.
 
 ## Snapshot
 
 - Repository: `LuminaryLabs-Publish/AcrossTheCanopy`
 - Default branch: `main`
-- Documentation baseline: `c5f610e69fd77466368b10b5366a63d8fa8eb241`
+- Performance baseline: `077160f7de6b354749d20957ae90b28b1dc42626`
 - Package: `across-the-canopy@0.1.0-greybox.0`
 - NexusEngine pin: `5a4da3eba6ac95d2d8c74a008bb12caff0d6b0e8`
 - NexusEngine package line: `0.0.4`
@@ -52,14 +52,14 @@ The current content defines five authored locations and seven routes. Optional g
 - A deterministic capture replay is not a browser-DOM input test and intentionally has silent audio/greybox art.
 - Final visual quality and long-form player experience are separate acceptance concerns.
 
-## Active work
+## Historical migration
 
-- The functional NexusGL migration is delivered to `main` at `a502c0f7f9105483de6f9459da5b40ead3b7b717`. See `.agent/goal.md` and the evidence index.
-- Production: NexusGL WASM world 320×180; bitmap HUD and presentation 640×360. Three.js is absent from the package and runtime; the root snapshot is generated from `source/dist`.
-- Passed: 29 checks/build, clean install, zero npm audit findings, full browser adventure and both endings, all seven routes, save restoration, controls/resize, failed boot recovery, navigation and repeated reloads, real 300-second WASM replay and allocation-budget recovery.
-- Save/load uses the existing public application command API. Restore clears stale input queues, local navigation/focus and derived Sela placement. This fixes the old actions replaying after load.
-- The app mounts no Sequence Nodes; its unused automatic Sequence Node frame driver is disabled. Runtime scheduling and the Story Kit remain active.
-- Actual browser presentation in this recorded host run was roughly 4–13 FPS. Raw rendering times must not be labeled browser FPS. Fog, glow, shadows, final art/audio, production performance and other hosts remain qualification work.
-- Actions are disabled at repository level and the Pages workflow is disabled manually. Recheck before and after pushing. Do not enable a workflow or deploy.
-- Delivery readback matched all 83 tracked file hashes. No new workflow or deployment ran. See `evidence/delivery.json`.
-- Next work, if authorized: browser performance and the documented visual gaps. Production qualification remains open.
+The functional migration was delivered at `a502c0f7f9105483de6f9459da5b40ead3b7b717`, followed by continuity commit `077160f7de6b354749d20957ae90b28b1dc42626`. Its 29-check, 640×360-output and 4–13 FPS observations are historical. Preserve `.agent/evidence/README.md` and `delivery.json`; use the performance continuation for current acceptance.
+
+Save restoration resets Interaction/Input activations and transient navigation/focus. The app mounts no Sequence Nodes; its automatic node driver is disabled while normal Runtime and Story scheduling remain active. Actions and the Pages workflow must remain disabled. Do not deploy.
+
+## Active performance and third-person continuation
+
+Authorized scope is AcrossTheCanopy plus NexusGL performance changes if needed; NexusEngine stays unchanged. Browser execution uses a worker selection of NexusGL through the same Graphics Language Kit, with a game-local execution cache. Procedural data retains all 2,300 stable tree IDs; cells and grouped canopy LOD reduce submitted geometry. Third-person is default; V restores first-person. See `docs/PERFORMANCE_AND_THIRD_PERSON.md` and the dedicated evidence folder. The implementation passes local test/build and browser gates; timing results and delivery observations belong in the dedicated evidence. Do not infer universal smoothness or AAA qualification from an isolated FPS sample.
+
+Resolution: user selected actual 2560×1440 browser output with an upscaled 320×180 world and native-size bitmap HUD. Canvas stages and scales pixels; it does not render game geometry. Current measurements belong to the dedicated continuation evidence, separate from historical 640×360 output.

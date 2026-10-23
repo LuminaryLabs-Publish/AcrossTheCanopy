@@ -1,0 +1,220 @@
+{
+  "schema": "atc.motion-benchmark/1",
+  "observedAt": "2026-10-23T06:53:51.885Z",
+  "workload": "Station save restored through public API; real alternating W/S and drag-orbit input. Cold turns include first-time forest resource admission.",
+  "cold": {
+    "observedAt": "2026-10-23T06:52:45.028Z",
+    "durationMs": 12104.399999999907,
+    "presentedFrames": 108,
+    "presentedFps": 8.922375334589145,
+    "presentationMs": {
+      "count": 108,
+      "p50": 23.0999999998603,
+      "p95": 842.0999999998603,
+      "p99": 1209.8000000000466,
+      "max": 1258.6999999999534,
+      "mean": 106.58240740740655
+    },
+    "renderMs": {
+      "count": 108,
+      "p50": 22.799999999813735,
+      "p95": 265.0999999998603,
+      "p99": 1040.1999999999534,
+      "max": 1244.6999999999534,
+      "mean": 94.87314814812487
+    },
+    "mainRafMs": {
+      "count": 242,
+      "p50": 18.600000000093132,
+      "p95": 213.30000000004657,
+      "p99": 544.9000000001397,
+      "max": 616.6999999999534,
+      "mean": 50.01363636363656
+    },
+    "rasterMs": {
+      "count": 108,
+      "p50": 12.300000000046566,
+      "p95": 13.100000000093132,
+      "p99": 13.399999999906868,
+      "max": 13.600000000093132,
+      "mean": 12.101851851858319
+    },
+    "geometryMs": {
+      "count": 108,
+      "p50": 2.300000000046566,
+      "p95": 4.099999999860302,
+      "p99": 5.699999999953434,
+      "max": 6.199999999953434,
+      "mean": 2.499999999987065
+    },
+    "state": {
+      "provider": {
+        "forest": {
+          "totalTrees": 2300,
+          "visibleTrees": 1456,
+          "visibleCells": 21,
+          "totalCells": 38
+        },
+        "version": "0.1.0",
+        "frame": 720,
+        "initialized": true,
+        "packetRevision": 720,
+        "completed": {
+          "frame": 681,
+          "packetRevision": 681,
+          "presented": true,
+          "width": 640,
+          "height": 360,
+          "renderWidth": 320,
+          "renderHeight": 180,
+          "quality": "native",
+          "renderDurationMs": 934.0999999998603,
+          "presentationIntervalMs": 934.1999999999534,
+          "measuredFps": 3
+        },
+        "lastError": null,
+        "resourceCount": 93,
+        "lastRenderDurationMs": 934.0999999998603,
+        "measuredFps": 3
+      },
+      "execution": {
+        "backend": "wasm",
+        "status": "ready",
+        "resources": 93,
+        "phaseTimes": {
+          "geometryMs": 2.1000000000931323,
+          "rasterMs": 11.899999999906868
+        },
+        "resourceBytes": 391308,
+        "runtimeHeapBytes": 24248320,
+        "resourceRebuilds": 1,
+        "serial": 152,
+        "frameActive": false,
+        "memoryBudgetBytes": 201326592,
+        "maxFragments": 262144,
+        "maxResourceBytes": 67108864,
+        "revision": 93,
+        "execution": "worker",
+        "queuedOperations": 1
+      }
+    }
+  },
+  "warm": {
+    "observedAt": "2026-10-23T06:53:47.126Z",
+    "durationMs": 60156.5,
+    "presentedFrames": 43,
+    "presentedFps": 0.7148022241985488,
+    "presentationMs": {
+      "count": 43,
+      "p50": 1152.8000000000466,
+      "p95": 3252.600000000093,
+      "p99": 3315.3000000000466,
+      "max": 3460.399999999907,
+      "mean": 1375.6883720930255
+    },
+    "renderMs": {
+      "count": 43,
+      "p50": 1152.6999999999534,
+      "p95": 3252.5,
+      "p99": 3315.100000000093,
+      "max": 3460.1999999999534,
+      "mean": 1375.5069767441655
+    },
+    "mainRafMs": {
+      "count": 201,
+      "p50": 286.69999999995343,
+      "p95": 811,
+      "p99": 1060.2000000001863,
+      "max": 1110.2000000001863,
+      "mean": 299.2855721393042
+    },
+    "rasterMs": {
+      "count": 43,
+      "p50": 11.300000000046566,
+      "p95": 12.199999999953434,
+      "p99": 12.5,
+      "max": 12.700000000186265,
+      "mean": 11.113953488380757
+    },
+    "geometryMs": {
+      "count": 43,
+      "p50": 2.9000000001396984,
+      "p95": 5.900000000139698,
+      "p99": 7.100000000093132,
+      "max": 8,
+      "mean": 3.4465116279004793
+    },
+    "state": {
+      "provider": {
+        "forest": {
+          "totalTrees": 2300,
+          "visibleTrees": 1567,
+          "visibleCells": 22,
+          "totalCells": 38
+        },
+        "version": "0.1.0",
+        "frame": 3536,
+        "initialized": true,
+        "packetRevision": 3536,
+        "completed": {
+          "frame": 3416,
+          "packetRevision": 3416,
+          "presented": true,
+          "width": 640,
+          "height": 360,
+          "renderWidth": 320,
+          "renderHeight": 180,
+          "quality": "native",
+          "renderDurationMs": 1330.9000000001397,
+          "presentationIntervalMs": 1331.2000000001863,
+          "measuredFps": 1
+        },
+        "lastError": null,
+        "resourceCount": 94,
+        "lastRenderDurationMs": 1330.9000000001397,
+        "measuredFps": 1
+      },
+      "execution": {
+        "backend": "wasm",
+        "status": "ready",
+        "resources": 94,
+        "phaseTimes": {
+          "geometryMs": 2.800000000046566,
+          "rasterMs": 11.300000000046566
+        },
+        "resourceBytes": 417154,
+        "runtimeHeapBytes": 24248320,
+        "resourceRebuilds": 1,
+        "serial": 199,
+        "frameActive": false,
+        "memoryBudgetBytes": 201326592,
+        "maxFragments": 262144,
+        "maxResourceBytes": 67108864,
+        "revision": 94,
+        "execution": "worker",
+        "queuedOperations": 1
+      }
+    }
+  },
+  "finalPlayer": {
+    "position": [
+      53.379971455327265,
+      39.460375341806596,
+      -93.11635388182783
+    ]
+  },
+  "finalCamera": {
+    "position": [
+      56.79284588438369,
+      41.049311560764785,
+      -90.59066815173409
+    ],
+    "yaw": 0.78,
+    "pitch": -0.045,
+    "fov": 78,
+    "near": 0.08,
+    "far": 700,
+    "mode": "third-person",
+    "obstruction": 0
+  }
+}

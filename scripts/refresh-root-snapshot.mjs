@@ -7,7 +7,7 @@ const html = await readFile(new URL('index.html', built), 'utf8');
 if (!html.includes('./assets/index-') || !html.includes('id="world"')) throw new Error('Build source/ before refreshing the game snapshot.');
 const oldFiles = await readdir(new URL('assets/', root));
 for (const file of oldFiles) {
-  if (!/^index-[\w-]+\.(js|css)$/.test(file) && file !== 'artifacts' && !file.startsWith('__vite-browser-external-')) {
+  if (!/^(?:index|render-worker)-[\w-]+\.(js|css)$/.test(file) && file !== 'artifacts' && !file.startsWith('__vite-browser-external-')) {
     throw new Error(`Unexpected root asset ${file}; preserve it and inspect before replacing generated output.`);
   }
 }

@@ -21,7 +21,7 @@ import { createInputKit } from 'nexusengine/domains/interaction/input';
 import { createEnvironmentalAffordanceKit } from 'nexusengine/domains/interaction/environmental-affordance';
 import { createSimulationKit } from 'nexusengine/domains/simulation/runtime';
 import { createMotionKit } from 'nexusengine/domains/simulation/motion';
-import { createActionLocomotionKit } from 'nexusengine/domains/simulation/motion/locomotion';
+import { createActionLocomotionKit, advanceActionLocomotion } from 'nexusengine/domains/simulation/motion/locomotion';
 import { createPresentationKit } from 'nexusengine/domains/presentation/registry';
 import { createPresentationOutputKit } from 'nexusengine/domains/presentation/output';
 import { createUIKit } from 'nexusengine/domains/presentation/ui';
@@ -597,7 +597,7 @@ export function createAcrossTheCanopyRuntime(options = {}) {
   const initialTreeFlush = installForestBatch(engine, trees);
   initializePresentation(engine);
 
-  function getPlayer() {
+  function getPlayer({ includeLocomotion = true } = {}) {
     const placement = engine.n.objectPlacement.get(PLAYER_PLACEMENT_ID);
     const camera = engine.n.camera.getDescriptors('cameras')?.[CAMERA_ID] ?? initialCameraDescriptor();
     return {
@@ -607,11 +607,11 @@ export function createAcrossTheCanopyRuntime(options = {}) {
       rotation: clone(placement?.transform?.rotation ?? [0, 0, 0, 1]),
       scale: clone(placement?.transform?.scale ?? [1, 1, 1]),
       fov: clampFov(camera.fov),
-      locomotion: clone(engine.n.actionLocomotion.getState())
+      ...(includeLocomotion ? {locomotion: clone(engine.n.actionLocomotion.getState())} : {})
     };
   }
 
-  function setPlayer(input = {}) {
+  function setPlayer(input = {}, { synchronizeLocomotion = true, snapshot = true } = {}) {
     const current = engine.n.objectPlacement.get(PLAYER_PLACEMENT_ID);
     const position = input.position === undefined ? current.transform.position : vectorArray(input.position);
     const rotation = input.rotation === undefined ? current.transform.rotation : eulerToQuaternion(input.rotation);
@@ -619,9 +619,7 @@ export function createAcrossTheCanopyRuntime(options = {}) {
       transform: { ...current.transform, position, rotation }
     });
 
-    const locomotion = engine.n.actionLocomotion.getSnapshot();
-    engine.n.actionLocomotion.loadSnapshot({
-      ...locomotion,
+    if (synchronizeLocomotion) engine.n.actionLocomotion.update({
       position: vectorObject(position),
       velocity: input.velocity ? vectorObject(input.velocity) : { x: 0, y: 0, z: 0 },
       grounded: input.grounded !== false,
@@ -629,7 +627,33 @@ export function createAcrossTheCanopyRuntime(options = {}) {
     });
     engine.n.world.setFocus(WORLD_ID, { entityId: PLAYER_ID, position: vectorObject(position) });
     if (input.fov !== undefined) setPresentation({ fov: input.fov });
-    return getPlayer();
+    return snapshot ? getPlayer() : { updated: true };
+  }
+
+  let sampledTick = -1, sampledRequest = '', sampledFrame = null;
+  function integrateMovement(command, approve) {
+    const tick = engine.clock.frame, signature=JSON.stringify(command);
+    if (tick===sampledTick) {
+      if(signature!==sampledRequest)throw new Error('Movement input already integrated for this tick.');
+      return clone(sampledFrame);
+    }
+    const api=engine.n.actionLocomotion, state=api.getState();
+    const frame=advanceActionLocomotion(state,command,api.getConfig());
+    const approved=approve ? approve(clone(frame)) : frame.position;
+    if (approved===false) { frame.position=clone(state.position); frame.velocity={x:0,y:0,z:0}; }
+    else if(approved)frame.position=vectorObject(approved);
+    // Continuous fixed-tick samples are integration, not durable remote commands.
+    // Reuse Nexus's solver and update its authoritative state without creating
+    // an ever-growing operation receipt for every W/S sample. Explicit step()
+    // remains available with its original command idempotency semantics.
+    api.update({position:frame.position,velocity:frame.velocity,facing:frame.facing,
+      grounded:frame.grounded,jumping:frame.jumping,dashing:frame.dashing,gliding:frame.gliding,
+      recoveryRequired:frame.recoveryRequired,lastIntent:frame.intent,lastFrame:frame,
+      transitions:[...(state.transitions??[]),...frame.transitions].slice(-128)});
+    for(const transition of frame.transitions)api.emit(transition.replaceAll('-',''),{frame});
+    setPlayer({position:frame.position,rotation:command.rotation},{synchronizeLocomotion:false,snapshot:false});
+    sampledTick=tick;sampledRequest=signature;sampledFrame=clone(frame);
+    return frame;
   }
 
   function getPresentation() {
@@ -658,7 +682,7 @@ export function createAcrossTheCanopyRuntime(options = {}) {
     return descriptor;
   }
 
-  function setPresentation(patch = {}) {
+  function setPresentation(patch = {}, { snapshot = true } = {}) {
     if (patch.root || patch.presentation) engine.n.presentation.configure(patch.root ?? patch.presentation);
     if (patch.output) setOutput(patch.output);
     if (patch.camera) descriptorGroups(engine.n.camera, patch.camera, 'cameras');
@@ -672,7 +696,7 @@ export function createAcrossTheCanopyRuntime(options = {}) {
       const control = engine.n.ui.getDescriptors('controls')?.['atc:ui/fov-slider'];
       if (control) engine.n.ui.setDescriptor('controls', control.id, { ...control, value: fov });
     }
-    return getPresentation();
+    return snapshot ? getPresentation() : { updated: true };
   }
 
   function dispatchAction(action = {}) {
@@ -769,6 +793,7 @@ export function createAcrossTheCanopyRuntime(options = {}) {
     engine.n.simulation.reset();
     engine.n.motion.reset();
     engine.n.actionLocomotion.reset();
+    sampledTick=-1;sampledFrame=null;sampledRequest='';
     engine.n.objectPlacement.reset();
     engine.n.interaction.reset();
     engine.n.input.reset();
@@ -840,6 +865,7 @@ export function createAcrossTheCanopyRuntime(options = {}) {
     dispatchAction,
     getStory: () => engine.n.acrossTheCanopy.getState(),
     getPlayer,
+    integrateMovement,
     setPlayer,
     getPlacements: () => engine.n.objectPlacement.list(),
     setPresentation,

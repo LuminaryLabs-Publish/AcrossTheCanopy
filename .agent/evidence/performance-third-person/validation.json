@@ -1,0 +1,97 @@
+{
+  "schema": "atc.performance-validation/1",
+  "observedAt": "2026-10-23T07:47:13.878675+00:00",
+  "baselineCommit": "077160f7de6b354749d20957ae90b28b1dc42626",
+  "implementationScope": [
+    "AcrossTheCanopy"
+  ],
+  "enginePin": "5a4da3eba6ac95d2d8c74a008bb12caff0d6b0e8",
+  "gates": {
+    "cleanInstall": true,
+    "npmAuditVulnerabilities": 0,
+    "testsPassed": 34,
+    "testsFailed": 0,
+    "productionBuild": true,
+    "rootMatchesDist": [
+      "index.html",
+      "assets/index-188Q1F72.js",
+      "assets/__vite-browser-external-9wXp6ZBx.js",
+      "assets/index-BwjwKyEz.css",
+      "assets/render-worker-C_uT2XUc.js",
+      "assets/__vite-browser-external-BIHI7g3E.js",
+      "assets/artifacts/nexusgl.wasm",
+      "assets/artifacts/manifest.json",
+      "assets/artifacts/nexusgl.mjs"
+    ],
+    "packageAndLockUnchanged": true,
+    "runtimeArtifactsUnchanged": true,
+    "gitHubWorkflowFilesUnchanged": true
+  },
+  "resolution": {
+    "output": [
+      2560,
+      1440
+    ],
+    "world": [
+      320,
+      180
+    ],
+    "upscaled": true
+  },
+  "limits": [
+    "Greybox assets and CPU renderer",
+    "Frame time varies; no locked 60 FPS or universal smoothness qualification",
+    "No Quest/mobile/native validation",
+    "JavaScript bundle size warning remains",
+    "Browser Canvas memory is outside WASM heap diagnostics"
+  ],
+  "sha256": {
+    "assets/__vite-browser-external-9wXp6ZBx.js": "ffb8ae68fda0222e47efaa14ab3bc0920ea18a35a4df842fb0b5aac067e28639",
+    "assets/__vite-browser-external-BIHI7g3E.js": "82507b0bb9ac4affaeb17c40968d830cbd6d14a2ffa04d8994faf1a78e58e1b5",
+    "assets/artifacts/manifest.json": "285c0b8b2f2f8fe3fbe79eb3dfeea9717bc29cf7eadae347210bee4371bbb25a",
+    "assets/artifacts/nexusgl.mjs": "116777c07199152d477e8bf321663d50d7bd3fa309cef32b4d25148741f716d8",
+    "assets/artifacts/nexusgl.wasm": "33913f63bf9f7f4a0fc2654f5985a344968ee6271fdf390a4b1e0ca274ef3c8f",
+    "assets/index-188Q1F72.js": "e2b38f9d2ea123834ca0774959c4f3584a389390180082c167dd55fcc840c763",
+    "assets/index-BwjwKyEz.css": "3b1133c75b7489ac68a8eefe1a552f538e06feff4445835b459ad240e472cedd",
+    "assets/render-worker-C_uT2XUc.js": "806214e039f9444fa5e33e85055fb1ae0a76cf572205d8904a3e233c6f89b520",
+    "index.html": "eb2ec3e82786be306a71becc04e4c8fdbda5d2c5c5e97ce0a571bd893cb7e0ab",
+    "scripts/benchmark-browser.mjs": "968d4a478221726c1532143c21e39c49f7dfdb5fe0314c2e26b152332cd5f715",
+    "scripts/benchmark-motion.mjs": "d8e4f0f12165942cc05d228f51706975cdadd9c64398db37c6168819ae80998a",
+    "scripts/gameplay-video-adapter.mjs": "7cba7b1507775898586ae1afd7cb2f6582875e2134a73442fca6944f6b2e37ec",
+    "scripts/refresh-root-snapshot.mjs": "792f8f377e7da0330751048487319667b9e7ff2c43dd651ed6018ad9b1058468",
+    "scripts/run-browser-checks.mjs": "8ed0b8ace3642a8a84ad8c0ac08df588007e8642a83b5bea69d02cb350138d33",
+    "scripts/verify-browser-migration.mjs": "81c152b7a3ce6bc67b255e6b2eef19117c9493d4f48d9923276a27ada1e4eb41",
+    "scripts/verify-performance-third-person.mjs": "fbe08b8ff27db703f6d32611273520282067ec6a8ebafb009fa6e6cdfe318475",
+    "scripts/verify-wasm-migration.mjs": "5fed2518e129942ddba690770c3923afeb75ce8e3eb3050bd796ce8e35c886d4",
+    "source/package-lock.json": "036a1de50063889ad7033a630c3ae464eee634d3137af2b1cb7dd6299750579b",
+    "source/package.json": "412f0223595de0311cad8d7276310c01db66f95de82caaf6fc7216db8d24bbf4",
+    "source/src/adapters/browser-input.js": "851edd419c1952f83f283efc0d218e64d69f570658ff0512835ec4fff808859c",
+    "source/src/adapters/nexusgl-pick.js": "b968d6e8860a69b050610ef9750f20eca3868bb8f7b0aeb279e4075ff3e35edc",
+    "source/src/adapters/storage.js": "2b0d25f5db4d3781c81c272c6e28f5d44e68ca8d74eabc1bce5c51cca8196355",
+    "source/src/game/capture-director.js": "21aaacdca02b9e8d8426cc922bdc2eff702f2caf73e0923128857f3646e05706",
+    "source/src/game/content.js": "f05e9f600b537a8c3c776822551fbb20610adb79913b92cb93e8511ae6c7100b",
+    "source/src/game/game-session.js": "b611fda4c49cc7f27c77b27a3b9f544088621dd85100b9d3ad64307e6ff7d6a6",
+    "source/src/game/nexus-runtime.js": "31979aa7ff2e849f850f5687bebafaa2de88eaab0bdb3cc67e92cc34caf06811",
+    "source/src/game/presentation-projection.js": "e85d4a9c69fb276e54c3b650b238873512040978d7ca629c11ca31a6eb385e4e",
+    "source/src/game/story-kit.js": "6d1c20b4fba3a63e5fe6e9480487f33c6a352b6ae7cb4606cf897e09543b7ca3",
+    "source/src/game/story-model.js": "46f7fcd70dd9489300435e81b61675d334505967b5fde091a811bf3e5624a0bc",
+    "source/src/game/third-person.js": "873e4bbf020c767e338e468169be0d1735c878e6e78841694ea81370e8764fb6",
+    "source/src/main.js": "67a0418a62dfd30e987731876d4c310fbc3157a8cd55ffb7f5670bfbf51f73cc",
+    "source/src/providers/bitmap-texture.js": "cb12300c6c31510bff9008478414e113360486b783e99820170316430a1b1e23",
+    "source/src/providers/cached-execution-provider.js": "932d1077a119ac04cd2758f75273de684b4f457b88ba3113127e3d7bd47cc711",
+    "source/src/providers/mock-provider.js": "be8d900bdc4bbdd50d6f117200fad38bbaa5356e35bcb12903588a43ff5c7844",
+    "source/src/providers/nexusgl-provider.js": "3b29103868b7f0f57953758fd71507de4925651234e2d80b13bec3c512ad8bcb",
+    "source/src/providers/render-worker.js": "0dc33464488cef9d7f14b9096e440b2a07616f227d8e9af6b3adb53b7b1ec002",
+    "source/src/providers/worker-provider.js": "125dbe3b39b82d732d57e7d6a7faa221ba89c62d5ec740621386c450c437715e",
+    "source/src/style.css": "b8f93a77f381157e100785e27ed581872e87a7adcea4ebbcae04b15fff549696",
+    "source/test/capture-director.test.js": "fad5ffbc283f44505cad3251b981dfa7a3f52ce6f2d454c44282b29bf2a10276",
+    "source/test/content.test.js": "e98b6957612aa6d78a6b2e3ab5a0f4f7c4e61f0c743c4153eaf3fd80730ea53d",
+    "source/test/nexus-runtime.test.js": "5c9125ae8faab72cf072431b7fa62d9a425c306e189aca47d1294f883be9c47a",
+    "source/test/nexusgl-provider.test.js": "a1d04468b2a7f6731eeabb97e1399cba875b755eb0b0a6b505c68b209d80d97e",
+    "source/test/presentation-provider.test.js": "db438b8aa02f47ef2bd2d52aa208be9586f3e48621263d64cf8403b31934c155",
+    "source/test/storage.test.js": "54013695dac1dac5db8d2dd56c35bbb939feff444e9b8888ac3d3bb9fdff811b",
+    "source/test/story-kit.test.js": "61a02b67f38904a91bf87e271cb1fc3feb78c6fb6bfefd1c2f6a5adb4b5697d0",
+    "source/test/story-model.test.js": "6d557b327da6c313ed9c85713c0ec333982671d155df2333a30526ee56eeadc3",
+    "source/vite.config.js": "4bbea1414143bbf74bd457f39f4d42f08d17db59d8f93e9be57f27c3d15995c2"
+  }
+}
