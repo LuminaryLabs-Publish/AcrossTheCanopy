@@ -46,6 +46,8 @@ Race-check `main`, fast-forward with `force=false`, re-read every changed doc fr
 
 At each iteration, reread `AGENTS.md`, `.agent/goal.md`, `.agent/start-here.md`, this workflow, the newest `.agent/change-log.md` entry and relevant `.agent/feedback.md` findings. Check `git status`, `HEAD`, remote `main`, and repository Actions state before selecting one unblocked task.
 
+Before building a capability, identify its NexusEngine semantic domain/DSK owner and existing public service from the latest `main`; keep product narrative in the game Kit and compose services in the application. Do not introduce duplicate state owners.
+
 Implement one narrow migration task under this repository. Run the existing `cd source && npm run validate` gate plus a real browser check for changed rendering or interaction. Capture the observed result and exact revision in `.agent/change-log.md`; update goal and start-here status; keep failures and unresolved requirements in `.agent/feedback.md`. Pass advances to the next task. Failure records evidence, permits up to three focused attempts, then requires a revised hypothesis or a documented blocker.
 
 Before pushing, verify every repository Actions workflow is disabled and there are no runs queued or in progress. Do not use workflow skip annotations as a substitute. Push validated commits only to `origin main`, then verify remote SHA and workflow state. Never force-push.

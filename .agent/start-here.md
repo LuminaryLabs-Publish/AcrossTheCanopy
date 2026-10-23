@@ -15,6 +15,10 @@ Across the Canopy is a Vite third-person/optional first-person 3D story adventur
 - Vite: `6.4.5`
 - Upkeep pass: `MNT-367`
 
+## Architecture rule
+
+Build new capabilities through NexusEngine’s semantic domains and their owning DSKs, then assemble those services in the game. AcrossTheCanopy keeps its story rules in its product Kit. Avoid duplicate state owners; check the latest NexusEngine `main` before selecting a domain service.
+
 ## Authored route
 
 ```text

@@ -14,6 +14,10 @@ Across the Canopy is a third-person point-and-click (optional first-person) 3D s
 8. `docs/NEXUS_COMPOSITION_LEDGER.md`
 9. relevant `source/src/` and tests
 
+## Architecture
+
+- Build gameplay and rendering features through NexusEngine’s semantic domain architecture. Put reusable state, lifecycle, and contracts under the existing domain/DSK that owns them; let the game composition assemble those services. Keep story and product-specific rules in the AcrossTheCanopy product Kit. Use public domain services and avoid parallel registries or duplicate state owners. Check the latest NexusEngine `main` before choosing an owner or API.
+
 ## Hard boundaries
 
 - `source/` is the editable source authority. Do not hand-edit root hashed build assets as product source.

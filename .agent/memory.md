@@ -22,6 +22,8 @@ Success requires reaching the station, verifying the fresh signal, choosing eith
 
 ## Nexus memory
 
+- Build new features through NexusEngine semantic domains and their owning DSKs; the game composition assembles public services, while narrative rules remain in the product Kit. Avoid parallel state registries and ground domain/API choices in the latest engine `main`.
+
 - current dependency: `github:LuminaryLabs-Dev/NexusEngine#main` (lockfile records the resolved commit; last verified upstream main: `081fea1cdd9ca1662bc15116e7174d9c27821630`)
 - package line documented as `nexusengine@0.0.4` at the last verified main revision
 - product story Kit path: `n:product:across-the-canopy`
