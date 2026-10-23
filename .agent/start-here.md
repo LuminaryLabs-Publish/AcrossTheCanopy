@@ -8,8 +8,9 @@ Across the Canopy is a Vite third-person/optional first-person 3D story adventur
 - Default branch: `main`
 - Performance baseline: `077160f7de6b354749d20957ae90b28b1dc42626`
 - Package: `across-the-canopy@0.1.0-greybox.0`
-- NexusEngine pin: `5a4da3eba6ac95d2d8c74a008bb12caff0d6b0e8`
-- NexusEngine package line: `0.0.4`
+- NexusEngine source: latest `main`; last verified `081fea1cdd9ca1662bc15116e7174d9c27821630`
+- NexusEngine package line: `0.0.4` (package metadata at the verified main revision)
+- Refresh before work: `cd source && npm update nexusengine`; `package-lock.json` records the resolved SHA for that install
 - Renderer: NexusGL WASM via the Graphics Language Kit
 - Vite: `6.4.5`
 - Upkeep pass: `MNT-367`

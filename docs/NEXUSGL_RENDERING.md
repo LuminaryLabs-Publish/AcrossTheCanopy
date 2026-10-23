@@ -6,7 +6,7 @@ The game keeps its existing story, inventory, save, object, camera and input own
 
 NexusGL renders the world at 320×180. The browser presents a 2560×1440 canvas: native-resolution bitmap HUD over an upscaled world bitmap. Canvas only presents completed pixels; NexusGL owns geometry, materials and rasterization. The staged image is committed synchronously and owned RGBA captures are composed on demand. Premultiplied HUD pixels are converted to straight alpha for upload. Resize fits the 16:9 surface inside the viewport without increasing the world raster. This is 1440p output with an upscaled world, not native 1440p geometry fidelity.
 
-No Three.js package, provider, picker or texture helper remains in the application. The build rejects bundled modules from `node_modules/three`. The pinned engine may contain historical Three adapter names in its metadata; those strings do not load Three.js.
+No Three.js package, provider, picker or texture helper remains in the application. The build rejects bundled modules from `node_modules/three`. NexusEngine is consumed from its `main` branch; the package lock records the commit used by each install. Historical Three adapter names in engine metadata do not load Three.js.
 
 ## Rendering mapping
 
@@ -42,7 +42,7 @@ npm run preview
 
 `validate` runs numerical/gameplay/adapter checks and builds the browser package. `verify:wasm` executes the real 300-second game/capture route, checks completed-frame ownership and disposal, and writes measured evidence. `snapshot` reruns validation and refreshes the root `index.html` and generated `assets/` from `source/dist`. Never edit hashed bundles by hand.
 
-Vite serves the pinned runtime assets in development and copies only `manifest.json`, `nexusgl.mjs` and `nexusgl.wasm` for production. The engine checks artifact byte counts and SHA-256 hashes before initialization. Native addons are not shipped in this browser snapshot.
+Vite serves the current NexusEngine main runtime assets in development and copies only `manifest.json`, `nexusgl.mjs` and `nexusgl.wasm` for production. The engine checks artifact byte counts and SHA-256 hashes before initialization. Native addons are not shipped in this browser snapshot.
 
 `scripts/verify-browser-migration.mjs` exports `verifyBrowserMigration(page, {stage, url})` for a caller-supplied Playwright page. In order, run `open`, `starter`, `branch`, `rows`, `market`, `puzzle`, `station`, `answer`, `recover`, `controls`, `optional`, and `host`. It uses real mouse/keyboard events for story actions. The alternate ending restores the station save through the application's existing save API. Optional-route checks restore an observed chapter snapshot and then restore the completed save. Host checks deliberately block WASM loading and prove recovery. The script adds no browser package to the runtime. Use the production preview URL actually printed by Vite.
 
@@ -61,6 +61,6 @@ Reviewed read-only on 2026-10-22:
 - [Phase 1 production plan](https://docs.google.com/document/d/1IKEtu4qd_rOlMvi7rolRgabSozCpkqnpO2Bt2zsvpTE/edit), modified 2026-09-05: authored browser adventure, intentional destination interaction, save/restore and both endings. Its final-art and approximately 60-minute targets are broader production milestones.
 - [Development tracker](https://docs.google.com/spreadsheets/d/1k1ZrYJB4Um4xbD8v1uQQHcE5Bjqr34yYT79bbahojIM/edit), modified 2026-09-05: historical backlog and evidence, including start-marker raycast failure. Current repository checks supersede stale implementation-status rows for this migration; Drive was not edited.
 - [Development plan](https://docs.google.com/document/d/1wZ7xYkWhCGRQU6dVlnl5lFD7PBiuX7HwcXnEc0uvw10/edit), modified 2026-09-02: product/engine ownership and future direction. Open-world expansion is outside the work.
-- NexusEngine `docs/GRAPHICS-LANGUAGE.md` at dependency `5a4da3eba6ac95d2d8c74a008bb12caff0d6b0e8`: runtime, material, matrix, ownership and host contracts.
+- NexusEngine `docs/GRAPHICS-LANGUAGE.md` at latest `main` (`081fea1cdd9ca1662bc15116e7174d9c27821630` during this review): runtime, material, matrix, ownership and host contracts.
 
 The six production scene packages cover Starter Perch, Rows, Market, Descent Lock, Station and Changed Return. The repository has five geographic locations, including Branch & Trunk Route. The lock is within the market and Changed Return revisits Rows. This migration preserves those representations and adds no location.

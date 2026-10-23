@@ -1,0 +1,42 @@
+{
+  "schema": "atc.nexusengine-main-validation/1",
+  "date": "2026-10-23",
+  "repository": "LuminaryLabs-Publish/AcrossTheCanopy",
+  "engineRepository": "LuminaryLabs-Dev/NexusEngine",
+  "engineBranch": "main",
+  "engineCommit": "081fea1cdd9ca1662bc15116e7174d9c27821630",
+  "dependencySpec": "github:LuminaryLabs-Dev/NexusEngine#main",
+  "lockfileResolvedCommit": "081fea1cdd9ca1662bc15116e7174d9c27821630",
+  "checks": {
+    "npmUpdateNexusEngine": "passed; refreshed from current main",
+    "npmCi": "passed; 18 packages audited, zero vulnerabilities reported",
+    "npmRunValidate": "passed; 34 tests and Vite production build",
+    "npmRunVerifyWasm": {
+      "result": "passed",
+      "simulatedSeconds": 300,
+      "ending": "answer_signal",
+      "frames": 280,
+      "renderMsP50": 21.01975,
+      "renderMsP95": 31.778834,
+      "renderMsMax": 46.815167,
+      "sampledPeakRssBytes": 363970560,
+      "budgetFailureRetainedPixels": true,
+      "subsequentFrameRendered": true,
+      "resourcesReleasedOnDispose": true
+    },
+    "browser": {
+      "result": "passed",
+      "host": "Chrome, local production preview",
+      "canvasBackingSize": "2560x1440",
+      "nexusglWorldRaster": "320x180",
+      "renderedSceneVisuallyInspected": true,
+      "browserConsoleErrorsAndWarnings": 0
+    },
+    "rootSnapshot": "refreshed from source/dist"
+  },
+  "limitations": [
+    "Vite reports existing Node built-in externalization and large-bundle warnings during the production build.",
+    "The screenshot was visually inspected in the browser session; no standalone screenshot file was saved.",
+    "Performance measurements are from the local Node replay and do not establish universal frame-rate targets."
+  ]
+}

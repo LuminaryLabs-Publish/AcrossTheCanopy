@@ -1,5 +1,14 @@
 # Maintainer change log
 
+## 2026-10-23 — Follow latest NexusEngine main
+
+- Changed `source/package.json` to track `github:LuminaryLabs-Dev/NexusEngine#main`; refreshed `source/package-lock.json` to current upstream commit `081fea1cdd9ca1662bc15116e7174d9c27821630`. The manifest follows the branch; the lock records the exact install source. Future work must run `cd source && npm update nexusengine` before validation.
+- Confirmed the latest public package keeps the Graphics Language Kit exports and runtime paths used by the game. NexusEngine was inspected read-only; all edits remain in AcrossTheCanopy.
+- `npm ci`, `npm run validate` (34 tests plus production build), `npm run verify:wasm` (300 simulated seconds, `answer_signal`, budget failure retained pixels and recovered), and `npm run snapshot` passed. The replay measured p50 21.02 ms / p95 31.78 ms / max 46.82 ms after warm-up; sampled process peak RSS was about 364 MB.
+- Inspected the production preview in Chrome. The visible scene rendered on a 2560×1440 canvas backing surface with 320×180 NexusGL world pixels; no console errors or warnings appeared.
+- Vite continues to report Node built-in externalization and large-bundle warnings. Performance data is workload-specific. Evidence: `.agent/evidence/nexusengine-main/validation.json`.
+- Pushing this verified checkpoint is authorized. Keep all GitHub workflows disabled; no deployment is authorized.
+
 ## 2026-10-23 — Performance, forest, third-person and 1440p checkpoint
 
 - Confined implementation to AcrossTheCanopy. NexusEngine pin/runtime artifacts and dependencies are unchanged; pre-existing NexusGL audit work is preserved.

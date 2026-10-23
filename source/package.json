@@ -13,7 +13,7 @@
     "snapshot": "npm run validate && node ../scripts/refresh-root-snapshot.mjs"
   },
   "dependencies": {
-    "nexusengine": "github:LuminaryLabs-Dev/NexusEngine#5a4da3eba6ac95d2d8c74a008bb12caff0d6b0e8"
+    "nexusengine": "github:LuminaryLabs-Dev/NexusEngine#main"
   },
   "devDependencies": {
     "vite": "^6.4.5"

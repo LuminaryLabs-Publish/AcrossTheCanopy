@@ -22,8 +22,8 @@ Success requires reaching the station, verifying the fresh signal, choosing eith
 
 ## Nexus memory
 
-- current dependency: `github:LuminaryLabs-Dev/NexusEngine#5a4da3eba6ac95d2d8c74a008bb12caff0d6b0e8`
-- package line documented as `nexusengine@0.0.4`
+- current dependency: `github:LuminaryLabs-Dev/NexusEngine#main` (lockfile records the resolved commit; last verified upstream main: `081fea1cdd9ca1662bc15116e7174d9c27821630`)
+- package line documented as `nexusengine@0.0.4` at the last verified main revision
 - product story Kit path: `n:product:across-the-canopy`
 - engine API exposed by product runtime includes Nexus-owned domain services plus `engine.n.acrossTheCanopy` for story meaning
 

@@ -18,7 +18,7 @@ The editable application is under `source/`. `source/package.json` defines `dev`
 
 Current source defines:
 - save schema `atc.greybox.v1`
-- Nexus commit `5a4da3eba6ac95d2d8c74a008bb12caff0d6b0e8`
+- NexusEngine source: latest `main`; current verified revision `081fea1cdd9ca1662bc15116e7174d9c27821630`
 - forest seed `41731`
 - default tree count `2300`
 - five authored locations

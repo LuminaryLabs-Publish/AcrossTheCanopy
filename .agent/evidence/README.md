@@ -20,6 +20,10 @@ This records the functional greybox migration tested on 2026-10-22. It does not 
 
 The browser checker uses mouse/keyboard events for story actions. It uses the game's existing public save/load API to restore the station and an observed earlier chapter for optional routes, then restores completed progress. Save fixtures use the unchanged legacy serializer/schema; they are observations from this run, not claimed captures of a prior user's Three.js save.
 
+## Current NexusEngine main integration (2026-10-23)
+
+The game dependency now tracks `github:LuminaryLabs-Dev/NexusEngine#main`. The last validated main head was `081fea1cdd9ca1662bc15116e7174d9c27821630`; refresh with `cd source && npm update nexusengine` before future work. This newer proof supersedes the old pinned dependency for current integration status while leaving historical migration evidence intact. See [latest-main validation](nexusengine-main/validation.json) and the newest `.agent/change-log.md` entry.
+
 ## Current views
 
 - [Starter Perch](nexusgl-starter-perch.png), [walking](nexusgl-movement.png), [spindle](nexusgl-spindle.png)

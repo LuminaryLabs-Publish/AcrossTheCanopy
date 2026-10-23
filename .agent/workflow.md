@@ -2,16 +2,18 @@
 
 ## Before editing
 
-1. verify exact remote `main`
+1. verify exact remote `main` and fetch the latest `LuminaryLabs-Dev/NexusEngine` `main`
 2. read `AGENTS.md`, `.agent/start-here.md`, and the two canonical docs
-3. edit application source only under `source/`
-4. preserve stable IDs and Nexus/product ownership boundaries
-5. do not hand-edit root hashed build output as a substitute for rebuilding
+3. run `cd source && npm update nexusengine` before validation or implementation so the lockfile resolves the latest engine branch head
+4. edit application source only under `source/`
+5. preserve stable IDs and Nexus/product ownership boundaries
+6. do not hand-edit root hashed build output as a substitute for rebuilding
 
 ## Local setup and validation
 
 ```bash
 cd source
+npm update nexusengine
 npm ci
 npm test
 npm run build

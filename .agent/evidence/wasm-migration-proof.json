@@ -1,9 +1,9 @@
 {
   "schema": "atc.wasm-migration-proof/1",
-  "observedAt": "2026-10-22T23:32:19.261Z",
+  "observedAt": "2026-10-23T08:00:19.159Z",
   "node": "v25.8.1",
   "simulatedSeconds": 300,
-  "wallSeconds": 32.84471049999999,
+  "wallSeconds": 14.300673709,
   "story": {
     "schema": "atc.greybox.v1",
     "revision": 86,
@@ -189,6 +189,12 @@
     "storyCompleted": true
   },
   "finalProvider": {
+    "forest": {
+      "totalTrees": 2300,
+      "visibleTrees": 1892,
+      "visibleCells": 28,
+      "totalCells": 38
+    },
     "version": "0.1.0",
     "frame": 300,
     "initialized": true,
@@ -202,16 +208,22 @@
       "renderWidth": 320,
       "renderHeight": 180,
       "quality": "native",
-      "renderDurationMs": 54.16054200000144,
-      "presentationIntervalMs": 97.20308400000067,
-      "measuredFps": 10
+      "renderDurationMs": 23.176958000000013,
+      "presentationIntervalMs": 28.031957999999577,
+      "measuredFps": 34
     },
     "lastError": null,
-    "resourceCount": 44,
-    "lastRenderDurationMs": 54.16054200000144,
-    "measuredFps": 10
+    "resourceCount": 85,
+    "lastRenderDurationMs": 23.176958000000013,
+    "measuredFps": 34
   },
   "disposed": {
+    "forest": {
+      "totalTrees": 2300,
+      "visibleTrees": 1892,
+      "visibleCells": 28,
+      "totalCells": 38
+    },
     "version": "0.1.0",
     "frame": 300,
     "initialized": false,
@@ -219,15 +231,14 @@
     "completed": null,
     "lastError": null,
     "resourceCount": 0,
-    "lastRenderDurationMs": 54.16054200000144,
-    "measuredFps": 10
+    "lastRenderDurationMs": 23.176958000000013,
+    "measuredFps": 34
   },
   "budgetRecovery": {
     "rejected": true,
     "rejection": {
       "name": "Error",
-      "message": "scene exceeds total rendering memory budget",
-      "packetRevision": 1
+      "message": "scene exceeds total rendering memory budget"
     },
     "retainedPixels": true,
     "subsequentFrame": true
@@ -237,19 +248,19 @@
     "height": 360,
     "worldWidth": 320,
     "worldHeight": 180,
-    "sha256": "150621f2f9b929f1b126f3d7acacfd2860dc5c5c063c2cdf319f364fcf6659c1",
+    "sha256": "dbf0548f5bbf17451b1a72b4cf216f8c3d0b976a8a7edf29ab938ac6608c18f7",
     "independentlyOwned": true
   },
   "measurements": {
     "warmupFrames": 20,
     "sampleCount": 280,
     "renderMs": {
-      "p50": 53.614041000000725,
-      "p95": 59.740499999999884,
-      "max": 88.20391599999857
+      "p50": 21.019750000001295,
+      "p95": 31.778833000000304,
+      "max": 46.81516699999975
     },
-    "sampledPeakRssBytes": 519258112,
-    "processHighWaterRssBytes": 523026432
+    "sampledPeakRssBytes": 363970560,
+    "processHighWaterRssBytes": 363986944
   },
   "boundary": "Real NexusGL WASM and game/session/capture path; scripted semantic actions, not browser input. FPS HUD and frame hash depend on measured timing. RSS includes the whole Node process, not just the renderer."
 }

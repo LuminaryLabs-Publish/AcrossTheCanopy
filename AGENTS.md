@@ -23,14 +23,17 @@ Across the Canopy is a third-person point-and-click (optional first-person) 3D s
 - The deterministic 2,300-tree forest uses cell visibility and LOD for atmosphere/streaming context and must not own authored story route placement.
 - Preserve the no-visible-conventional-ground rule.
 - Gameplay logic targets stable IDs and roles, not primitive mesh names/colors.
-- NexusEngine is pinned by the active migration to `5a4da3eba6ac95d2d8c74a008bb12caff0d6b0e8` / package line `0.0.4`; see `.agent/goal.md` and `docs/NEXUSGL_RENDERING.md` for current status and proof limits.
+- NexusEngine is consumed from its latest `main` branch; refresh the dependency before validation and record the resolved commit in `.agent` evidence. See `.agent/goal.md` and `docs/NEXUSGL_RENDERING.md` for integration status and proof limits.
 - Product-specific story/dialogue/puzzle/choice behavior remains in the AcrossTheCanopy story Kit; do not move it into reusable engine ownership casually.
 - Test/build/capture evidence tiers must remain distinct from subjective final-art/gameplay-quality approval.
 
 ## Validation
 
+Refresh the NexusEngine Git dependency from upstream `main` before validation or implementation. The package manifest tracks `#main`; the lockfile records the exact commit used for the install.
+
 ```bash
 cd source
+npm update nexusengine
 npm ci
 npm run validate
 ```
