@@ -1,5 +1,27 @@
 # Feedback and deferred findings
 
+## ATC-019 — Latest Engine fails during catalog initialization
+
+- **Status: BLOCKED upstream**, observed 2026-11-05. `npm update nexusengine`
+  resolved current Engine main to `c674a53e054640f5acc035180a2f3fe1d7d4fe03`;
+  a clean `npm ci` succeeded, but `npm run validate` stopped before the build.
+  Four test files failed on import with `Core public subpath collision:
+  ./domains/authoring/design`; 14 other checks passed.
+- Engine's `src/core-domains/authoring/domain.manifest.js` declares
+  `./domains/authoring/design` as a public entry, and
+  `design/kits/authoring-design-kit/kit.manifest.js` declares the same path for
+  a kit. The catalog rejects that collision. Additional declared paths should
+  be checked by the Engine owner when repairing the manifest surface.
+- This repository requires latest Engine main and the user limited changes to
+  Across the Canopy. Do not patch installed Engine code or claim latest-main
+  compatibility. After the probe, the pre-existing lock was restored to
+  `081fea1cdd9ca1662bc15116e7174d9c27821630`; a clean install and
+  `npm run validate` passed 34 tests and the Vite build on that older baseline.
+  That baseline pass does not resolve the latest-main failure.
+- Next: repair or publish a working Engine main in its owning repository, then
+  refresh the game dependency, run the required gates, and continue the
+  player-visible tree, canopy, resolution and interaction work.
+
 Historical documentation findings and current renderer migration results are recorded below.
 
 ## ATC-001 — Composition ledger status column is historical/stale

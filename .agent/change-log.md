@@ -1,5 +1,12 @@
 # Maintainer change log
 
+## 2026-11-05 — Game-goal intake and Engine compatibility check
+
+- Recorded the current chat's Across the Canopy goals in `.agent/goal.md`: player-visible giant trees, a layered canopy, at least 1024-pixel real render width as the initial resolution interpretation, more meaningful interactions, third-person play and eventual full-game quality. These are open outcomes, not delivered features.
+- Refreshed Engine main to `c674a53e054640f5acc035180a2f3fe1d7d4fe03` and ran a clean install. Validation failed at the Engine catalog's duplicate `./domains/authoring/design` path; details and scope boundary are recorded as ATC-019 in `.agent/feedback.md`.
+- Restored the pre-existing lock to `081fea1cdd9ca1662bc15116e7174d9c27821630`; clean install, 34 tests and build passed on that older baseline. No latest-main compatibility or full-game completion is claimed.
+- Preserved the pre-existing untracked tree previews, GLB export and local checkpoints. The game source and other repositories were not modified in this intake pass.
+
 ## 2026-10-23 — Wind-curved giant tree asset
 
 - Refined the Nexus Engine Kit source inside AcrossTheCanopy: an S-curved, tapering 82 m trunk ending in a point; 16 longer horizontal primary limbs and 32 horizontal secondary limbs; foliage rebuilt as two-sided flat leaf cards on finer branchlets at 48 placements.

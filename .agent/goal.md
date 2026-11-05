@@ -1,5 +1,29 @@
 # Goal
 
+## Active requests — 2026-11-05
+
+Build toward the full third-person Across the Canopy game described in the
+Drive [development plan](https://docs.google.com/document/d/1wZ7xYkWhCGRQU6dVlnl5lFD7PBiuX7HwcXnEc0uvw10/edit),
+[world master](https://docs.google.com/document/d/1pi4fk9zkCX_nK4uNyxgWkgSiX_1GwYS211B4sx7qvAY/edit), and
+[generation rules](https://docs.google.com/document/d/1AK1u2FFCgpIWvjbNCH8b955jW8TmOgJdocvunFtL7s4/edit).
+This is the tracker for the Across the Canopy requests in the current chat;
+it does not claim to inventory every company conversation.
+
+| Priority | Outcome | Current status |
+| --- | --- | --- |
+| 1 | Restore the required latest-main NexusEngine integration and validate the game. | **BLOCKED:** latest Engine `c674a53e054640f5acc035180a2f3fe1d7d4fe03` throws a duplicate Authoring public-subpath error at startup. See `.agent/feedback.md` ATC-019. Engine changes are outside this task's scope. |
+| 2 | Make player-visible trees read as giant, structurally convincing trees and connect reviewed model assets to the game. | **OPEN:** a giant-tree GLB exists and was reviewed separately; it is not connected to gameplay, and its traversal/collision behavior is not proven. |
+| 3 | Create an expansive, layered canopy consistent with the Drive's volumetric world and no-visible-ground rules. | **OPEN:** the current 2,300-tree backdrop is a procedural greybox, not the full world. Preserve authored routes and stable IDs. |
+| 4 | Raise actual game graphics to 1024 or higher. | **OPEN:** the current world framebuffer is 320×180, enlarged for presentation. At least 1024 pixels of real rendered width is the initial interpretation; confirm height/texture targets during visual acceptance. Measure performance rather than treating output upscaling as higher-resolution geometry. |
+| 5 | Add many meaningful interactions across the world. | **OPEN:** existing dialogue, story, routes and puzzle are a starting slice. The Drive plan also calls for things such as pickup, inventory, trade, rest, repair and environmental actions; each needs playable state and evidence. |
+| 6 | Preserve third-person play while building toward the full AAA title. | **IN PROGRESS:** third-person is the existing default; final art, interactions, performance, content and human acceptance remain open. |
+| 7 | Clean up, validate and push the completed Across the Canopy work to actual default `main`. | **OPEN:** preserve unrelated files, keep Actions/Pages disabled, and distinguish source/build/browser proof from final game acceptance. |
+
+Current work is limited to this repository. No changes to Google Drive or other
+repositories are authorized in this pass. The scope of the full game is larger
+than the present greybox; do not mark the full goal complete from a single
+asset, a passing test suite or a pushed checkpoint.
+
 Across the Canopy should prove one complete authored story route with third-person and optional first-person viewing inside a much larger procedural canopy while using NexusEngine for reusable runtime/domain responsibilities and keeping product-specific narrative logic owned by the game.
 
 ## Success conditions
